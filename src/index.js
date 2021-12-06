@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.css';9
+import Footer from 'Components/footer.js'
 
 class Header extends React.Component {
     render() {
@@ -42,5 +43,6 @@ class Page extends React.Component {
 
 ReactDOM.render (
     <Page />,
+    <Footer/>,
     document.getElementById('root')
 );
