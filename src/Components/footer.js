@@ -1,15 +1,15 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
+import { Container } from 'react-bootstrap';
 
 function Footer(){
     return(
-        <Navbar bg="light" expand="lg" fixed="bottom">
-            <Container>
-                <p>Serene Florish &#169; 2022</p>
-            </Container>
-        </Navbar>
+        <Container>
+            <Navbar bg="light" expand="lg">
+                    <p>Serene Florish &#169; 2022</p>
+            </Navbar>
+        </Container>
     );
 }
 
