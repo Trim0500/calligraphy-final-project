@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 
 function Header() {
     return (
-        <Container>
+        <Container className="position-relative">
             <Navbar bg="light" expand="lg">
                     <Navbar.Brand href="/">Serene Florish</Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">

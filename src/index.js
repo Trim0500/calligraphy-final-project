@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from "./Components/header"
 import Footer from "./Components/footer"
-import { Stack } from 'react-bootstrap';
+import { Container, Stack } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 function Content() {
     return (
-        <h1 style={{textAlign: 'center'}}>Welcome to Serene Flourish Calligraphy!</h1>
+        <Container >
+            <h1 id="welcome-header" style={{textAlign: 'center'}}>Welcome to Serene Flourish Calligraphy!</h1>
+            <h3>This is some text</h3>
+            
+        </Container>
     );
 }
 

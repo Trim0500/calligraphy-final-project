@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 
 function Footer(){
     return(
-        <Container>
+        <Container className="fixed-bottom">
             <Navbar bg="light" expand="lg">
                     <p>Serene Florish &#169; 2022</p>
             </Navbar>
