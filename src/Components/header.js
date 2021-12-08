@@ -7,9 +7,9 @@ import { Container } from 'react-bootstrap';
 
 function Header() {
     return (
-        <Container className="position-relative">
+        <Container className="position-sticky">
             <Navbar bg="light" expand="lg">
-                    <Navbar.Brand href="/">Serene Florish</Navbar.Brand>
+                    <Navbar.Brand href="/">Serene Flourish</Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
