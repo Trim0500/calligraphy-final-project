@@ -6,13 +6,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Container } from 'react-bootstrap';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import InputForm from './Form';
+import IndexContent from './IndexContent';
 
 function Header() {
     return (
         <Router>
         <Container>
             <Navbar bg="light" expand="lg" fixed="top">
-                    <Navbar.Brand href="/">Serene Florish</Navbar.Brand>
+                    <Navbar.Brand href="/">Serene Flourish</Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
@@ -27,11 +28,12 @@ function Header() {
                     </Navbar.Collapse>
             </Navbar>
             <Navbar bg="light" expand="lg" fixed="bottom" className='justify-content-center'>
-                    <p>Serene Florish &#169; 2022</p>
+                    <p>Serene Flourish &#169; 2022</p>
             </Navbar>
         </Container>
         <Switch>
             <Route path="/form" exact component={() => <InputForm /> } />
+            <Route path="/" exact component={() => <IndexContent /> } />
         </Switch>
         </Router>
     );
