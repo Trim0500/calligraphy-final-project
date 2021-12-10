@@ -19,9 +19,9 @@ function IndexContent() {
                         <Router>
                         <Container>
                             <Row>
-                                <Col><Nav.Link href="/form"><Image src={ card } alt="Women's Day Card" width="200" height="200" /></Nav.Link></Col>
-                                <Col><Nav.Link href="/form"><Image src={ gin } alt="Women's Day Card" width="200" height="200" /></Nav.Link></Col>
-                                <Col><Nav.Link href="/form"><Image src={ live } alt="Women's Day Card" width="200" height="250" /></Nav.Link></Col>
+                                <Col><Nav.Link href="/form" name="calligraphy-img"><Image src={ card } alt="Women's Day Card" width="200" height="200" /></Nav.Link></Col>
+                                <Col><Nav.Link href="/form" name="engraving-img"><Image src={ gin } alt="Women's Day Card" width="200" height="200" /></Nav.Link></Col>
+                                <Col><Nav.Link href="/form" name="event-img"><Image src={ live } alt="Women's Day Card" width="200" height="250" /></Nav.Link></Col>
                             </Row>
                             <Row>
                                 <Col>

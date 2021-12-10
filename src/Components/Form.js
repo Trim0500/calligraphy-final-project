@@ -41,16 +41,16 @@ class Form extends Component {
                                 <div className="form-group">
                                     <label htmlFor="service">Service Type</label>
                                     <select className="form-control" name="service" value={service} onChange={this.changeHandler}>
-                                        <option value="calligraphy">Calligraphy</option>
-                                        <option value="engraving">Engraving</option>
-                                        <option value="event">Event</option>
+                                        <option value="calligraphy" name="calligraphy-select">Calligraphy</option>
+                                        <option value="engraving" name="engraving-select">Engraving</option>
+                                        <option value="event" name="event-select">Event</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="comments">Comments</label>
                                     <textarea className="form-control" name="comments" value={comments} onChange={this.changeHandler}></textarea>
                                 </div>
-                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                             </div>
                             </form>
                         </div>

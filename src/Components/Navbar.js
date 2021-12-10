@@ -23,7 +23,7 @@ function Header() {
                                 <NavDropdown.Item href="/">Gallery</NavDropdown.Item>
                                 <NavDropdown.Item href="/">Pricing</NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Link href="/form">Request a Service</Nav.Link>
+                            <Nav.Link href="/form" name="nbForm">Request a Service</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
             </Navbar>
