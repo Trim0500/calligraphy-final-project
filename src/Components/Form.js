@@ -21,7 +21,7 @@ function Form(){
     // }
     const handleSubmission = () => {
         // assign api to a value
-        let api = 'https://localhost:44302/api/form';
+        let api = 'https://localhost:5001/api/form';
         // create a new object
         let newServiceRequest = {
             ServiceType: service,
