@@ -34,7 +34,7 @@ function Form(){
     // }
     const handleFormSubmission = () => {
         // assign api to a value
-        let api = 'https://localhost:44386/api/form';
+        let api = 'https://localhost:5001/api/form';
         // create a new object
         let newServiceRequest = {
             Customer: {
@@ -132,21 +132,21 @@ function Form(){
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="firstName">First Name</label>
-                                        <textarea className="form-control" name="firstName"  onChange={(e) => setCustomer({...customer, firstName: e.target.value})} value={customer.firstName}/>
+                                        <input className="form-control" name="firstName"  onChange={(e) => setCustomer({...customer, firstName: e.target.value})} value={customer.firstName}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="lastName">Last Name</label>
-                                        <textarea className="form-control" name="firstName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
+                                        <input className="form-control" name="firstName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="Street">Street</label>
-                                        <textarea className="form-control" name="street" onChange={(e) => setCustomer({...customer, street: e.target.value})} value={customer.street} />
+                                        <input className="form-control" name="street" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, street: e.target.value } })} value={customer.address.street} />
                                         <label htmlFor="Postal">Postal Code</label>
-                                        <textarea className="form-control" name="postal" onChange={(e) => setCustomer({...customer, postal: e.target.value})} value={customer.postal} />
+                                        <input className="form-control" name="postal" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, postal: e.target.value } })} value={customer.address.postal} />
                                         <label htmlFor="City">City</label>
-                                        <textarea className="form-control" name="city" onChange={(e) => setCustomer({...customer, city: e.target.value})} value={customer.city}/>
+                                        <input className="form-control" name="city" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, city: e.target.value } })} value={customer.address.city} />
                                         <label htmlFor="Country">Country</label>
-                                        <textarea className="form-control" name="country" onChange={(e) => setCustomer({...customer,country: e.target.value})} value={customer.country} />
+                                        <input className="form-control" name="country" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, country: e.target.value } })} value={customer.address.country} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="service">Service Type</label>
