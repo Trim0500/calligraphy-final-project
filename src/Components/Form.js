@@ -4,7 +4,7 @@ import React, {useState} from "react";
 function Form(){
 
     const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
-    const [email, setEmail] = useState({email:"", subject:"", body:{customer:"", service:"", comments:""}, attachments:""});
+    const [email, setEmail] = useState({email:"", subject:"Request for " + service, body:{customer:"", service:"", comments:""}, attachments:""});
 
     const [firstName] = useState('');
     const [lastName] = useState('');
@@ -115,6 +115,8 @@ function Form(){
             setSubmit(true);
             handleFormSubmission();
             alert(`Success, service request sent!`)
+            handleEmailRequest();
+            alert('Thank you for your reqest. A quote has been sent to your email!')
             event.preventDefault();
             console.log(firstName, lastName, street, postal, city, country ,service, comments);
         }
@@ -167,7 +169,11 @@ function Form(){
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="lastName">Last Name</label>
-                                        <input className="form-control" name="firstName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
+                                        <input className="form-control" name="lastName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email</label>
+                                        <input className="form-control" name="email" onChange={(e) => setEmail({...email, email: e.target.value})} value={email.email}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="Street">Street</label>
