@@ -4,6 +4,7 @@ import React, {useState} from "react";
 function Form(){
 
     const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
+    const [email, setEmail] = useState({email:"", subject:"", body:{customer:"", service:"", comments:""}})
 
     const [firstName] = useState('');
     const [lastName] = useState('');
