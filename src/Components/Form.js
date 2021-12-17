@@ -4,7 +4,7 @@ import React, {useState} from "react";
 function Form(){
 
     const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
-    const [email, setEmail] = useState({email:"", subject:"", body:{customer:"", service:"", comments:""}})
+    const [email, setEmail] = useState({email:"", subject:"", body:{customer:"", service:"", comments:""}, attachments:""});
 
     const [firstName] = useState('');
     const [lastName] = useState('');
@@ -59,6 +59,36 @@ function Form(){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newServiceRequest)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+    }
+
+    const handleEmailRequest = () => {
+        let api = 'https://localhost:5001/Mailer/Send';
+        
+        let mailRequestPayload = {
+            MailRequest: {
+                Email: email.email,
+                Subject: email.subject,
+                Body: {
+                    FirstName: customer.firstName,
+                    LastName: customer.lastName,
+                    Address: customer.address.street + customer.address.city + customer.address.country + customer.address.postal,
+                },
+                Attachments: email.attachments
+            }
+        }
+        
+        fetch(api, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(mailRequestPayload)
         })
             .then(res => res.json())
             .then(data => {
