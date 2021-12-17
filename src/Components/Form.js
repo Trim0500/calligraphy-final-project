@@ -5,8 +5,8 @@ function Form(){
 
     const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [firstName] = useState('');
+    const [lastName] = useState('');
 
     const[street] = useState('');
     const[postal] = useState('');
