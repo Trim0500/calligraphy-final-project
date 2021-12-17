@@ -2,9 +2,11 @@ import React, {useState} from "react";
 
 
 function Form(){
+
+    const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [address, setAddress] = useState({street:"", postal:"", city:"", country:""});
 
     const[street] = useState('');
     const[postal] = useState('');
@@ -19,12 +21,6 @@ function Form(){
     const [submit, setSubmit] = useState(false);
     const [errorNullInputs, setErrorNullInputs] = useState(false);
 
-    const handleFirstName = (e) => {
-        setFirstName(e.target.value);
-    }
-    const handleLastName = (e) => {
-        setLastName(e.target.value);
-    }
     const handleService = (e) => {
         setService(e.target.value);
     }
@@ -36,14 +32,22 @@ function Form(){
     // const changeHandler = (e) => {
     //     this.setState({[e.target.name]: e.target.value})
     // }
-    const handleSubmission = () => {
+    const handleFormSubmission = () => {
         // assign api to a value
         let api = 'https://localhost:5001/api/form';
         // create a new object
         let newServiceRequest = {
-            FirstName: firstName,
-            LastName: lastName,
-            Address: address,
+            Customer: {
+                FirstName: customer.firstName,
+                LastName: customer.lastName,
+                Email: "emailTemp@email.com",
+                Address: {
+                    Street: customer.address.street,
+                    Postal: customer.address.postal,
+                    City: customer.address.city,
+                    Country: customer.address.country
+                }
+            },
             ServiceType: service,
             Comments: comments
         }
@@ -61,6 +65,7 @@ function Form(){
             })
             .catch(err => console.log(err));
     }
+
     const handleSubmit = (event) => {
         // alert(`Success! \nService Type: ${service}, \nComment: ${comments}`)
         // event.preventDefault();
@@ -77,7 +82,7 @@ function Form(){
         }
         else {
             setSubmit(true);
-            handleSubmission();
+            handleFormSubmission();
             alert(`Success, service request sent!`)
             event.preventDefault();
             console.log(firstName, lastName, street, postal, city, country ,service, comments);
@@ -127,21 +132,21 @@ function Form(){
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="firstName">First Name</label>
-                                        <textarea className="form-control" name="firstName" value={firstName} onChange={handleFirstName}/>
+                                        <input className="form-control" name="firstName"  onChange={(e) => setCustomer({...customer, firstName: e.target.value})} value={customer.firstName}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="lastName">Last Name</label>
-                                        <textarea className="form-control" name="firstName" value={lastName} onChange={handleLastName}/>
+                                        <input className="form-control" name="firstName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="Street">Street</label>
-                                        <textarea className="form-control" name="street" onChange={(e) => setAddress({...address, street: e.target.value})} value={address.street} />
+                                        <input className="form-control" name="street" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, street: e.target.value } })} value={customer.address.street} />
                                         <label htmlFor="Postal">Postal Code</label>
-                                        <textarea className="form-control" name="postal" onChange={(e) => setAddress({...address, postal: e.target.value})} value={address.postal} />
+                                        <input className="form-control" name="postal" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, postal: e.target.value } })} value={customer.address.postal} />
                                         <label htmlFor="City">City</label>
-                                        <textarea className="form-control" name="city" onChange={(e) => setAddress({...address, city: e.target.value})} value={address.city}/>
+                                        <input className="form-control" name="city" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, city: e.target.value } })} value={customer.address.city} />
                                         <label htmlFor="Country">Country</label>
-                                        <textarea className="form-control" name="country" onChange={(e) => setAddress({...address, country: e.target.value})} value={address.country} />
+                                        <input className="form-control" name="country" onChange={(e) => setCustomer({ ...customer, address: { ...customer.address, country: e.target.value } })} value={customer.address.country} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="service">Service Type</label>
