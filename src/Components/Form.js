@@ -6,10 +6,10 @@ function Form(){
     const [lastName, setLastName] = useState('');
     const [address, setAddress] = useState({street:"", postal:"", city:"", country:""});
 
-    const[street, setStreet] = useState('');
-    const[postal, setPotal] = useState('');
-    const[city, setCity] = useState('');
-    const[country, setCountry] = useState('');
+    const[street] = useState('');
+    const[postal] = useState('');
+    const[city] = useState('');
+    const[country] = useState('');
 
 
     const [service, setService] = useState('');
@@ -38,7 +38,7 @@ function Form(){
     // }
     const handleSubmission = () => {
         // assign api to a value
-        let api = 'https://localhost:44386/api/form';
+        let api = 'https://localhost:5001/api/form';
         // create a new object
         let newServiceRequest = {
             FirstName: firstName,
