@@ -74,7 +74,7 @@ function Form(){
         setErrorNullInputs(false);
         setSubmit(false);
 
-        if (comments === '' || service === '') {
+        if (firstName === '' || lastName === '' || street ==='' || postal === '' || city === '' || country === ''|| comments === '' || service === '') {
             setErrorNullInputs(true);
             alert(`Failed, All Info is required`);
             event.preventDefault();
