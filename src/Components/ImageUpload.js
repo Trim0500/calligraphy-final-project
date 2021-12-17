@@ -1,94 +1,94 @@
 import React, {useState, useRef} from 'react';
+import  no_image from '../resources/img/no_image.png';
 import 'bootstrap/dist/css/bootstrap.css';
-import {MulterError} from "multer"; 
+import {Container} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 
 // upload image and save it under resources/img on the filepath
 
 function ImageUpload(){
-    const [imagePath, setImagePath] = useState('');
-    const [imageTitle, setImageTitle] = useState('');
-    const [imageext, setImageext] = useState('');
-    const [image, setImage] = useState(null);
+    const [ImageTitle, setImageTitle] = useState('');
+    const [ImageData, setImage] = useState(null);
     
     const fileInput = useRef(null);
     
     const handleImageUpload = (e) => {
         e.preventDefault();
+
         const file = fileInput.current.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
             setImage(reader.result);
         }
         reader.readAsDataURL(file);
-        
-        const fileName = file.name;
-        const fileExt = fileName.slice(fileName.lastIndexOf('.'));
-        setImageext(fileExt);
-        
     }
-    
-    const handleImageTitle = (e) => {
-        setImageTitle(e.target.value);
-    }
-    
-    const handleImageInsideProject = (e) => {
-        //
-        
-    }
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         let api = 'https://localhost:5001/api/image';
-        //json object to be sent to the server
-        let json = {
-            "ImageTitle" : imageTitle,
-            "ImagePath": "resources/img/" + imageTitle + imageext
+
+        const base64_image_data= ImageData.split(',')[1];
+
+        let formData = {
+            ImageTitle : ImageTitle,
+            ImageData : base64_image_data
         }
-        console.log(json);
+
+        console.log(JSON.stringify(formData));
+
         fetch(api, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(json)
+            body: JSON.stringify(formData)
         })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
-        
-        
-        setImagePath('');
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+
+
         setImageTitle('');
         setImage(null);
     }
-    
+
+    const handleImageTitleChange = (e) => {
+        setImageTitle(e.target.value);
+    }
+
     return(
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3">
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="imageTitle">Image Title</label>
-                            <input type="text" className="form-control" id="imageTitle" onChange={handleImageTitle}/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="image">Image</label>
-                            <input type="file" className="form-control" id="image" ref={fileInput} onChange={handleImageUpload}/>
-                        </div>
-                        <button type="submit" className="btn btn-primary mt-2">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-md-6 offset-md-3">
-                    <img src={image} alt="Uploaded Image" className="img-fluid"/>
-                </div>
-            </div>
-        </div>
+        <Container>
+            <Card>
+                <Card.Body>
+                    <Card.Title>Upload Image</Card.Title>
+                    <Card.Text>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="imageTitle">Image Title</label>
+                                <input type="text" className="form-control" id="imageTitle" value={ImageTitle} onChange={handleImageTitleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="image">Image</label>
+                                <input type="file" className="form-control-file" id="image" ref={fileInput} onChange={handleImageUpload}/>
+                            </div>
+                            <button type="submit" className="btn btn-primary">Upload</button>
+                        </form>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+            <br/>
+            <Card>
+                <Card.Body>
+                    <Card.Title>Image Preview</Card.Title>
+                    <Card.Text>
+                        {ImageData ? <img src={ImageData} alt="Image Preview" width="100%" height="100%"/> : <img src={no_image} alt="No Image Preview" width="100%" height="100%"/>}
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </Container>
     );
-    
 }
 
 export default ImageUpload;

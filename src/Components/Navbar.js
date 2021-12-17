@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import AdminPanel from '../Pages/AdminPanel'
-import Portfolio from '../Pages/Portfolio'
+import ImageSelect from '../Pages/ImageSelect'
 import { Container } from 'react-bootstrap';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import InputForm from './Form';
@@ -34,12 +34,12 @@ function Header() {
                     <p>Serene Flourish &#169; 2022</p>
             </Navbar>
         </Container>
-        <Switch>
-            <Route path="/form" exact component={() => <InputForm /> } />
-            <Route path="/" exact component={() => <IndexContent /> } />
-            <Route path="/portfolio" exact component={() => <Portfolio /> } />
-            <Route path="/admin" exact component={() => <AdminPanel /> } />
-        </Switch>
+            <Switch>
+                <Route path="/form" exact component={() => <InputForm /> } />
+                <Route path="/" exact component={() => <IndexContent /> } />
+                <Route path="/portfolio" />
+                <Route path="/admin" exact component={() => <AdminPanel /> } />
+            </Switch>
         </Router>
     );
 }
