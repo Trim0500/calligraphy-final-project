@@ -8,10 +8,10 @@ function Form(){
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const[street, setStreet] = useState('');
-    const[postal, setPostal] = useState('');
-    const[city, setCity] = useState('');
-    const[country, setCountry] = useState('');
+    const[street] = useState('');
+    const[postal] = useState('');
+    const[city] = useState('');
+    const[country] = useState('');
 
 
     const [service, setService] = useState('');
