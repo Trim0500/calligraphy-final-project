@@ -1,6 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import {Col, Container, Image, Nav, Row} from 'react-bootstrap';
+import {Col, Container, Image, Row} from 'react-bootstrap';
 import no_image from "../resources/img/no_image.png";
 
 function Portfolio() {

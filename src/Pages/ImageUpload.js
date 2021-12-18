@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import {useParams} from "react-router-dom";
-import modal from "bootstrap/js/src/modal";
-import redirect from "react-router-dom/es/Redirect";
 
 // upload image and save it under resources/img on the filepath
 
@@ -15,7 +13,7 @@ function ImageUpload() {
     const {id} = useParams();
     const fileInput = useRef(null);
 
-    var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+    const _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
 
     const handleImageUpload = (e) => {
         e.preventDefault();
@@ -162,7 +160,7 @@ function ImageUpload() {
                 <Card.Body>
                     <Card.Title>Image Preview</Card.Title>
                     <Card.Text>
-                        {ImageData ? <img src={ImageData} alt="Image Preview" width="50%" height="50%" className="img-fluid"/> : <img src={no_image} alt="No Image Preview" width="50%" height="50%" className="img-fluid"/>}
+                        {ImageData ? <img src={ImageData} alt="preview" width="50%" height="50%" className="img-fluid"/> : <img src={no_image} alt="preview" width="50%" height="50%" className="img-fluid"/>}
                     </Card.Text>
                 </Card.Body>
             </Card>
