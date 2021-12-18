@@ -3,10 +3,11 @@ import React, {useState} from "react";
 
 function Form(){
 
-    const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
+    const [customer, setCustomer] = useState({firstName:"", lastName:"", email: "", address:{street:"", postal:"", city:"", country:""}});
 
     const [firstName] = useState('');
     const [lastName] = useState('');
+    const [email] = useState('');
 
     const[street] = useState('');
     const[postal] = useState('');
@@ -17,6 +18,7 @@ function Form(){
     const [service, setService] = useState('');
     const [comments, setComments] = useState('');
 
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const [submit, setSubmit] = useState(false);
     const [errorNullInputs, setErrorNullInputs] = useState(false);
@@ -28,6 +30,9 @@ function Form(){
         setComments(e.target.value);
     }
 
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    }
 
     // const changeHandler = (e) => {
     //     this.setState({[e.target.name]: e.target.value})
@@ -40,7 +45,7 @@ function Form(){
             Customer: {
                 FirstName: customer.firstName,
                 LastName: customer.lastName,
-                Email: "emailTemp@email.com",
+                Email: customer.email,
                 Address: {
                     Street: customer.address.street,
                     Postal: customer.address.postal,
@@ -58,6 +63,50 @@ function Form(){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newServiceRequest)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+    }
+
+    const handleEmailRequest = () => {
+        let api = 'https://localhost:5001/Mailer/Send';
+
+        let email = customer.email;
+        let subject = "Request for " + service;
+        let today = new Date();
+        let date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
+        let body = '<h1>Greetings from Serene Flourish!</h1>';
+        body += '<h3>Hello ' + customer.firstName + '!</h3>';
+        body += '<p>We\'ve received your order and will contact you as soon as your package is shipped. You can find your purchase information below.</p>';
+        body += '<h3>Order Summary</h3>';
+        body += '<p>' + date + '</p>';
+        body += '<h3>Service Title</h3>';
+        body += '<p>' + service + '</p>';
+        body += '<h3>Customization Comments</h3>';
+        body += '<p>' + comments + '</p>';
+        body += '<h3>Your Contact Information</h3>';
+        body += '<p>' + customer.firstName + ' ' + customer.lastName + '<p>';
+        body += '<p>Address: ' + customer.address.street + ' ' + customer.address.city + ' ' + customer.address.country + ' ' + customer.address.postal + '</p>';
+        body += '<p>Email: ' + customer.email + '</p>';
+        body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
+        let file = selectedFile;
+
+        var dataPayload = new FormData();
+        dataPayload.append("email", email);
+        dataPayload.append("subject", subject);
+        dataPayload.append("body", body);
+        dataPayload.append("attachtments", file, file.name);
+        console.log("Email: " + dataPayload.get("email"));
+        console.log("Subject: " + dataPayload.get("subject"));
+        console.log("Body: " + dataPayload.get("body"));
+        console.log("Attachments: " + dataPayload.get("attachtments"));
+
+        fetch(api, {
+            method: 'POST',
+            body: dataPayload
         })
             .then(res => res.json())
             .then(data => {
@@ -85,7 +134,10 @@ function Form(){
             handleFormSubmission();
             alert(`Success, service request sent!`)
             event.preventDefault();
-            console.log(firstName, lastName, street, postal, city, country ,service, comments);
+            handleEmailRequest();
+            alert("Thank you for your request, an email has been sent your way!")
+            event.preventDefault();
+            console.log(firstName, lastName, email, street, postal, city, country ,service, comments);
         }
     }
 
@@ -136,7 +188,11 @@ function Form(){
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="lastName">Last Name</label>
-                                        <input className="form-control" name="firstName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
+                                        <input className="form-control" name="lastName"onChange={(e) => setCustomer({...customer, lastName: e.target.value})} value={customer.lastName}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email</label>
+                                        <input className="form-control" name="email" onChange={(e) => setCustomer({...customer, email: e.target.value})} value={customer.email}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="Street">Street</label>
@@ -159,6 +215,10 @@ function Form(){
                                     <div className="form-group">
                                         <label htmlFor="comments">Comments</label>
                                         <textarea className="form-control" name="comments" value={comments} onChange={handleComments}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="attachments">Attachments</label>
+                                        <input type="file" className="form-control" name="attachments" onChange={onFileChange}/>
                                     </div>
                                     <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                 </div>
