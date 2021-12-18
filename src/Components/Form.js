@@ -71,10 +71,27 @@ function Form(){
 
         let email = customer.email;
         let subject = "Request for " + service;
+        let today = new Date();
+        let date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
+        let body = '<h1>Greetings from Serene Flourish!</h1>';
+        body += '<h3>Hello ' + customer.firstName + '!</h3>';
+        body += '<p>We\'ve received your order and will contact you as soon as your package is shipped. You can find your purchase information below.</p>';
+        body += '<h3>Order Summary</h3>';
+        body += '<p>' + date + '</p>';
+        body += '<h3>Service Title</h3>';
+        body += '<p>' + service + '</p>';
+        body += '<h3>Customization Comments</h3>';
+        body += '<p>' + comments + '</p>';
+        body += '<h3>Your Contact Information</h3>';
+        body += '<p>' + customer.firstName + ' ' + customer.lastName + '<p>';
+        body += '<p>Address: ' + customer.address.street + ' ' + customer.address.city + ' ' + customer.address.country + ' ' + customer.address.postal + '</p>';
+        body += '<p>Email: ' + customer.email + '</p>';
+        body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
 
         var dataPayload = new FormData();
         dataPayload.append("email", email);
         dataPayload.append("subject", subject);
+        dataPayload.append("body", body);
         console.log(dataPayload);
 
         fetch(api, {
