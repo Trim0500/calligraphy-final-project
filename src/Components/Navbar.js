@@ -3,38 +3,66 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import AdminPanel from '../Pages/AdminPanel'
 import { Container } from 'react-bootstrap';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import InputForm from './Form';
 import IndexContent from './IndexContent';
+import ImageUpload from "../Pages/ImageUpload";
+import Form from "./Form";
+import 'bootstrap/dist/css/bootstrap.css';
+import Portfolio from "../Pages/Portfolio";
 
 function Header() {
     return (
+        // increase margin bottom for navbar
         <Router>
-        <Container>
-            <Navbar bg="light" expand="lg" fixed="top">
-                    <Navbar.Brand href="/">Serene Flourish</Navbar.Brand>
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/about">About the Business</Nav.Link>
-                            <Nav.Link href="/portfolio">Portfolio</Nav.Link>
-                            <NavDropdown title="Services" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/">Gallery</NavDropdown.Item>
-                                <NavDropdown.Item href="/">Pricing</NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link href="/form" name="nbForm">Request a Service</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-            </Navbar>
-            <Navbar bg="light" expand="lg" fixed="bottom" className='justify-content-center'>
-                    <p>Serene Flourish &#169; 2022</p>
-            </Navbar>
-        </Container>
-        <Switch>
-            <Route path="/form" exact component={() => <InputForm /> } />
-            <Route path="/" exact component={() => <IndexContent /> } />
-        </Switch>
+            <Container >
+                <Container>
+                    <Switch>
+                        <Route path="/" exact component={() => <IndexContent /> } />
+                        <Route path="/form" exact component={() => <Form /> } />
+                        <Route path="/portfolio" exact component={() => <Portfolio /> } />
+                        <Route path="/admin" exact component={() => <AdminPanel /> } />
+                        <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
+                    </Switch>
+                </Container>
+                <Navbar bg="light" expand="lg" fixed="top">
+                    <Container>
+                        <Navbar.Brand href="/">Serene Flourish</Navbar.Brand>
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Item>
+                                    <Nav.Link href="/portfolio">Portfolio</Nav.Link>
+                                </Nav.Item>
+
+                                <Nav.Item>
+                                    <Nav.Link href="/form" name="nbForm">Request a Service</Nav.Link>
+                                </Nav.Item>
+
+                                <NavDropdown title="Services" id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="/">Gallery</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">Pricing</NavDropdown.Item>
+                                </NavDropdown>
+
+                                <Nav.Item>
+                                    <Nav.Link href="/about">About</Nav.Link>
+                                </Nav.Item>
+
+                            </Nav>
+                            <Nav>
+                                <Nav.Item>
+                                    <NavDropdown title="Admin" id="basic-nav-dropdown">
+                                        <NavDropdown.Item href="/admin">Portfolio</NavDropdown.Item>
+                                    </NavDropdown>
+                                </Nav.Item>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+                <Navbar bg="light" expand="lg" fixed="bottom" className='justify-content-center'>
+                    &#169; 2022 Copyright : Serene Flourish
+                </Navbar>
+            </Container>
         </Router>
     );
 }
