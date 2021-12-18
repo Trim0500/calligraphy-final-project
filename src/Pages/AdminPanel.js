@@ -19,18 +19,18 @@ function AdminPanel() {
             .then(res => res.json())
             .then(data => {
                 // loop through the data and set the state
-                for (let i = 1; i <= 6; i++) {
-                    if (data[i] !== undefined) {
+                for (let i = 0; i < data.length; i++) {
+                    if (i === 0) {
                         setImage1(data[i].ImageData);
-                    } else if (data[i].ImageId === 2) {
+                    } else if (i === 1) {
                         setImage2(data[i].ImageData);
-                    } else if (data[i].ImageId === 3) {
+                    } else if (i === 2) {
                         setImage3(data[i].ImageData);
-                    } else if (data[i].ImageId === 4) {
+                    } else if (i === 3) {
                         setImage4(data[i].ImageData);
-                    } else if (data[i].ImageId === 5) {
+                    } else if (i === 4) {
                         setImage5(data[i].ImageData);
-                    } else if (data[i].ImageId === 6) {
+                    } else if (i === 5) {
                         setImage6(data[i].ImageData);
                     }
                 }

@@ -10,6 +10,7 @@ import IndexContent from './IndexContent';
 import ImageUpload from "../Pages/ImageUpload";
 import Form from "./Form";
 import 'bootstrap/dist/css/bootstrap.css';
+import Portfolio from "../Pages/Portfolio";
 
 function Header() {
     return (
@@ -19,8 +20,8 @@ function Header() {
                 <Container>
                     <Switch>
                         <Route path="/" exact component={() => <IndexContent /> } />
-                        <Route path="/form" component={() => <Form /> } />
-                        <Route path="/portfolio" />
+                        <Route path="/form" exact component={() => <Form /> } />
+                        <Route path="/portfolio" exact component={() => <Portfolio /> } />
                         <Route path="/admin" exact component={() => <AdminPanel /> } />
                         <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
                     </Switch>
