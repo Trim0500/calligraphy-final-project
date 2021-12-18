@@ -3,11 +3,11 @@ import React, {useState} from "react";
 
 function Form(){
 
-    const [customer, setCustomer] = useState({firstName:"", lastName:"", address:{street:"", postal:"", city:"", country:""}});
-    const [email, setEmail] = useState({email:"", subject:"Request for " + service, body:{customer:"", service:"", comments:""}, attachments:""});
+    const [customer, setCustomer] = useState({firstName:"", lastName:"", email: "", address:{street:"", postal:"", city:"", country:""}});
 
     const [firstName] = useState('');
     const [lastName] = useState('');
+    const [email] = useState('');
 
     const[street] = useState('');
     const[postal] = useState('');
@@ -29,7 +29,6 @@ function Form(){
         setComments(e.target.value);
     }
 
-
     // const changeHandler = (e) => {
     //     this.setState({[e.target.name]: e.target.value})
     // }
@@ -41,7 +40,7 @@ function Form(){
             Customer: {
                 FirstName: customer.firstName,
                 LastName: customer.lastName,
-                Email: "emailTemp@email.com",
+                Email: customer.email,
                 Address: {
                     Street: customer.address.street,
                     Postal: customer.address.postal,
@@ -69,26 +68,18 @@ function Form(){
 
     const handleEmailRequest = () => {
         let api = 'https://localhost:5001/Mailer/Send';
-        
-        let mailRequestPayload = {
-            MailRequest: {
-                Email: email.email,
-                Subject: email.subject,
-                Body: {
-                    FirstName: customer.firstName,
-                    LastName: customer.lastName,
-                    Address: customer.address.street + customer.address.city + customer.address.country + customer.address.postal,
-                },
-                Attachments: email.attachments
-            }
-        }
-        
+
+        let email = customer.email;
+        let subject = "Request for " + service;
+
+        var dataPayload = new FormData();
+        dataPayload.append("email", email);
+        dataPayload.append("subject", subject);
+        console.log(dataPayload);
+
         fetch(api, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(mailRequestPayload)
+            body: dataPayload
         })
             .then(res => res.json())
             .then(data => {
@@ -115,10 +106,11 @@ function Form(){
             setSubmit(true);
             handleFormSubmission();
             alert(`Success, service request sent!`)
-            handleEmailRequest();
-            alert('Thank you for your reqest. A quote has been sent to your email!')
             event.preventDefault();
-            console.log(firstName, lastName, street, postal, city, country ,service, comments);
+            handleEmailRequest();
+            alert("Thank you for your request, an email has been sent your way!")
+            event.preventDefault();
+            console.log(firstName, lastName, email, street, postal, city, country ,service, comments);
         }
     }
 
@@ -173,7 +165,7 @@ function Form(){
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="email">Email</label>
-                                        <input className="form-control" name="email" onChange={(e) => setEmail({...email, email: e.target.value})} value={email.email}/>
+                                        <input className="form-control" name="email" onChange={(e) => setCustomer({...customer, email: e.target.value})} value={customer.email}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="Street">Street</label>
