@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState} from "react";
 
 
 function Form(){
@@ -17,24 +17,8 @@ function Form(){
 
     const [service, setService] = useState('');
     const [comments, setComments] = useState('');
-    const [attachmentName, setAttachmentName] = useState(null)
-    const [attachments, setAttachments] = useState(null);
 
-    const fileInput = useRef(null);
-
-    const handleFileUpload = (e) => {
-        e.preventDefault();
-
-        const file = fileInput.current.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setAttachments(reader.result);
-        }
-        reader.readAsDataURL(file);
-    }
-    const handleFileName = (e) => {
-        setAttachmentName(e.target.value);
-    }
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const [submit, setSubmit] = useState(false);
     const [errorNullInputs, setErrorNullInputs] = useState(false);
@@ -44,6 +28,10 @@ function Form(){
     }
     const handleComments = (e) => {
         setComments(e.target.value);
+    }
+
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
     }
 
     // const changeHandler = (e) => {
@@ -104,23 +92,17 @@ function Form(){
         body += '<p>Address: ' + customer.address.street + ' ' + customer.address.city + ' ' + customer.address.country + ' ' + customer.address.postal + '</p>';
         body += '<p>Email: ' + customer.email + '</p>';
         body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
-
-        const base64_data = attachments.split(',')[1];
-
-        let file = {
-            title: attachmentName,
-            data: base64_data
-        }
+        let file = selectedFile;
 
         var dataPayload = new FormData();
         dataPayload.append("email", email);
         dataPayload.append("subject", subject);
         dataPayload.append("body", body);
-        dataPayload.append("attachtments", file);
+        dataPayload.append("attachtments", file, file.name);
         console.log("Email: " + dataPayload.get("email"));
         console.log("Subject: " + dataPayload.get("subject"));
         console.log("Body: " + dataPayload.get("body"));
-        console.log("Attachment: " + dataPayload.get("attachtments"));
+        console.log("Attachments: " + dataPayload.get("attachtments"));
 
         fetch(api, {
             method: 'POST',
@@ -235,12 +217,8 @@ function Form(){
                                         <textarea className="form-control" name="comments" value={comments} onChange={handleComments}/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="attachmentName">Attachment Title</label>
-                                        <input type="text" className="form-control" name="attachmentTitle" value={attachmentName} onChange={handleFileName}/>
-                                    </div>
-                                    <div className="form-group">
                                         <label htmlFor="attachments">Attachments</label>
-                                        <input type="file" className="form-control" name="attachments" ref={fileInput} onChange={handleFileUpload}/>
+                                        <input type="file" className="form-control" name="attachments" onChange={onFileChange}/>
                                     </div>
                                     <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                 </div>
