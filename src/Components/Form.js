@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
 
 function Form(){
@@ -17,7 +17,24 @@ function Form(){
 
     const [service, setService] = useState('');
     const [comments, setComments] = useState('');
+    const [attachmentName, setAttachmentName] = useState(null)
+    const [attachments, setAttachments] = useState(null);
 
+    const fileInput = useRef(null);
+
+    const handleFileUpload = (e) => {
+        e.preventDefault();
+
+        const file = fileInput.current.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setAttachments(reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+    const handleFileName = (e) => {
+        setAttachmentName(e.target.value);
+    }
 
     const [submit, setSubmit] = useState(false);
     const [errorNullInputs, setErrorNullInputs] = useState(false);
@@ -88,11 +105,22 @@ function Form(){
         body += '<p>Email: ' + customer.email + '</p>';
         body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
 
+        const base64_data = attachments.split(',')[1];
+
+        let file = {
+            title: attachmentName,
+            data: base64_data
+        }
+
         var dataPayload = new FormData();
         dataPayload.append("email", email);
         dataPayload.append("subject", subject);
         dataPayload.append("body", body);
-        console.log(dataPayload);
+        dataPayload.append("attachtments", file);
+        console.log("Email: " + dataPayload.get("email"));
+        console.log("Subject: " + dataPayload.get("subject"));
+        console.log("Body: " + dataPayload.get("body"));
+        console.log("Attachment: " + dataPayload.get("attachtments"));
 
         fetch(api, {
             method: 'POST',
@@ -205,6 +233,14 @@ function Form(){
                                     <div className="form-group">
                                         <label htmlFor="comments">Comments</label>
                                         <textarea className="form-control" name="comments" value={comments} onChange={handleComments}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="attachmentName">Attachment Title</label>
+                                        <input type="text" className="form-control" name="attachmentTitle" value={attachmentName} onChange={handleFileName}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="attachments">Attachments</label>
+                                        <input type="file" className="form-control" name="attachments" ref={fileInput} onChange={handleFileUpload}/>
                                     </div>
                                     <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                 </div>
