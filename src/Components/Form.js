@@ -13,7 +13,7 @@ function Form(){
     const[city, setCity] = useState('');
     const[country, setCountry] = useState('');
 
-    const [service, setService] = useState('');
+    const [service, setService] = useState('Calligraphy');
 
     const [comments, setComments] = useState('');
 
@@ -119,12 +119,12 @@ function Form(){
         dataPayload.append("email", emailTo);
         dataPayload.append("subject", subject);
         dataPayload.append("body", body);
-        dataPayload.append("attachtments", file, file.name);
+        dataPayload.append("attachments", file, file.name);
 
         console.log("Email: " + dataPayload.get("email"));
         console.log("Subject: " + dataPayload.get("subject"));
         console.log("Body: " + dataPayload.get("body"));
-        console.log("Attachments: " + dataPayload.get("attachtments"));
+        console.log("Attachments: " + dataPayload.get("attachments"));
 
         fetch(api, {
             method: 'POST',
@@ -167,16 +167,16 @@ function Form(){
             
             console.log(firstName, lastName, email, street, postal, city, country ,service, comments);
 
-            firstName.useState('');
-            lastName.useState('');
-            email.useState('');
-            street.useState('');
-            city.useState('');
-            country.useState('');
-            postal.useState('');
-            service.useState('');
-            comments.useState('');
-            selectedFile.useState(null);
+            setFirstname('');
+            setLastName('');
+            setEmail('');
+            setStreet('');
+            setPostal('');
+            setCity('');
+            setCountry('');
+            setService('');
+            setComments('');
+            setSelectedFile(null);
         }
     }
 
