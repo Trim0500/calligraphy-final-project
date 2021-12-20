@@ -12,30 +12,51 @@ function Portfolio() {
     const [image5, setImage5] = React.useState(no_image);
     const [image6, setImage6] = React.useState(no_image);
 
+    //  get the images from the server async
+    const getImages = () => {
+        const reponse = fetch('https://localhost:5001/api/image', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const json = reponse.then(response => response.json());
+        console.log(json);
+        return json;
+    }
+
     //initialize the state
     React.useEffect(() => {
-
-        fetch('https://localhost:5001/api/image')
-            .then(res => res.json())
-            .then(data => {
-                // loop through the data and set the state
-                for (let i = 0; i < data.length; i++) {
-                    if (i === 0) {
-                        setImage1(data[i].ImageData);
-                    } else if (i === 1) {
-                        setImage2(data[i].ImageData);
-                    } else if (i === 2) {
-                        setImage3(data[i].ImageData);
-                    } else if (i === 3) {
-                        setImage4(data[i].ImageData);
-                    } else if (i === 4) {
-                        setImage5(data[i].ImageData);
-                    } else if (i === 5) {
-                        setImage6(data[i].ImageData);
-                    }
+        getImages().then(data => {
+            // for loop to get the images
+            for (let i = 0; i < data.length; i++) {
+                //check if imageId is 1
+                if (data[i].ImageId === 1) {
+                    setImage1(data[i].ImageData);
                 }
-            })
-            .catch(err => console.log(err));
+                //check if imageId is 2
+                if (data[i].ImageId === 2) {
+                    setImage2(data[i].ImageData);
+                }
+                //check if imageId is 3
+                if (data[i].ImageId === 3) {
+                    setImage3(data[i].ImageData);
+                }
+                //check if imageId is 4
+                if (data[i].ImageId === 4) {
+                    setImage4(data[i].ImageData);
+                }
+                //check if imageId is 5
+                if (data[i].ImageId === 5) {
+                    setImage5(data[i].ImageData);
+                }
+                //check if imageId is 6
+                if (data[i].ImageId === 6) {
+                    setImage6(data[i].ImageData);
+                }
+            }
+        });
     }, []);
 
     return (
