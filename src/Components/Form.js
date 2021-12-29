@@ -114,17 +114,20 @@ function Form(){
         body += '<p>Email: ' + email + '</p>';
         body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
         let file = selectedFile;
+        console.log(file);
 
         var dataPayload = new FormData();
         dataPayload.append("email", emailTo);
         dataPayload.append("subject", subject);
         dataPayload.append("body", body);
-        dataPayload.append("attachments", file, file.name);
+        dataPayload.append("attachtments", file, file.name);
 
         console.log("Email: " + dataPayload.get("email"));
         console.log("Subject: " + dataPayload.get("subject"));
         console.log("Body: " + dataPayload.get("body"));
-        console.log("Attachments: " + dataPayload.get("attachments"));
+        console.log("Attachment Object: " + JSON.stringify(dataPayload.get("attachtments")));
+        console.log("Attachment Byte Stream: " + dataPayload.get("attachtments")[0]);
+        console.log("Attachment Name: " + dataPayload.get("attachtments")[1]);
 
         fetch(api, {
             method: 'POST',
