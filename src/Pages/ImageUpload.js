@@ -63,7 +63,7 @@ function ImageUpload() {
         }
 
         //verify if the image is already in the database by checking if its 404
-        fetch(api + "/" + id, {
+        fetch(api + "/portfolio/" + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
