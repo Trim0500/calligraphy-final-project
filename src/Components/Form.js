@@ -67,6 +67,24 @@ function Form() {
         setSelectedFile(e.target.files[0]);
     }
 
+    function Services() {
+        let api = 'https://localhost:5001/api/form/services'
+        
+        const request = fetch(api, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+        console.log(request);
+
+        return(
+            <select>
+                <option></option>
+            </select>
+        )
+    }
+
     const handleFormSubmission = () => {
         let api = 'https://localhost:5001/api/form';
         
@@ -240,6 +258,10 @@ function Form() {
                                         <input className="form-control" name="city" onChange={handleCity} value={city} />
                                         <label htmlFor="Country">Country</label>
                                         <input className="form-control" name="country" onChange={handleCountry} value={country} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="service">Service Type</label>
+                                        <Services />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="service">Service Type</label>
