@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 
-
-function Form(){
+function Form() {
     const [firstName, setFirstname] = useState('');
 
     const [lastName, setLastName] = useState('');
@@ -22,6 +21,12 @@ function Form(){
     const [submit, setSubmit] = useState(false);
     const [errorNullInputs, setErrorNullInputs] = useState(false);
 
+    const ref = useRef();
+    const resetAttachments = () => {
+        ref.current.value = "";
+        setSelectedFile(null);
+    }
+
     const handleFirstName = (e) => {
         setFirstname(e.target.value);
     }
@@ -37,12 +42,15 @@ function Form(){
     const handleStreet = (e) => {
         setStreet(e.target.value);
     }
+
     const handleCity = (e) => {
         setCity(e.target.value);
     }
+
     const handleCountry = (e) => {
         setCountry(e.target.value);
     }
+
     const handlePostal = (e) => {
         setPostal(e.target.value);
     }
@@ -119,12 +127,9 @@ function Form(){
         dataPayload.append("email", emailTo);
         dataPayload.append("subject", subject);
         dataPayload.append("body", body);
-        dataPayload.append("attachments", file, file.name);
-
-        console.log("Email: " + dataPayload.get("email"));
-        console.log("Subject: " + dataPayload.get("subject"));
-        console.log("Body: " + dataPayload.get("body"));
-        console.log("Attachments: " + dataPayload.get("attachments"));
+        if(file != null) {
+            dataPayload.append("attachtments", file, file.name);
+        }
 
         fetch(api, {
             method: 'POST',
@@ -147,8 +152,6 @@ function Form(){
             alert(`Failed, All Info is required`);
 
             event.preventDefault();
-
-            console.log(firstName, lastName, email, street, postal, city, country ,service, comments);
         }
         else {
             setSubmit(true);
@@ -165,8 +168,6 @@ function Form(){
 
             event.preventDefault();
             
-            console.log(firstName, lastName, email, street, postal, city, country ,service, comments);
-
             setFirstname('');
             setLastName('');
             setEmail('');
@@ -174,12 +175,10 @@ function Form(){
             setPostal('');
             setCity('');
             setCountry('');
-            setService('');
+            setService('Calligraphy');
             setComments('');
-            setSelectedFile(null);
         }
     }
-
 
     const successMessage = () => {
         return (
@@ -204,7 +203,6 @@ function Form(){
             </div>
         )
     }
-
 
     return (
         <div className="container mt-5">
@@ -257,9 +255,10 @@ function Form(){
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="attachments">Attachments</label>
-                                        <input type="file" className="form-control" name="attachments" onChange={onFileChange}/>
+                                        <input type="file" className="form-control" name="attachments" ref={ref} onChange={onFileChange}/>
                                     </div>
                                     <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
+                                    <button type="button" className="btn btn-primary" name="reset-btn" onClick={resetAttachments}>Reset Attachments</button>
                                 </div>
                             </form>
                         </div>
