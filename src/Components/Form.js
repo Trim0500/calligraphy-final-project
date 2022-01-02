@@ -1,4 +1,5 @@
 import React, {useRef, useState} from "react";
+import Services from "./Services";
 
 function Form() {
     const [firstName, setFirstname] = useState('');
@@ -11,8 +12,6 @@ function Form() {
     const[postal, setPostal] = useState('');
     const[city, setCity] = useState('');
     const[country, setCountry] = useState('');
-
-    const [service, setService] = useState('Calligraphy');
 
     const [comments, setComments] = useState('');
 
@@ -55,34 +54,12 @@ function Form() {
         setPostal(e.target.value);
     }
 
-    const handleService = (e) => {
-        setService(e.target.value);
-    }
-
     const handleComments = (e) => {
         setComments(e.target.value);
     }
 
     const onFileChange = (e) => {
         setSelectedFile(e.target.files[0]);
-    }
-
-    function Services() {
-        let api = 'https://localhost:5001/api/form/services'
-        
-        const request = fetch(api, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
-        console.log(request);
-
-        return(
-            <select>
-                <option></option>
-            </select>
-        )
     }
 
     const handleFormSubmission = () => {
@@ -100,7 +77,7 @@ function Form() {
                     Country: country
                 }
             },
-            ServiceType: service,
+            ServiceType: Services.service,
             Comments: comments
         }
         
@@ -122,7 +99,7 @@ function Form() {
         let api = 'https://localhost:5001/Mailer/Send';
 
         let emailTo = email;
-        let subject = "Request for " + service;
+        let subject = "Request for " + Services.service;
         let today = new Date();
         let date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
         let body = '<h1>Greetings from Serene Flourish!</h1>';
@@ -131,7 +108,7 @@ function Form() {
         body += '<h3>Order Summary</h3>';
         body += '<p>' + date + '</p>';
         body += '<h3>Service Title</h3>';
-        body += '<p>' + service + '</p>';
+        body += '<p>' + Services.service + '</p>';
         body += '<h3>Customization Comments</h3>';
         body += '<p>' + comments + '</p>';
         body += '<h3>Your Contact Information</h3>';
@@ -163,8 +140,9 @@ function Form() {
     const handleSubmit = (event) => {
         setErrorNullInputs(false);
         setSubmit(false);
+        console.log("Service chosen: " + Services.service);
 
-        if (firstName === '' || lastName === '' || street ==='' || postal === '' || city === '' || country === ''|| comments === '' || service === '') {
+        if (firstName === '' || lastName === '' || street ==='' || postal === '' || city === '' || country === ''|| comments === '' || Services.service === '') {
             setErrorNullInputs(true);
 
             alert(`Failed, All Info is required`);
@@ -193,7 +171,6 @@ function Form() {
             setPostal('');
             setCity('');
             setCountry('');
-            setService('Calligraphy');
             setComments('');
         }
     }
@@ -262,14 +239,6 @@ function Form() {
                                     <div className="form-group">
                                         <label htmlFor="service">Service Type</label>
                                         <Services />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="service">Service Type</label>
-                                        <select className="form-control" name="service" value={service} onChange={handleService}>
-                                            <option value="calligraphy" name="calligraphy-select">Calligraphy</option>
-                                            <option value="engraving" name="engraving-select">Engraving</option>
-                                            <option value="event" name="event-select">Event</option>
-                                        </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="comments">Comments</label>
