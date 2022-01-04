@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import IndexContent from './IndexContent';
 import ImageUpload from "../Pages/ImageUpload";
-import Form from "./Form";
+import Form from "./FormClass";
 import 'bootstrap/dist/css/bootstrap.css';
 import Portfolio from "../Pages/Portfolio";
 
