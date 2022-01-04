@@ -221,13 +221,12 @@ export default class Form extends React.Component {
     }
 
     render() {
-        const {loadedData, foundServices, service} = this.state;
+        const {loadedData, foundServices} = this.state;
         const handleService = (e) => {
             var newVal = e.target.value;
             this.setState({
                 service: e.target.value || null
             });
-            console.log("New value to previous value: " + newVal + " " + service);
             handleStartingRate(newVal);
         }
 
@@ -238,12 +237,34 @@ export default class Form extends React.Component {
                         startingRate: item.StartingRate
                     })
                 }
+                else if(chosenService === '') {
+                    this.setState({
+                        startingRate: 0.0
+                    })
+                }
                 return this.state.startingRate;
             })
         }
 
-        if(!loadedData)
-            return <div><p>Services data is not yet loaded...</p></div>;
+        const RenderSelectTag = () => {
+            if(!loadedData) {
+                return(<div>Services data is not loaded yet...</div>)
+            }
+            else {
+                return(
+                    <div className="form-group">
+                        <label htmlFor="service">Service Type</label>
+                        <select className="form-control" name="service" value={this.state.service || ''} onChange={handleService}>
+                            <option value=''>Select an option...</option>
+                            {foundServices.map((item) =>
+                                (<option value={item.TypeName} name={item.TypeName + "-select"} key={item.ServiceId}>{item.TypeName}</option>)
+                            )}
+                        </select>
+                        <div name='startingRate'>Starting Rate: ${this.state.startingRate}/hr</div>
+                    </div>
+                )
+            }
+        }
 
         return (
             <div className="container mt-5">
@@ -282,16 +303,7 @@ export default class Form extends React.Component {
                                             <label htmlFor="Country">Country</label>
                                             <input className="form-control" name="country" onChange={this.handleChange} value={this.state.country} />
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="service">Service Type</label>
-                                            <select className="form-control" name="service" value={this.state.service || ''} onChange={handleService}>
-                                                <option value=''>Select an option...</option>
-                                                {foundServices.map((item) =>
-                                                    (<option value={item.TypeName} name={item.TypeName + "-select"} key={item.ServiceId}>{item.TypeName}</option>)
-                                                )}
-                                            </select>
-                                            <div name='startingRate'>Starting Rate: ${this.state.startingRate}/hr</div>
-                                        </div>
+                                        <RenderSelectTag />
                                         <div className="form-group">
                                             <label htmlFor="comments">Comments</label>
                                             <textarea className="form-control" name="comments" value={this.state.comments} onChange={this.handleChange}/>
