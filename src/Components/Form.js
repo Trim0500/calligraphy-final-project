@@ -70,65 +70,20 @@ function Form() {
     const handleFormSubmission = () => {
         let api = 'https://localhost:5001/api/form';
         
-        let newServiceRequest = {
-            Customer: {
-                FirstName: firstName,
-                LastName: lastName,
-                Email: email,
-                Address: {
-                    Street: street,
-                    Postal: postal,
-                    City: city,
-                    Country: country
-                }
-            },
-            ServiceType: service,
-            Comments: comments
-        }
-        
-        fetch(api, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newServiceRequest)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(err => console.log(err));
-    }
-
-    const handleEmailRequest = () => {
-        let api = 'https://localhost:5001/Mailer/Send';
-
-        let emailTo = email;
-        let subject = "Request for " + service;
-        let today = new Date();
-        let date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
-        let body = '<h1>Greetings from Serene Flourish!</h1>';
-        body += '<h3>Hello ' + firstName + '!</h3>';
-        body += '<p>We\'ve received your order and will contact you as soon as your package is shipped. You can find your purchase information below.</p>';
-        body += '<h3>Order Summary</h3>';
-        body += '<p>' + date + '</p>';
-        body += '<h3>Service Title</h3>';
-        body += '<p>' + service + '</p>';
-        body += '<h3>Customization Comments</h3>';
-        body += '<p>' + comments + '</p>';
-        body += '<h3>Your Contact Information</h3>';
-        body += '<p>' + firstName + ' ' + lastName + '<p>';
-        body += '<p>Address: ' + street + ' ' + city + ' ' + country + ' ' + postal + '</p>';
-        body += '<p>Email: ' + email + '</p>';
-        body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
         let file = selectedFile;
 
         var dataPayload = new FormData();
-        dataPayload.append("email", emailTo);
-        dataPayload.append("subject", subject);
-        dataPayload.append("body", body);
+        dataPayload.append("Customer.FirstName", firstName);
+        dataPayload.append("Customer.LastName", lastName);
+        dataPayload.append("Customer.Email", email);
+        dataPayload.append("Customer.Address.Street", street);
+        dataPayload.append("Customer.Address.Postal", postal);
+        dataPayload.append("Customer.Address.City", city);
+        dataPayload.append("Customer.Address.Country", country);
+        dataPayload.append("ServiceType", service);
+        dataPayload.append("Comments", comments);
         if(file != null) {
-            dataPayload.append("attachtments", file, file.name);
+            dataPayload.append("Attachments", file, file.name);
         }
 
         fetch(api, {
@@ -159,10 +114,6 @@ function Form() {
             handleFormSubmission();
 
             alert(`Success, service request sent!`)
-
-            event.preventDefault();
-
-            handleEmailRequest();
 
             alert("Thank you for your request, an email has been sent your way!")
 
