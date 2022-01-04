@@ -12,8 +12,9 @@ export default class Form extends React.Component {
             country: '',
             postal: '',
             foundServices: [],
-            service: '',
+            service: null,
             loadedData: false,
+            startingRate: 0.0,
             comments: '',
             selectedFile: null,
             errorNullInputs: false,
@@ -107,6 +108,8 @@ export default class Form extends React.Component {
         body += '<p>' + date + '</p>';
         body += '<h3>Service Title</h3>';
         body += '<p>' + this.state.service + '</p>';
+        body += '<h3>Estimated Costs';
+        body += '<p>$' + this.state.startingRate + '/hr</p>';
         body += '<h3>Customization Comments</h3>';
         body += '<p>' + this.state.comments + '</p>';
         body += '<h3>Your Contact Information</h3>';
@@ -123,9 +126,6 @@ export default class Form extends React.Component {
         if(file != null) {
             dataPayload.append("attachtments", file, file.name);
         }
-        console.log("Attachment Object: " + JSON.stringify(dataPayload.get("attachtments")));
-        console.log("Attachment Byte Stream: " + dataPayload.get("attachtments")[0]);
-        console.log("Attachment Name: " + dataPayload.get("attachtments")[1]);
 
         fetch(api, {
             method: 'POST',
@@ -187,6 +187,7 @@ export default class Form extends React.Component {
                 country: '',
                 postal: '',
                 service: '',
+                startingRate: '',
                 comments: '',
                 selectedFile: null,
                 errorNullInputs: false,
@@ -222,11 +223,25 @@ export default class Form extends React.Component {
     render() {
         const {loadedData, foundServices, service} = this.state;
         const handleService = (e) => {
+            var newVal = e.target.value;
             this.setState({
-                service: e.target.value
+                service: e.target.value || null
             });
-            console.log(this.state.service);
+            console.log("New value to previous value: " + newVal + " " + service);
+            handleStartingRate(newVal);
         }
+
+        const handleStartingRate = (chosenService) => {
+            foundServices.map(item => {
+                if(chosenService === item.TypeName) {
+                    this.setState({
+                        startingRate: item.StartingRate
+                    })
+                }
+                return this.state.startingRate;
+            })
+        }
+
         if(!loadedData)
             return <div><p>Services data is not yet loaded...</p></div>;
 
@@ -269,11 +284,13 @@ export default class Form extends React.Component {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="service">Service Type</label>
-                                            <select className="form-control" name="service" value={service} onChange={handleService}>
+                                            <select className="form-control" name="service" value={this.state.service || ''} onChange={handleService}>
+                                                <option value=''>Select an option...</option>
                                                 {foundServices.map((item) =>
                                                     (<option value={item.TypeName} name={item.TypeName + "-select"} key={item.ServiceId}>{item.TypeName}</option>)
                                                 )}
                                             </select>
+                                            <div name='startingRate'>Starting Rate: ${this.state.startingRate}/hr</div>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="comments">Comments</label>
