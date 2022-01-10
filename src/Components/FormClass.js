@@ -63,70 +63,23 @@ export default class Form extends React.Component {
 
     handleFormSubmission() {
         let api = 'https://localhost:5001/api/form';
-        
-        let newServiceRequest = {
-            Customer: {
-                FirstName: this.state.firstName,
-                LastName: this.state.lastName,
-                Email: this.state.email,
-                Address: {
-                    Street: this.state.street,
-                    Postal: this.state.postal,
-                    City: this.state.city,
-                    Country: this.state.country
-                }
-            },
-            ServiceType: this.state.service,
-            Comments: this.state.comments
-        }
-        
-        fetch(api, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newServiceRequest)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(err => console.log(err));
-    }
-
-    handleEmailRequest() {
-        let api = 'https://localhost:5001/Mailer/Send';
-
-        let emailTo = this.state.email;
-        let subject = "Request for " + this.state.service;
-        let today = new Date();
-        let date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
-        let body = '<h1>Greetings from Serene Flourish!</h1>';
-        body += '<h3>Hello ' + this.state.firstName + '!</h3>';
-        body += '<p>We\'ve received your order and will contact you as soon as your package is shipped. You can find your purchase information below.</p>';
-        body += '<h3>Order Summary</h3>';
-        body += '<p>' + date + '</p>';
-        body += '<h3>Service Title</h3>';
-        body += '<p>' + this.state.service + '</p>';
-        body += '<h3>Estimated Costs';
-        body += '<p>$' + this.state.startingRate + '/hr</p>';
-        body += '<h3>Customization Comments</h3>';
-        body += '<p>' + this.state.comments + '</p>';
-        body += '<h3>Your Contact Information</h3>';
-        body += '<p>' + this.state.firstName + ' ' + this.state.lastName + '<p>';
-        body += '<p>Address: ' + this.state.street + ' ' + this.state.city + ' ' + this.state.country + ' ' + this.state.postal + '</p>';
-        body += '<p>Email: ' + this.state.email + '</p>';
-        body += '<h3>This is a auto-generated Quote and may be subject to change. If there are any changes we encounter, we will contact you again to receive your approval.</h3>'
         let file = this.state.selectedFile;
-
+        
         var dataPayload = new FormData();
-        dataPayload.append("email", emailTo);
-        dataPayload.append("subject", subject);
-        dataPayload.append("body", body);
+        dataPayload.append("Customer.FirstName", this.state.firstName);
+        dataPayload.append("Customer.LastName", this.state.lastName);
+        dataPayload.append("Customer.Email", this.state.email);
+        dataPayload.append("Customer.Address.Street", this.state.street);
+        dataPayload.append("Customer.Address.Postal", this.state.postal);
+        dataPayload.append("Customer.Address.City", this.state.city);
+        dataPayload.append("Customer.Address.Country", this.state.country);
+        dataPayload.append("ServiceType", this.state.service);
+        dataPayload.append("StartingRate", this.state.startingRate);
+        dataPayload.append("Comments", this.state.comments);
         if(file != null) {
-            dataPayload.append("attachtments", file, file.name);
+            dataPayload.append("Attachments", file, file.name);
         }
-
+        
         fetch(api, {
             method: 'POST',
             body: dataPayload
@@ -169,10 +122,6 @@ export default class Form extends React.Component {
             this.handleFormSubmission();
 
             alert(`Success, service request sent!`)
-
-            event.preventDefault();
-
-            this.handleEmailRequest();
 
             alert("Thank you for your request, an email has been sent your way!")
 
