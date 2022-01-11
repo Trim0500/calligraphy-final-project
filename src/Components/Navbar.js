@@ -11,6 +11,7 @@ import ImageUpload from "../Pages/ImageUpload";
 import Form from "./FormClass";
 import 'bootstrap/dist/css/bootstrap.css';
 import Portfolio from "../Pages/Portfolio";
+import FormCrud from "../Pages/FormCRUD";
 
 function Header() {
     return (
@@ -24,6 +25,7 @@ function Header() {
                         <Route path="/portfolio" exact component={() => <Portfolio /> } />
                         <Route path="/admin" exact component={() => <AdminPanel /> } />
                         <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
+                        <Route path="/admin/forms" exact component={() => <FormCrud /> } />
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">
@@ -53,6 +55,7 @@ function Header() {
                                 <Nav.Item>
                                     <NavDropdown title="Admin" id="basic-nav-dropdown">
                                         <NavDropdown.Item href="/admin">Portfolio</NavDropdown.Item>
+                                        <NavDropdown.Item href="/admin/forms">Forms</NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav.Item>
                             </Nav>
