@@ -1,7 +1,25 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import { useEffect, useState } from 'react';
 import { Card, Container } from "react-bootstrap";
 
 export default function ContractsPage() {
+    const [contracts, setContracts] = useState([])
+
+    const getContracts = () => {
+        let api = 'https://localhost:5001/api/contract/get'
+
+        fetch(api)
+            .then((res) => res.json())
+            .then((json) => {
+                setContracts(json)
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        getContracts();
+    });
+    
     return (
         <Container>
             <Card>
@@ -22,9 +40,16 @@ export default function ContractsPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                {/* Use the map function here for contracts */}
-                            </tr>
+                            {contracts.map((item) => (
+                                <tr key={item.ContractId}>
+                                    <td>${item.FinalCost}</td>
+                                    <td>${item.DownPayment}</td>
+                                    <td>{item.DateCommissioned}</td>
+                                    <td>{item.EndDate}</td>
+                                    <td>{item.HasSignature ? "Yes" : "No"}</td>
+                                    <td>{item.IsFinished ? "Yes" : "No"}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </Card.Body>
