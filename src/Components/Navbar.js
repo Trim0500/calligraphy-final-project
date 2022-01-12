@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Portfolio from "../Pages/Portfolio";
 import FormCrud from "../Pages/FormCRUD";
 import ContractsPage from '../Pages/Contracts';
+import ContractDetails from '../Pages/ContractDetails';
 
 function Header() {
     return (
@@ -28,6 +29,7 @@ function Header() {
                         <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
                         <Route path="/admin/forms" exact component={() => <FormCrud /> } />
                         <Route path="/admin/contracts" exact component={() => <ContractsPage />} />
+                        <Route path="/admin/contract/details" exact component={() => <ContractDetails /> } />
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">
