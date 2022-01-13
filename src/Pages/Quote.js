@@ -7,10 +7,12 @@ import {Card} from "react-bootstrap";
 function QuoteAdmin(){
 
     const [quote, setQuote] = useState([]);
-    const [status, setStatus] = useState(getApprovalStatus());
-    const [quotePrice, setQuotePrice] = useState();
-    const [quoteMaterials, setQuoteMaterials] = useState();
+    const [status, setStatus] = useState(getApprovalStatus(''));
+    const [quotePrice, setQuotePrice] = useState('');
+    const [quoteMaterials, setQuoteMaterials] = useState('');
+    const data = {};
     const id = window.location.pathname.split('/')[3];
+
 
     const GetQuote = () => {
         fetch('https://localhost:5001/api/quote/'.concat(id),
@@ -22,6 +24,7 @@ function QuoteAdmin(){
             .then(function(data) {
                 console.log(data);
                 setQuote(data);
+                componentDidMount(data);
                 // setQuotePrice(data.price);
                 // setQuoteMaterials(data.materials);
                 // setStatus(data.ApprovalStatus);
@@ -44,11 +47,14 @@ function QuoteAdmin(){
             return "Denied";
         }
     }
+    function componentDidMount(data) {
+        window.addEventListener('load', setInitialValues(data));
+    }
 
-    function setInitialValues(){
-        setQuotePrice(quote.Price);
-        setQuoteMaterials(quote.Materials);
-        setStatus(getApprovalStatus(quote.ApprovalStatus));
+    function setInitialValues(data){
+        setQuotePrice(data.Price);
+        setQuoteMaterials(data.Materials);
+        setStatus(getApprovalStatus(data.ApprovalStatus));
     }
 
 
@@ -140,30 +146,30 @@ function QuoteAdmin(){
                     <Card.Title>Quote</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                    <form onSubmit={handleSubmit} className={"small"} name={"statusForm"} >
+                    <form onSubmit={handleSubmit} className={""} name={"statusForm"} >
                     <table className="table table-striped">
                         <thead>
                         <tr>
-                            <th>Quote ID: {quote.QuoteId}</th>
-                            <th>Price: {quote.Price}</th>
-                            <th>Materials: {quote.Materials}</th>
-                            <th>Approval Status: {getApprovalStatus(quote.ApprovalStatus)}</th>
+                            <th>Quote ID</th>
+                            <th>Price</th>
+                            <th>Materials</th>
+                            <th>Approval Status</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr key={quote.QuoteId}>
-                                <td>{quote.QuoteId}</td>
-                                <td><input className={"small"} onChange={handlePrice}  value={quotePrice} /></td>
-                                <td><input className={"small"} onChange={handleMaterials} value={quoteMaterials}/></td>
+                                <td className={"form-control-lg fs-6 "}>{quote.QuoteId}</td>
+                                <td><input className={"form-control-plaintext"} onChange={handlePrice}  value={quotePrice} /></td>
+                                <td><input className={"form-control-plaintext"} onChange={handleMaterials} value={quoteMaterials}/></td>
                                 <td>
 
-                                        <select name="status" value={status} onChange={handleApprovalStatus}>
+                                        <select name="status" value={status} className={"form-control-plaintext"} onChange={handleApprovalStatus}>
                                         <option value="Pending">Pending</option>
                                         <option value="Approved" >Approved</option>
                                         <option value="Denied">Denied</option>
                                         </select>
-                                  <button className={""} type="submit" name="btnSubmit" >Submit</button>
                                 </td>
+                                <td><button className={""} type="submit" name="btnSubmit" >Submit</button></td>
                             </tr>
                         </tbody>
                     </table>
