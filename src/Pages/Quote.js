@@ -10,7 +10,6 @@ function QuoteAdmin(){
     const [status, setStatus] = useState(getApprovalStatus(''));
     const [quotePrice, setQuotePrice] = useState('');
     const [quoteMaterials, setQuoteMaterials] = useState('');
-    const data = {};
     const id = window.location.pathname.split('/')[3];
 
 
@@ -25,13 +24,9 @@ function QuoteAdmin(){
                 console.log(data);
                 setQuote(data);
                 componentDidMount(data);
-                // setQuotePrice(data.price);
-                // setQuoteMaterials(data.materials);
-                // setStatus(data.ApprovalStatus);
             })
             .catch(error => console.log(error));
         console.log(quote);
-        //setInitialValues();
     };
 
     function getApprovalStatus(nb){
@@ -55,6 +50,7 @@ function QuoteAdmin(){
         setQuotePrice(data.Price);
         setQuoteMaterials(data.Materials);
         setStatus(getApprovalStatus(data.ApprovalStatus));
+        return data;
     }
 
 
@@ -157,8 +153,8 @@ function QuoteAdmin(){
                         </tr>
                         </thead>
                         <tbody>
-                            <tr key={quote.QuoteId}>
-                                <td className={"form-control-lg fs-6 "}>{quote.QuoteId}</td>
+                            <tr key={quote["QuoteId"]}>
+                                <td className={"form-control-lg fs-6 "}>{quote["QuoteId"]}</td>
                                 <td><input className={"form-control-plaintext"} onChange={handlePrice}  value={quotePrice} /></td>
                                 <td><input className={"form-control-plaintext"} onChange={handleMaterials} value={quoteMaterials}/></td>
                                 <td>
@@ -174,7 +170,7 @@ function QuoteAdmin(){
                         </tbody>
                     </table>
                 </form>
-                    <button name="btnGoForms" className={"small"}><a href="/admin/forms">Go Back</a> </button>
+                    <button name="btnGoForms" className={"small"}><a href={"/admin/forms"}>Go Back</a> </button>
                 </Card.Body>
             </Card>
         </Container>
