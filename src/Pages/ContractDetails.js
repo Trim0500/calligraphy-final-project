@@ -171,7 +171,7 @@ export default function ContractDetails() {
                                     <label htmlFor="IsFinished">Is Finished?</label><br/>
                                     <input type="checkbox" disabled={IsFinished} name="IsFinished" checked={IsFinished} onChange={HandleChecked}/><br/>
 
-                                    <button type="submit" className="btn btn-primary" name="SubmitBtn">Update Contract</button>
+                                    <button type="submit" disabled={IsFinished} className="btn btn-primary" name="SubmitBtn">Update Contract</button>
                                 </div>
                             </form>
                         </div>
