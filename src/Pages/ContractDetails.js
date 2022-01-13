@@ -5,34 +5,32 @@ export default function ContractDetails() {
     const history = useHistory();
     const data = history.location.state.data;
 
-    const [contract, setContract] = useState([]);
-
+    const [FinalCost, setFinalCost] = useState('');
+    const [DownPayment, setDownPayment] = useState('');
     const [StartDate, setStartDate] = useState('');
     const [DueDate, setDueDate] = useState('');
+    const [HasSignature, setHasSignature] = useState(false);
+    const [IsFinished, setIsFinished] = useState(false);
 
-    const getContract = () => {
-        let api = 'https://localhost:5001/api/contract/get/' + data.id;
-
-        fetch(api)
-            .then((res) => res.json())
-            .then((data) => setContract(data))
-            .catch((err) => console.log(err));
-
-        console.log(contract.DateCommissioned);
-
-        RenderFetchedDates();
+    function componentDidMount(json) {
+        window.addEventListener('load', MapData(json));
+    }
+    
+    const MapData = (json) => {
+        setFinalCost(json.FinalCost);
+        setDownPayment(json.DownPayment);
+        RenderFetchedDates(json);
+        setHasSignature(json.HasSignature);
+        setIsFinished(json.IsFinished);
     }
 
-    const RenderFetchedDates = () => {
-        var fetchedStartDate = contract.DateCommissioned;
-        console.log(fetchedStartDate);
+    const RenderFetchedDates = (json) => {
+        var fetchedStartDate = json.DateCommissioned;
         var StartDate = new Date(fetchedStartDate);
-        console.log(StartDate);
         var IsoStartDate = StartDate.toISOString().substring(0, 10);
-        console.log(IsoStartDate);
         setStartDate(IsoStartDate);
 
-        var fetchedEndDate = contract.EndDate;
+        var fetchedEndDate = json.EndDate;
         var EndDate = new Date(fetchedEndDate);
         var IsoEndDate = EndDate.toISOString().substring(0, 10);
         setDueDate(IsoEndDate);
@@ -47,6 +45,23 @@ export default function ContractDetails() {
     }
 
     useEffect(() => {
+        async function getContract() {
+            let api = 'https://localhost:5001/api/contract/get/' + data.id;
+
+            await fetch(api, {
+                headers: {
+                    'COntent-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                componentDidMount(json);
+            })
+            .catch((err) => console.log(err));
+        }
         getContract();
     }, [data])
 
@@ -60,10 +75,10 @@ export default function ContractDetails() {
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="FinalCost">Final Cost</label>
-                                    <input className="form-control" name="FinalCost" value={contract.FinalCost} onChange={HandleChange}/>
+                                    <input className="form-control" name="FinalCost" value={FinalCost} onChange={HandleChange}/>
 
                                     <label htmlFor="DownPayment">Down Payment</label>
-                                    <input className="form-control" name="DownPayment" value={contract.DownPayment} onChange={HandleChange}/>
+                                    <input className="form-control" name="DownPayment" value={DownPayment} onChange={HandleChange}/>
 
                                     <label htmlFor="DateCommissioned">Date Commissioned</label>
                                     <input type="date" className="form-control" name="DateCommissioned" value={StartDate} onChange={HandleChange}/>
@@ -72,10 +87,10 @@ export default function ContractDetails() {
                                     <input type="date" className="form-control" name="EndDate" value={DueDate} onChange={HandleChange}/>
 
                                     <label htmlFor="HasSignature">Has Signature?</label><br/>
-                                    <input type="checkbox" name="HasSignature" checked={contract.HasSignature ? true : false} onChange={HandleChecked}/><br/>
+                                    <input type="checkbox" name="HasSignature" checked={HasSignature} onChange={HandleChecked}/><br/>
 
                                     <label htmlFor="IsFinished">Is Finished?</label><br/>
-                                    <input type="checkbox" name="IsFinished" checked={contract.IsFinished ? true : false} onChange={HandleChecked}/><br/>
+                                    <input type="checkbox" name="IsFinished" checked={IsFinished} onChange={HandleChecked}/><br/>
 
                                     <button type="submit" className="btn btn-primary" name="SubmitBtn">Update Contract</button>
                                 </div>
