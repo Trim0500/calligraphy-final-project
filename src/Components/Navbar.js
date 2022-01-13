@@ -12,6 +12,8 @@ import Form from "./FormClass";
 import 'bootstrap/dist/css/bootstrap.css';
 import Portfolio from "../Pages/Portfolio";
 import FormCrud from "../Pages/FormCRUD";
+import ContractsPage from '../Pages/Contracts';
+import ContractDetails from '../Pages/ContractDetails';
 import Quote from "../Pages/Quote";
 
 function Header() {
@@ -27,8 +29,9 @@ function Header() {
                         <Route path="/admin" exact component={() => <AdminPanel /> } />
                         <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
                         <Route path="/admin/forms" exact component={() => <FormCrud /> } />
+                        <Route path="/admin/contracts" exact component={() => <ContractsPage />} />
+                        <Route path="/admin/contract/details" exact component={() => <ContractDetails /> } />
                         <Route path="/admin/quote/:id" exact component={() => <Quote /> } />
-
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">
@@ -59,6 +62,7 @@ function Header() {
                                     <NavDropdown title="Admin" id="basic-nav-dropdown">
                                         <NavDropdown.Item href="/admin">Portfolio</NavDropdown.Item>
                                         <NavDropdown.Item href="/admin/forms">Forms</NavDropdown.Item>
+                                        <NavDropdown.Item href="/admin/contracts">Contracts</NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav.Item>
                             </Nav>
