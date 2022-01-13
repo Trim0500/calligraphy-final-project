@@ -95,10 +95,11 @@ function FormAdmin(){
                         </thead>
                         <tbody>
                         {form.map(form => (
-                            <tr key={form.Id}>
+                            <tr key={form.FormId}>
                                 <td>{form.ServiceType}</td>
                                 <td>{form.Comments}</td>
                                 <td>{form.CreatedDate}</td>
+                                <td><button name="btnQuote"><a href={"/admin/quote/" + form.FormId }>See Quote</a> </button></td>
                             </tr>
                         ))}
                         </tbody>
