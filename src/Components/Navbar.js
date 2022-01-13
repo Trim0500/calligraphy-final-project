@@ -12,6 +12,7 @@ import Form from "./FormClass";
 import 'bootstrap/dist/css/bootstrap.css';
 import Portfolio from "../Pages/Portfolio";
 import FormCrud from "../Pages/FormCRUD";
+import Quote from "../Pages/Quote";
 
 function Header() {
     return (
@@ -26,6 +27,8 @@ function Header() {
                         <Route path="/admin" exact component={() => <AdminPanel /> } />
                         <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
                         <Route path="/admin/forms" exact component={() => <FormCrud /> } />
+                        <Route path="/admin/quote/:id" exact component={() => <Quote /> } />
+
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">
