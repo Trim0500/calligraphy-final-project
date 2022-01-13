@@ -46,14 +46,14 @@ export default function ContractsPage() {
                         </thead>
                         <tbody>
                             {contracts.map((item) => (
-                                <tr key={item.ContractId}>
+                                <tr key={item.ContractId} id={"Contract-" + item.ContractId}>
                                     <td>${item.FinalCost}</td>
                                     <td>${item.DownPayment}</td>
                                     <td>{item.DateCommissioned}</td>
                                     <td>{item.EndDate}</td>
                                     <td>{item.HasSignature ? "Yes" : "No"}</td>
                                     <td>{item.IsFinished ? "Yes" : "No"}</td>
-                                    <td><button type='button' className='btn btn-primary' onClick={() => redirect({id: item.ContractId})}>Check Details</button></td>
+                                    <td><button type='button' name={item.ContractId + "DetailsBtn"} className='btn btn-primary' onClick={() => redirect({id: item.ContractId})}>Check Details</button></td>
                                 </tr>
                             ))}
                         </tbody>
