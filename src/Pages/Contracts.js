@@ -14,18 +14,16 @@ export default function ContractsPage() {
     }
 
     useEffect(() => {
-        let ignore = false;
         async function getContracts() {
             let api = 'https://localhost:5001/api/contract/get'
     
             const response = await fetch(api);
             const json = await response.json();
-            if(!ignore) setContracts(json);
+            setContracts(json);
         }
 
         getContracts();
-        return () => { ignore = true };
-    }, [contracts]);
+    }, []);
     
     return (
         <Container>
