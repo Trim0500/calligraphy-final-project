@@ -56,6 +56,7 @@ function QuoteAdmin(){
 
     useEffect(() => {
         GetQuote();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handlePrice = (event) => {
