@@ -155,12 +155,12 @@ function QuoteAdmin(){
                         </thead>
                         <tbody>
                             <tr key={quote["QuoteId"]}>
-                                <td className={"form-control-lg fs-6 "} name="quoteId">{quote["QuoteId"]}</td>
+                                <td className={"form-control-lg fs-6 "}>{quote["QuoteId"]}</td>
                                 <td><input name="priceBox" className={"form-control-plaintext"} onChange={handlePrice}  value={quotePrice} /></td>
                                 <td><input name="materialsBox" className={"form-control-plaintext"} onChange={handleMaterials} value={quoteMaterials}/></td>
                                 <td>
 
-                                        <select name="statusSelector" name="status" value={status} className={"form-control-plaintext"} onChange={handleApprovalStatus}>
+                                        <select name="status" value={status} className={"form-control-plaintext"} onChange={handleApprovalStatus}>
                                         <option value="Pending">Pending</option>
                                         <option value="Approved" >Approved</option>
                                         <option value="Denied">Denied</option>
