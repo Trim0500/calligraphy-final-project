@@ -10,7 +10,7 @@ function FormAdmin(){
     const [currentPage, setCurrentPage] = useState(1);
 
     const GetForms = () => {
-        fetch('https://localhost:5001/api/form?pageNumber=1&pageSize=1')
+        fetch('https://localhost:5001/api/form?pageNumber=1&pageSize=10')
             .then(response => response.json())
             .then(data => {
                 setForm(data.Data);
@@ -24,7 +24,7 @@ function FormAdmin(){
             return;
         }
         setCurrentPage(currentPage + 1);
-        fetch('https://localhost:5001/api/form?pageNumber=' + (currentPage + 1) + '&pageSize=1')
+        fetch('https://localhost:5001/api/form?pageNumber=' + (currentPage + 1) + '&pageSize=10')
             .then(response => response.json())
             .then(data => {
                 setForm(data.Data);
@@ -37,7 +37,7 @@ function FormAdmin(){
             return;
         }
         setCurrentPage(currentPage - 1);
-        fetch('https://localhost:5001/api/form?pageNumber=' + (currentPage - 1) + '&pageSize=1')
+        fetch('https://localhost:5001/api/form?pageNumber=' + (currentPage - 1) + '&pageSize=10')
             .then(response => response.json())
             .then(data => {
                 setForm(data.Data);
@@ -49,7 +49,7 @@ function FormAdmin(){
     // select  page
     const selectPage = (e) => {
         setCurrentPage(e.target.value);
-        fetch('https://localhost:5001/api/form?pageNumber=' + e.target.value + '&pageSize=1')
+        fetch('https://localhost:5001/api/form?pageNumber=' + e.target.value + '&pageSize=10')
             .then(response => response.json())
             .then(data => {
                 setForm(data.Data);
@@ -63,7 +63,7 @@ function FormAdmin(){
             return;
         }
         setCurrentPage(totalPage);
-        fetch('https://localhost:5001/api/form?pageNumber=' + totalPage + '&pageSize=1')
+        fetch('https://localhost:5001/api/form?pageNumber=' + totalPage + '&pageSize=10')
             .then(response => response.json())
             .then(data => {
                 setForm(data.Data);
@@ -104,14 +104,14 @@ function FormAdmin(){
                         ))}
                         </tbody>
                     </table>
-                    <button onClick={nextPage}>Next Page</button>
-                    <select onChange={selectPage}>
+                    <button onClick={nextPage} name="btnNext">Next Page</button>
+                    <select onChange={selectPage} name="pageSelector">
                         {[...Array(totalPage)].map((x, i) => (
-                            <option key={i} value={i + 1}>{i + 1}</option>
+                            <option key={i} value={i + 1} name="selectorOption">{i + 1}</option>
                         ))}
                     </select>
-                    <button onClick={previousPage}>Previous Page</button>
-                    <button onClick={lastPage}>Last Page</button>
+                    <button onClick={previousPage} name="btnPrevious">Previous Page</button>
+                    <button onClick={lastPage} name="btnLast">Last Page</button>
                 </Card.Body>
             </Card>
         </Container>
