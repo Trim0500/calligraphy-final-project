@@ -6,8 +6,6 @@ import React from 'react';
 
 export default function ContractsPage() {
     const [contracts, setContracts] = useState([])
-    const [CurrentMonthContracts, setCurrentMonthContracts] = useState([]);
-
     const history = useHistory();
 
     const redirect = (data) => {
@@ -22,16 +20,19 @@ export default function ContractsPage() {
         var date = new Date();
         var CurrentMonth = date.getMonth() + 1;
 
-        contracts.map((item) => {
+        let ContractList = [];
+        let MatchIndex = 0;
+        contracts.forEach((item) => {
             var ContractMonth = new Date(item.DateCommissioned).getMonth() + 1;
-            if(ContractMonth === 6 && item.IsFinished) {
-                setCurrentMonthContracts(item);
+            if(ContractMonth === CurrentMonth && item.IsFinished) {
+                ContractList[MatchIndex] = item;
+                MatchIndex++;
             }
-        });
+        })
 
-        console.log(CurrentMonthContracts);
+        console.log(ContractList);
 
-        redirectEarnings(CurrentMonthContracts);
+        redirectEarnings(ContractList);
     }
 
     useEffect(() => {
