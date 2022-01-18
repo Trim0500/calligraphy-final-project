@@ -12,9 +12,9 @@ function About () {
                     <div class={"col-md-3 mt-5"}>
                         <img className={"img-thumbnail figure-img"} src={serena} alt={"Serena"} /><br />
                         <label className={"text-decoration-underline"}>Social Media Links</label><br />
-                        <a href={"https://www.instagram.com/sereneflourish/"} target={"_serena"} className={"text-decoration-none"}>Instagram</a><br />
-                        <a href={"#"} target={"_serena"} className={"text-decoration-none"}>Facebook</a><br />
-                        <a href={"#"} target={"_serena"} className={"text-decoration-none"}>Visco</a><br />
+                        <a href={"https://www.instagram.com/sereneflourish/"} target={"_serena"} className={"text-decoration-none"}>Instagram</a><br/>
+                        <a href={"https://www.instagram.com/sereneflourish/"} target={"_serena"} className={"text-decoration-none"}>Facebook</a><br/>
+                        <a href={"https://www.instagram.com/sereneflourish/"} target={"_serena"} className={"text-decoration-none"}>Visco</a><br/>
                     </div>
 
                     <div className={"col-md-6 mt-5"}>
