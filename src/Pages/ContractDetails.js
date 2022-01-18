@@ -12,6 +12,7 @@ export default function ContractDetails() {
     const [DueDate, setDueDate] = useState('');
     const [HasSignature, setHasSignature] = useState(false);
     const [IsFinished, setIsFinished] = useState(false);
+    const [OriginalFinished, setOriginalFinished] = useState(false);
 
     function componentDidMount(json) {
         window.addEventListener('load', MapData(json));
@@ -23,6 +24,7 @@ export default function ContractDetails() {
         RenderFetchedDates(json);
         setHasSignature(json.HasSignature);
         setIsFinished(json.IsFinished);
+        setOriginalFinished(json.IsFinished);
     }
 
     const RenderFetchedDates = (json) => {
@@ -91,6 +93,15 @@ export default function ContractDetails() {
             alert(`Failed, you can't set the start date to an earlier date`);
 
             event.preventDefault();
+
+            setStartDate(OriginalDate);
+        }
+        else if(!HasSignature && IsFinished) {
+            alert(`Failed, a contract can't be finished without the signature`);
+
+            event.preventDefault();
+
+            setIsFinished(false);
         }
         else {
             let UpdateContractRequest = {
@@ -171,7 +182,7 @@ export default function ContractDetails() {
                                     <label htmlFor="IsFinished">Is Finished?</label><br/>
                                     <input type="checkbox" disabled={IsFinished} name="IsFinished" checked={IsFinished} onChange={HandleChecked}/><br/>
 
-                                    <button type="submit" disabled={IsFinished} className="btn btn-primary" name="SubmitBtn">Update Contract</button>
+                                    <button type="submit" disabled={OriginalFinished} className="btn btn-primary" name="SubmitBtn">Update Contract</button>
                                 </div>
                             </form>
                         </div>
