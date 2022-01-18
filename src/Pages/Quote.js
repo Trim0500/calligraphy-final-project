@@ -144,10 +144,9 @@ function QuoteAdmin(){
                 </Card.Header>
                 <Card.Body>
                     <form onSubmit={handleSubmit} className={""} name={"statusForm"} >
-                    <table className="table table-striped">
+                    <table className="table table-striped table-hover table-responsive">
                         <thead>
                         <tr>
-                            <th>Quote ID</th>
                             <th>Price</th>
                             <th>Materials</th>
                             <th>Approval Status</th>
@@ -155,23 +154,22 @@ function QuoteAdmin(){
                         </thead>
                         <tbody>
                             <tr key={quote["QuoteId"]}>
-                                <td className={"form-control-lg fs-6 "}>{quote["QuoteId"]}</td>
-                                <td><input name="priceBox" className={"form-control-plaintext"} onChange={handlePrice}  value={quotePrice} /></td>
-                                <td><input name="materialsBox" className={"form-control-plaintext"} onChange={handleMaterials} value={quoteMaterials}/></td>
+                                <td><input name="priceBox" className={"form-control"} onChange={handlePrice}  value={quotePrice} /></td>
+                                <td><input name="materialsBox" className={"form-control"} onChange={handleMaterials} value={quoteMaterials}/></td>
                                 <td>
 
-                                        <select name="status" value={status} className={"form-control-plaintext"} onChange={handleApprovalStatus}>
+                                        <select name="status" value={status} className={"form-control"} onChange={handleApprovalStatus}>
                                         <option value="Pending">Pending</option>
                                         <option value="Approved" >Approved</option>
                                         <option value="Denied">Denied</option>
                                         </select>
                                 </td>
-                                <td><button className={""} type="submit" name="btnSubmit" >Submit</button></td>
+                                <td><button className={"col-md-6  fs-5 btn-primary"} type="submit" name="btnSubmit" >Submit</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </form>
-                    <button name="btnGoForms" className={"small"}><a href={"/admin/forms"}>Go Back</a> </button>
+                    <button name="btnGoForms" className={"small btn-primary"}><a href={"/admin/forms"} className={"text-white text-decoration-none form-control-sm"}>Back</a> </button>
                 </Card.Body>
             </Card>
         </Container>

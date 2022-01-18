@@ -99,7 +99,7 @@ function FormAdmin(){
                                 <td>{form.ServiceType}</td>
                                 <td>{form.Comments}</td>
                                 <td>{form.CreatedDate}</td>
-                                <td><button name="btnQuote"><a href={"/admin/quote/" + form.FormId }>See Quote</a> </button></td>
+                                <td><button name="btnQuote" className={"btn-primary"}><a href={"/admin/quote/" + form.FormId } className={"text-white text-decoration-none form-control-sm"}>See Quote</a> </button></td>
                             </tr>
                         ))}
                         </tbody>
