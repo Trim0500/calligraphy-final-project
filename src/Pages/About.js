@@ -1,6 +1,5 @@
 import React from 'react';
 import serena from "../resources/img/serena.PNG"
-import { Container, Row, Col, Nav } from 'react-bootstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import 'bootstrap/dist/css/bootstrap.css';
