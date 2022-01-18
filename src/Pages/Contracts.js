@@ -37,10 +37,7 @@ export default function ContractsPage() {
                         <thead>
                             <tr>
                                 <th>Final Price</th>
-                                <th>Down Payment</th>
                                 <th>Date Commissioned</th>
-                                <th>End Date</th>
-                                <th>Was Signed?</th>
                                 <th>Is Finished?</th>
                             </tr>
                         </thead>
@@ -48,12 +45,14 @@ export default function ContractsPage() {
                             {contracts.map((item) => (
                                 <tr key={item.ContractId} id={"Contract-" + item.ContractId}>
                                     <td>${item.FinalCost}</td>
-                                    <td>${item.DownPayment}</td>
-                                    <td>{item.DateCommissioned}</td>
-                                    <td>{item.EndDate}</td>
-                                    <td>{item.HasSignature ? "Yes" : "No"}</td>
+                                    <td>{(new Date(item.DateCommissioned).toLocaleDateString())}</td>
                                     <td>{item.IsFinished ? "Yes" : "No"}</td>
-                                    <td><button type='button' name={item.ContractId + "DetailsBtn"} className='btn btn-primary' onClick={() => redirect({id: item.ContractId})}>Check Details</button></td>
+                                    <td><button type='button'
+                                                name={item.ContractId + "DetailsBtn"}
+                                                className='btn btn-primary'
+                                                onClick={() => redirect({id: item.ContractId})}>
+                                                    {item.IsFinished ? "View Details" : "Update Contract"}
+                                                </button></td>
                                 </tr>
                             ))}
                         </tbody>
