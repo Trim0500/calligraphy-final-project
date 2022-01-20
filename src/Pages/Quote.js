@@ -9,6 +9,7 @@ function QuoteAdmin(){
     const [quote, setQuote] = useState([]);
     const [status, setStatus] = useState(getApprovalStatus(''));
     const [quotePrice, setQuotePrice] = useState('');
+    const [quoteDuration, setQuoteDuration] = useState('');
     const [quoteMaterials, setQuoteMaterials] = useState('');
     const id = window.location.pathname.split('/')[3];
 
@@ -48,6 +49,7 @@ function QuoteAdmin(){
 
     function setInitialValues(data){
         setQuotePrice(data.Price);
+        setQuoteDuration(data.Duration);
         setQuoteMaterials(data.Materials);
         setStatus(getApprovalStatus(data.ApprovalStatus));
         return data;
@@ -70,6 +72,17 @@ function QuoteAdmin(){
         }
     };
 
+    const handleDuration = (event) => {
+        const re = /^[0-9\b]+$/;
+        if (event.target.value === undefined || !(re.test(event.target.value))) {
+            alert("Please enter a valid number");
+            //event.target.value = quote.Price;
+
+        }else {
+            setQuoteDuration(event.target.value);
+        }
+    };
+
     const handleMaterials = (event) => {
         setQuoteMaterials(event.target.value);
     };
@@ -81,9 +94,10 @@ function QuoteAdmin(){
     const handleSubmit = (e) => {
         e.preventDefault();
     //if price and materials are not empty
-        if (quotePrice !== undefined && quoteMaterials !== undefined) {
+        if (quotePrice !== undefined && quoteDuration !== undefined && quoteMaterials !== undefined) {
             const data = {
                 Price: quotePrice,
+                Duration: quoteDuration,
                 Materials: quoteMaterials,
                 ApprovalStatus: status
             };
@@ -147,7 +161,8 @@ function QuoteAdmin(){
                     <table className="table table-striped table-hover table-responsive">
                         <thead>
                         <tr>
-                            <th>Price</th>
+                            <th>Estimated Price</th>
+                            <th>Estimated Duration</th>
                             <th>Materials</th>
                             <th>Approval Status</th>
                         </tr>
@@ -155,6 +170,7 @@ function QuoteAdmin(){
                         <tbody>
                             <tr key={quote["QuoteId"]}>
                                 <td><input name="priceBox" className={"form-control"} onChange={handlePrice}  value={quotePrice} /></td>
+                                <td><input name="durationBox" className={"form-control"} onChange={handleDuration}  value={quoteDuration} /></td>
                                 <td><input name="materialsBox" className={"form-control"} onChange={handleMaterials} value={quoteMaterials}/></td>
                                 <td>
 
