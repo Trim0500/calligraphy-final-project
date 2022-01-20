@@ -118,6 +118,9 @@ function QuoteAdmin(){
                 .then(function (data) {
                     console.log(data);
                     alert("Quote updated");
+                    if(status === 'Approved') {
+                        alert("A new contract has been made, check your email")
+                    }
                     window.location.href = '/admin/forms';
                 })
                 .catch(error => console.log(error));
