@@ -7,20 +7,31 @@ export default function EarningsPage() {
     const history = useHistory();
     const data = history.location.state.data;
 
-    const [TotalProfits, setTotalProfits] = useState(0);
     const [TotalCharged, setTotalCharged] = useState(0);
     const [TotalContracts, setTotalContracts] = useState(0);
 
-    const CalculateTotalProfits = () => {
+    const CalculateTotalCharged = () => {
         let Total = 0;
-        data.foreach((item) => {
-            console.log(item.FinalCost);
+        data.forEach((item) => {
             Total += item.FinalCost;
-            console.log(Total);
         })
 
-        setTotalProfits(Total);
+        setTotalCharged(Total);
     }
+
+    const CalculateTotalContracts = () => {
+        let Total = 0;
+        data.forEach((item) => {
+            Total += 1;
+        })
+
+        setTotalContracts(Total);
+    }
+
+    useEffect(() => {
+        CalculateTotalCharged();
+        CalculateTotalContracts();
+    }, [data])
 
     return (
         <Container>
@@ -30,9 +41,28 @@ export default function EarningsPage() {
                 </Card.Header>
                 <Card.Body>
                     <h1>Monthly Earnings Page</h1>
+                    <br/>
+                    <form>
+                        <select className='form-control'>
+                            <option>Janurary</option>
+                            <option>Feburary</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                        <input className='form-control' type="number" defaultValue="2021" max="2022" min="2010" />
+                        <button className='btn btn-primary' type='submit'>Find Contracts</button>
+                    </form>
+                    <br/>
                     <ul className='nav nav-tabs'>
-                        <li><h3>Profits this month: {TotalProfits}</h3></li>
-                        <li><h3>Total charged this month: {TotalCharged}</h3></li>
+                        <li><h3>Total charged this month: ${TotalCharged}</h3></li>
                         <li><h3>Total contracts: {TotalContracts}</h3></li>
                     </ul>
                 </Card.Body>
