@@ -6,22 +6,26 @@ import { useEffect, useState } from 'react';
 export default function EarningsPage() {
     const history = useHistory();
     const data = history.location.state.data;
+    const [ContractList, setContractList] = useState([]);
 
     const [TotalCharged, setTotalCharged] = useState(0);
     const [TotalContracts, setTotalContracts] = useState(0);
 
-    const CalculateTotalCharged = () => {
+    const [Month, setMonth] = useState(0);
+    const [Year, setYear] = useState(0);
+
+    const CalculateTotalCharged = (contractList) => {
         let Total = 0;
-        data.forEach((item) => {
+        contractList.forEach((item) => {
             Total += item.FinalCost;
         })
 
         setTotalCharged(Total);
     }
 
-    const CalculateTotalContracts = () => {
+    const CalculateTotalContracts = (contractList) => {
         let Total = 0;
-        data.forEach((item) => {
+        contractList.forEach((item) => {
             Total += 1;
         })
 
@@ -29,9 +33,41 @@ export default function EarningsPage() {
     }
 
     useEffect(() => {
-        CalculateTotalCharged();
-        CalculateTotalContracts();
+        CalculateTotalCharged(data);
+        CalculateTotalContracts(data);
     }, [data])
+
+    const HandleSelectedMonth = (e) => {
+        let MonthNum = e.target.selectedIndex + 1;
+
+        setMonth(MonthNum);
+    }
+
+    const HandleYearChange = (e) => {
+        setYear(e.target.value);
+    }
+
+    const HandleSubmit = (e) => {
+        e.preventDefault();
+
+        UpdateContractList();
+    }
+
+    const UpdateContractList = () => {
+        let api = "https://localhost:5001/api/contract/get/" + Month + "/" + Year + "/true";
+
+        fetch(api, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => setContractList(data))
+        .catch((err) => console.error(err));
+
+        CalculateTotalCharged(ContractList);
+        CalculateTotalContracts(ContractList);
+    }
 
     return (
         <Container>
@@ -42,8 +78,8 @@ export default function EarningsPage() {
                 <Card.Body>
                     <h1>Monthly Earnings Page</h1>
                     <br/>
-                    <form>
-                        <select className='form-control'>
+                    <form onSubmit={HandleSubmit}>
+                        <select className='form-control' onChange={HandleSelectedMonth}>
                             <option>Janurary</option>
                             <option>Feburary</option>
                             <option>March</option>
@@ -57,7 +93,7 @@ export default function EarningsPage() {
                             <option>November</option>
                             <option>December</option>
                         </select>
-                        <input className='form-control' type="number" defaultValue="2021" max="2022" min="2010" />
+                        <input className='form-control' type="number" defaultValue="2021" max="2022" min="2010" onChange={HandleYearChange} />
                         <button className='btn btn-primary' type='submit'>Find Contracts</button>
                     </form>
                     <br/>
