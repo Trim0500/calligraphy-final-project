@@ -1,7 +1,9 @@
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Card, Container } from "react-bootstrap";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useEffect, useState } from 'react';
+import { Chart } from 'react-charts'
 
 export default function EarningsPage() {
     const history = useHistory();
@@ -14,6 +16,23 @@ export default function EarningsPage() {
     const [Month, setMonth] = useState(0);
     const [Year, setYear] = useState(0);
 
+    const dataChart = React.useMemo(() => [
+        {
+            label: 'Series 1',
+            data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
+        },
+        {
+            label: 'Series 2',
+            data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
+        }],
+    [])
+     
+    const axes = React.useMemo(() => [
+        { primary: true, type: 'linear', position: 'bottom' },
+        { type: 'linear', position: 'left' }
+    ],
+    [])
+     
     const CalculateTotalCharged = (contractList) => {
         let Total = 0;
         contractList.forEach((item) => {
@@ -101,6 +120,9 @@ export default function EarningsPage() {
                         <li><h3>Total charged this month: ${TotalCharged}</h3></li>
                         <li><h3>Total contracts: {TotalContracts}</h3></li>
                     </ul>
+                    <div style={{width: '400px', height: '300px'}}>
+                        <Chart data={dataChart} axes={axes} />
+                    </div>
                 </Card.Body>
             </Card>
         </Container>
