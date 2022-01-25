@@ -142,11 +142,11 @@ export default function EarningsPage() {
                         <button className='btn btn-primary' type='submit'>Find Contracts</button>
                     </form>
                     <br/>
-                    <ul className='nav nav-tabs'>
+                    <ul className='nav nav-tabs' style={{display: 'flex', justifyContent: 'space-evenly' }}>
                         <li><h3>Total charged this month: ${TotalCharged}</h3></li>
                         <li><h3>Total contracts: {TotalContracts}</h3></li>
                     </ul>
-                    <div style={{width: '400px', height: '300px'}}>
+                    <div style={{margin: 'auto', width: '50%', height: '500px'}}>
                         <Chart data={dataChart} axes={axes} />
                     </div>
                 </Card.Body>
