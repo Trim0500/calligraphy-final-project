@@ -9,6 +9,8 @@ export default function EarningsPage() {
     const history = useHistory();
     const data = history.location.state.data;
     const [ContractList, setContractList] = useState([]);
+    const [ChartDataTotalCharged, setChartDataTotalCharged] = useState([])
+    /* const [ChartDataTotal, setChartDataTotal] = useState([]) */
 
     const [TotalCharged, setTotalCharged] = useState(0);
     const [TotalContracts, setTotalContracts] = useState(0);
@@ -18,18 +20,19 @@ export default function EarningsPage() {
 
     const dataChart = React.useMemo(() => [
         {
-            label: 'Series 1',
-            data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-        },
+            label: 'Total Charged Series',
+            data: ChartDataTotalCharged
+        }/* ,
         {
-            label: 'Series 2',
-            data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-        }],
-    [])
+            label: 'Total Contracts Series',
+            data: ChartDataTotal
+        } */],
+    [ChartDataTotalCharged])
      
     const axes = React.useMemo(() => [
         { primary: true, type: 'linear', position: 'bottom' },
-        { type: 'linear', position: 'left' }
+        { type: 'linear', position: 'left' }/* ,
+        { type: 'linear', position: 'right' } */
     ],
     [])
      
@@ -51,9 +54,40 @@ export default function EarningsPage() {
         setTotalContracts(Total);
     }
 
+    const PlotContractData = (data) => {
+        let tempChargedList = [];
+        let previousDay = 0;
+        let totalPerDay = 0;
+
+        data.forEach((item, index) => {
+            let date = new Date(item.DateCommissioned);
+            let formatDate = date.getDay();
+
+            console.log("We are at index: " + index);
+            console.log("The previous date found was: " + previousDay);
+            console.log("Our date found at this index is: " + formatDate);
+
+            if(formatDate === previousDay) {
+                console.log("We have a match!");
+                totalPerDay += item.FinalCost;
+                tempChargedList[index - 1] = [formatDate, totalPerDay];
+            }
+            else {
+                console.log("The dates were different");
+                tempChargedList[index] = [formatDate, item.FinalCost];
+            }
+            previousDay = formatDate;
+        })
+        console.log(tempChargedList);
+
+        setChartDataTotalCharged(tempChargedList);
+        console.log(ChartDataTotalCharged);
+    }
+
     useEffect(() => {
         CalculateTotalCharged(data);
         CalculateTotalContracts(data);
+        PlotContractData(data);
     }, [data])
 
     const HandleSelectedMonth = (e) => {
@@ -86,6 +120,7 @@ export default function EarningsPage() {
 
         CalculateTotalCharged(ContractList);
         CalculateTotalContracts(ContractList);
+        PlotContractData(ContractList);
     }
 
     return (
