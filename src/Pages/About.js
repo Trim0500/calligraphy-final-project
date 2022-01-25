@@ -150,7 +150,7 @@ function About () {
                                                 <label>Name</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleNameChange} className={"lh-base w-100"} value={name}/> : <label>{name}</label>}
+                                                {isEdit ? <input onChange={handleNameChange} name={"inputName"} className={"lh-base w-100"} value={name}/> : <label>{name}</label>}
                                             </div>
                                         </div>
                                         <div className={"row mt-3"}>
@@ -158,7 +158,7 @@ function About () {
                                                 <label>Email</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleEmailChange} className={"lh-base w-100"} value={email}/> : <label>{email}</label>}
+                                                {isEdit ? <input onChange={handleEmailChange} name={"inputEmail"} className={"lh-base w-100"} value={email}/> : <label>{email}</label>}
                                             </div>
                                         </div>
                                         <div className={"row mt-3"}>
@@ -166,7 +166,7 @@ function About () {
                                                 <label>Phone</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handlePhoneChange} className={"lh-base w-100"} value={phone}/> : <label>{phone}</label>}
+                                                {isEdit ? <input onChange={handlePhoneChange} name={"inputPhone"} className={"lh-base w-100"} value={phone}/> : <label>{phone}</label>}
                                             </div>
                                         </div>
                                         <div className={"row mt-3"}>
@@ -174,7 +174,7 @@ function About () {
                                                 <label>Profession</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleProfessionChange} className={"lh-base w-100"} value={profession}/> : <label>{profession}</label>}
+                                                {isEdit ? <input onChange={handleProfessionChange} name={"inputProfession"}  className={"lh-base w-100"} value={profession}/> : <label>{profession}</label>}
                                             </div>
                                         </div>
                                         <div className={"row mt-3"}>
@@ -182,7 +182,7 @@ function About () {
                                                 <label>About Me</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <textarea onChange={handleDescriptionChange} className={"lh-base w-100"} value={description}/> : <label>{description}</label>}
+                                                {isEdit ? <textarea onChange={handleDescriptionChange} name={"inputDescription"}  className={"lh-base w-100"} value={description}/> : <label>{description}</label>}
                                             </div>
                                         </div>
                                     </TabPanel>
@@ -192,7 +192,7 @@ function About () {
                                                 <label>Languages</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleLanguageChange} className={"lh-base w-100"} value={language}/> : <label>{language}</label>}
+                                                {isEdit ? <input onChange={handleLanguageChange} name={"inputLanguage"}  className={"lh-base w-100"} value={language}/> : <label>{language}</label>}
                                             </div>
                                         </div>
                                         <div className={"row mt-3"}>
@@ -200,7 +200,7 @@ function About () {
                                                 <label>Country</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleCountryChange} className={"lh-base w-100"} value={country}/> : <label>{country}</label>}
+                                                {isEdit ? <input onChange={handleCountryChange} name={"inputCountry"}  className={"lh-base w-100"} value={country}/> : <label>{country}</label>}
                                             </div>
                                         </div>
                                         <div className={"row mt-3"}>
@@ -208,20 +208,12 @@ function About () {
                                                 <label>Experience</label>
                                             </div>
                                             <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleExperienceChange} className={"lh-base w-100"} value={experience}/> : <label>{experience}</label>}
-                                            </div>
-                                        </div>
-                                        <div className={"row mt-3"}>
-                                            <div className={"col-md-6"}>
-                                                <label>Profession</label>
-                                            </div>
-                                            <div className={"col-md-6"}>
-                                                {isEdit ? <input onChange={handleProfessionChange} className={"lh-base w-100"} value={profession}/> : <label>{profession}</label>}
+                                                {isEdit ? <input onChange={handleExperienceChange} name={"inputExperience"}  className={"lh-base w-100"} value={experience}/> : <label>{experience}</label>}
                                             </div>
                                         </div>
                                     </TabPanel>
                                     <TabPanel>
-                                        {isEdit ? <textarea onChange={handleMissionChange} className={"lh-base w-100"} value={mission}/> : <label>{mission}</label>}
+                                        {isEdit ? <textarea onChange={handleMissionChange} name={"inputMission"}  className={"lh-base w-100"} value={mission}/> : <label>{mission}</label>}
                                     </TabPanel>
                                 </Tabs>
                     </div>
