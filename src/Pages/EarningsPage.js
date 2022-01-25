@@ -56,12 +56,13 @@ export default function EarningsPage() {
 
     const PlotContractData = (data) => {
         let tempChargedList = [];
+        let indexToUpdate = 0;
         let previousDay = 0;
         let totalPerDay = 0;
 
         data.forEach((item, index) => {
             let date = new Date(item.DateCommissioned);
-            let formatDate = date.getDay();
+            let formatDate = date.getDate();
 
             console.log("We are at index: " + index);
             console.log("The previous date found was: " + previousDay);
@@ -69,8 +70,12 @@ export default function EarningsPage() {
 
             if(formatDate === previousDay) {
                 console.log("We have a match!");
+                indexToUpdate = tempChargedList.findIndex((date) => {
+                    return date[0] === formatDate;
+                })
+                console.log(indexToUpdate);
                 totalPerDay += item.FinalCost;
-                tempChargedList[index - 1] = [formatDate, totalPerDay];
+                tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
             }
             else {
                 console.log("The dates were different");
