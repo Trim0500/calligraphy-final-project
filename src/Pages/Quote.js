@@ -111,28 +111,6 @@ function QuoteAdmin(){
         else {
             alert("Error with quote, please verify inputted content");
         }
-        // let api = 'https://localhost:5001/api/quote/' + quote.QuoteId;
-        // console.log(api);
-        //
-        // alert("Status Changed to: " + status);
-        // //put request
-        // fetch(api, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         Price: quotePrice,
-        //         Materials: quoteMaterials,
-        //         ApprovalStatus: status
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data);
-        //     })
-        //     .catch(error => console.log(error));
     }
 
 
