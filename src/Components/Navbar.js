@@ -14,6 +14,7 @@ import Portfolio from "../Pages/Portfolio";
 import FormCrud from "../Pages/FormCRUD";
 import ContractsPage from '../Pages/Contracts';
 import ContractDetails from '../Pages/ContractDetails';
+import EarningsPage from '../Pages/EarningsPage';
 import Quote from "../Pages/Quote";
 import About from "../Pages/About";
 
@@ -34,6 +35,7 @@ function Header() {
                         <Route path="/admin/contracts" exact component={() => <ContractsPage />} />
                         <Route path="/admin/contract/details" exact component={() => <ContractDetails /> } />
                         <Route path="/admin/quote/:id" exact component={() => <Quote /> } />
+                        <Route path="/admin/contract/earnings" exact component={() => <EarningsPage />} />
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">
