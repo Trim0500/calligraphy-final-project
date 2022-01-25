@@ -10,7 +10,7 @@ export default function EarningsPage() {
     const data = history.location.state.data;
     const [ContractList, setContractList] = useState([]);
     const [ChartDataTotalCharged, setChartDataTotalCharged] = useState([])
-    /* const [ChartDataTotal, setChartDataTotal] = useState([]) */
+    const [ChartDataTotal, setChartDataTotal] = useState([])
 
     const [TotalCharged, setTotalCharged] = useState(0);
     const [TotalContracts, setTotalContracts] = useState(0);
@@ -22,17 +22,17 @@ export default function EarningsPage() {
         {
             label: 'Total Charged Series',
             data: ChartDataTotalCharged
-        }/* ,
+        },
         {
             label: 'Total Contracts Series',
             data: ChartDataTotal
-        } */],
+        }],
     [ChartDataTotalCharged])
      
     const axes = React.useMemo(() => [
         { primary: true, type: 'linear', position: 'bottom' },
-        { type: 'linear', position: 'left' }/* ,
-        { type: 'linear', position: 'right' } */
+        { type: 'linear', position: 'left' },
+        { type: 'linear', position: 'right' }
     ],
     [])
      
@@ -56,37 +56,36 @@ export default function EarningsPage() {
 
     const PlotContractData = (data) => {
         let tempChargedList = [];
+        let tempTotalList = [];
         let indexToUpdate = 0;
         let previousDay = 0;
         let totalPerDay = 0;
+        let occurences = 1;
 
         data.forEach((item, index) => {
             let date = new Date(item.DateCommissioned);
             let formatDate = date.getDate();
 
-            console.log("We are at index: " + index);
-            console.log("The previous date found was: " + previousDay);
-            console.log("Our date found at this index is: " + formatDate);
-
             if(formatDate === previousDay) {
-                console.log("We have a match!");
                 indexToUpdate = tempChargedList.findIndex((date) => {
                     return date[0] === formatDate;
                 })
-                console.log(indexToUpdate);
+                occurences++;
                 totalPerDay += item.FinalCost;
                 tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
+                tempTotalList[indexToUpdate] = [formatDate, occurences];
             }
             else {
-                console.log("The dates were different");
+                totalPerDay = 0;
+                occurences = 1;
                 tempChargedList[index] = [formatDate, item.FinalCost];
+                tempTotalList[index] = [formatDate, occurences];
             }
             previousDay = formatDate;
         })
-        console.log(tempChargedList);
 
         setChartDataTotalCharged(tempChargedList);
-        console.log(ChartDataTotalCharged);
+        setChartDataTotal(tempTotalList);
     }
 
     useEffect(() => {
