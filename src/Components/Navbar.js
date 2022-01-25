@@ -16,6 +16,7 @@ import ContractsPage from '../Pages/Contracts';
 import ContractDetails from '../Pages/ContractDetails';
 import EarningsPage from '../Pages/EarningsPage';
 import Quote from "../Pages/Quote";
+import About from "../Pages/About";
 
 function Header() {
     return (
@@ -27,6 +28,7 @@ function Header() {
                         <Route path="/" exact component={() => <IndexContent /> } />
                         <Route path="/form" exact component={() => <Form /> } />
                         <Route path="/portfolio" exact component={() => <Portfolio /> } />
+                        <Route path="/about" exact component={() => <About /> } />
                         <Route path="/admin" exact component={() => <AdminPanel /> } />
                         <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
                         <Route path="/admin/forms" exact component={() => <FormCrud /> } />
