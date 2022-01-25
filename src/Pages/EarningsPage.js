@@ -10,7 +10,6 @@ export default function EarningsPage() {
     const data = history.location.state.data;
     const [ContractList, setContractList] = useState([]);
     const [ChartDataTotalCharged, setChartDataTotalCharged] = useState([])
-    const [ChartDataTotal, setChartDataTotal] = useState([])
 
     const [TotalCharged, setTotalCharged] = useState(0);
     const [TotalContracts, setTotalContracts] = useState(0);
@@ -22,20 +21,15 @@ export default function EarningsPage() {
         {
             label: 'Total Charged Series',
             data: ChartDataTotalCharged
-        },
-        {
-            label: 'Total Contracts Series',
-            data: ChartDataTotal
         }],
     [ChartDataTotalCharged])
      
     const axes = React.useMemo(() => [
         { primary: true, type: 'linear', position: 'bottom' },
-        { type: 'linear', position: 'left' },
-        { type: 'linear', position: 'right' }
+        { type: 'linear', position: 'left' }
     ],
     [])
-     
+
     const CalculateTotalCharged = (contractList) => {
         let Total = 0;
         contractList.forEach((item) => {
@@ -56,11 +50,9 @@ export default function EarningsPage() {
 
     const PlotContractData = (data) => {
         let tempChargedList = [];
-        let tempTotalList = [];
         let indexToUpdate = 0;
         let previousDay = 0;
         let totalPerDay = 0;
-        let occurences = 1;
 
         data.forEach((item, index) => {
             let date = new Date(item.DateCommissioned);
@@ -70,22 +62,17 @@ export default function EarningsPage() {
                 indexToUpdate = tempChargedList.findIndex((date) => {
                     return date[0] === formatDate;
                 })
-                occurences++;
                 totalPerDay += item.FinalCost;
                 tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
-                tempTotalList[indexToUpdate] = [formatDate, occurences];
             }
             else {
                 totalPerDay = 0;
-                occurences = 1;
                 tempChargedList[index] = [formatDate, item.FinalCost];
-                tempTotalList[index] = [formatDate, occurences];
             }
             previousDay = formatDate;
         })
 
         setChartDataTotalCharged(tempChargedList);
-        setChartDataTotal(tempTotalList);
     }
 
     useEffect(() => {
