@@ -14,9 +14,11 @@ import Portfolio from "../Pages/Portfolio";
 import FormOperation from "../Pages/FormOperation";
 import ContractsPage from '../Pages/Contracts';
 import ContractDetails from '../Pages/ContractDetails';
+import EarningsPage from '../Pages/EarningsPage';
 import Quote from "../Pages/Quote";
 import Login from "../Pages/Login";
 import ProtectRoute from "../Components/ProtectedRoute";
+import About from "../Pages/About";
 
 function Header() {
     return (
@@ -35,6 +37,8 @@ function Header() {
                         <ProtectRoute path="/admin/dashboard/contract/details" exact component={() => <ContractDetails /> } />
                         <ProtectRoute path="/admin/dashboard/quote/:id" exact component={() => <Quote /> } />
                         <Route path="/admin/login" exact component={() => <Login /> } />
+                        <Route path="/about" exact component={() => <About /> } />
+                        <Route path="/admin/contract/earnings" exact component={() => <EarningsPage />} />          
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">

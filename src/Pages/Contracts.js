@@ -6,11 +6,33 @@ import React from 'react';
 
 export default function ContractsPage() {
     const [contracts, setContracts] = useState([])
-
     const history = useHistory();
 
     const redirect = (data) => {
         history.push("/admin/contract/details", {data: data});
+    }
+
+    const redirectEarnings = (data) => {
+        history.push("/admin/contract/earnings", {data: data});
+    }
+
+    const RenderEarningsPage = () => {
+        var date = new Date();
+        var CurrentMonth = date.getMonth() + 1;
+
+        let ContractList = [];
+        let MatchIndex = 0;
+        contracts.forEach((item) => {
+            var ContractMonth = new Date(item.DateCommissioned).getMonth() + 1;
+            if(ContractMonth === CurrentMonth && item.IsFinished) {
+                ContractList[MatchIndex] = item;
+                MatchIndex++;
+            }
+        })
+
+        console.log(ContractList);
+
+        redirectEarnings(ContractList);
     }
 
     useEffect(() => {
@@ -33,6 +55,7 @@ export default function ContractsPage() {
                 </Card.Header>
                 <Card.Body>
                     <h1>Contracts Information Page</h1>
+                    <button type='button' name='EarningsBtn' className='btn btn-primary' onClick={RenderEarningsPage}>View This Month's Earnings</button>
                     <table className='table table-striped'>
                         <thead>
                             <tr>
