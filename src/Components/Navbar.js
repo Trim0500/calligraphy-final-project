@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import AdminPanel from '../Pages/AdminPanel'
+import PortfolioCRUD from '../Pages/PortfolioCRUD'
 import { Container } from 'react-bootstrap';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import IndexContent from './IndexContent';
@@ -11,27 +11,30 @@ import ImageUpload from "../Pages/ImageUpload";
 import Form from "./FormClass";
 import 'bootstrap/dist/css/bootstrap.css';
 import Portfolio from "../Pages/Portfolio";
-import FormCrud from "../Pages/FormCRUD";
+import FormOperation from "../Pages/FormOperation";
 import ContractsPage from '../Pages/Contracts';
 import ContractDetails from '../Pages/ContractDetails';
 import Quote from "../Pages/Quote";
+import Login from "../Pages/Login";
+import ProtectRoute from "../Components/ProtectedRoute";
 
 function Header() {
     return (
         // increase margin bottom for navbar
         <Router>
-            <Container >
+            <Container>
                 <Container>
                     <Switch>
                         <Route path="/" exact component={() => <IndexContent /> } />
                         <Route path="/form" exact component={() => <Form /> } />
                         <Route path="/portfolio" exact component={() => <Portfolio /> } />
-                        <Route path="/admin" exact component={() => <AdminPanel /> } />
-                        <Route path="/admin/portfolio/image/:id" exact component={() => <ImageUpload /> } />
-                        <Route path="/admin/forms" exact component={() => <FormCrud /> } />
-                        <Route path="/admin/contracts" exact component={() => <ContractsPage />} />
-                        <Route path="/admin/contract/details" exact component={() => <ContractDetails /> } />
-                        <Route path="/admin/quote/:id" exact component={() => <Quote /> } />
+                        <ProtectRoute path="/admin/dashboard/portfolio" exact component={() => <PortfolioCRUD /> } />
+                        <ProtectRoute path="/admin/dashboard/portfolio/image/:id" exact component={() => <ImageUpload /> } />
+                        <ProtectRoute path="/admin/dashboard/forms" exact component={() => <FormOperation /> } />
+                        <ProtectRoute path="/admin/dashboard/contracts" exact component={() => <ContractsPage />} />
+                        <ProtectRoute path="/admin/dashboard/contract/details" exact component={() => <ContractDetails /> } />
+                        <ProtectRoute path="/admin/dashboard/quote/:id" exact component={() => <Quote /> } />
+                        <Route path="/admin/login" exact component={() => <Login /> } />
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">
@@ -39,9 +42,6 @@ function Header() {
                         <Navbar.Brand href="/">Serene Flourish</Navbar.Brand>
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                                <Nav.Item>
-                                    <Nav.Link href="/portfolio">Portfolio</Nav.Link>
-                                </Nav.Item>
 
                                 <Nav.Item>
                                     <Nav.Link href="/form" name="nbForm">Request a Service</Nav.Link>
@@ -53,17 +53,28 @@ function Header() {
                                 </NavDropdown>
 
                                 <Nav.Item>
+                                    <Nav.Link href="/portfolio">Portfolio</Nav.Link>
+                                </Nav.Item>
+
+                                <Nav.Item>
                                     <Nav.Link href="/about">About</Nav.Link>
                                 </Nav.Item>
 
                             </Nav>
                             <Nav>
-                                <Nav.Item>
+                                {localStorage.getItem('jwtToken') ?
                                     <NavDropdown title="Admin" id="basic-nav-dropdown">
-                                        <NavDropdown.Item href="/admin">Portfolio</NavDropdown.Item>
-                                        <NavDropdown.Item href="/admin/forms">Forms</NavDropdown.Item>
-                                        <NavDropdown.Item href="/admin/contracts">Contracts</NavDropdown.Item>
+                                        <NavDropdown.Item href="/admin/dashboard/portfolio">Portfolio</NavDropdown.Item>
+                                        <NavDropdown.Item href="/admin/dashboard/forms">Forms</NavDropdown.Item>
+                                        <NavDropdown.Item href="/admin/dashboard/contracts">Contracts</NavDropdown.Item>
                                     </NavDropdown>
+                                    :
+                                    <Nav.Item>
+                                        <Nav.Link href="/admin/login">Login</Nav.Link>
+                                    </Nav.Item>
+                                }
+                                <Nav.Item>
+
                                 </Nav.Item>
                             </Nav>
                         </Navbar.Collapse>
