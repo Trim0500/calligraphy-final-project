@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
+// eslint-disable-next-line
+import Interceptor from "../Components/interceptor";
 
 function FormOperation(){
 
@@ -20,7 +22,7 @@ function FormOperation(){
             }
         })
         .then(response => {
-            setForm(response.data.data);
+            setForm(response.data.Data);
             setPageSize(response.data.TotalPages);
         })
         .catch(error => {

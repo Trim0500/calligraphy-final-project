@@ -37,13 +37,11 @@ function Login() {
                return response.json();
             }
         }).then(data => {
-            // if data is undefined, then the user is not authenticated
 
             if (data !== undefined) {
-                alert('Invalid username or password');
-                if (data.jwtToken !== null && data.refreshToken !== null) {
-                    localStorage.setItem('jwtToken', data.jwtToken);
-                    localStorage.setItem('refreshToken', data.refreshToken);
+                if (data.JwtToken !== null && data.RefreshToken !== null) {
+                    localStorage.setItem('JwtToken', data.JwtToken);
+                    localStorage.setItem('RefreshToken', data.RefreshToken);
                     window.location.href = '/';
                 }
                 else {

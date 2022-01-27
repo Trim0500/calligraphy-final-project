@@ -24,28 +24,28 @@ function PortfolioCRUD() {
         .then(data => {
             for (let i = 0; i < 6; i++) {
                 //check if imageId is 1
-                if (data[i].imageId === 1) {
-                    setImage1(data[0].imageData);
+                if (data[i].ImageId === 1) {
+                    setImage1(data[0].ImageData);
                 }
                 //check if imageId is 2
-                if (data[i].imageId === 2) {
-                    setImage2(data[1].imageData);
+                if (data[i].ImageId === 2) {
+                    setImage2(data[1].ImageData);
                 }
                 //check if imageId is 3
-                if (data[i].imageId === 3) {
-                    setImage3(data[2].imageData);
+                if (data[i].ImageId === 3) {
+                    setImage3(data[2].ImageData);
                 }
                 //check if imageId is 4
-                if (data[i].imageId === 4) {
-                    setImage4(data[3].imageData);
+                if (data[i].ImageId === 4) {
+                    setImage4(data[3].ImageData);
                 }
                 //check if imageId is 5
-                if (data[i].imageId === 5) {
-                    setImage5(data[4].imageData);
+                if (data[i].ImageId === 5) {
+                    setImage5(data[4].ImageData);
                 }
                 //check if imageId is 6
-                if (data[i].imageId === 6) {
-                    setImage6(data[5].imageData);
+                if (data[i].ImageId === 6) {
+                    setImage6(data[5].ImageData);
                 }
             }
         })

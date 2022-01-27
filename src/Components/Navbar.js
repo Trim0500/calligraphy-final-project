@@ -23,8 +23,8 @@ import About from "../Pages/About";
 function Header() {
 
     const onLogout = () => {
-        localStorage.removeItem('jwtToken');
-        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('JwtToken');
+        localStorage.removeItem('RefreshToken');
     };
     return (
         <Router>
@@ -70,7 +70,7 @@ function Header() {
 
                             </Nav>
                             <Nav>
-                                {localStorage.getItem('jwtToken') ?
+                                {localStorage.getItem('JwtToken') ?
                                     <NavDropdown title="Dashboard" id="basic-nav-dropdown">
                                         <NavDropdown.Item href="/admin/dashboard/portfolio">Portfolio</NavDropdown.Item>
                                         <NavDropdown.Item href="/admin/dashboard/forms">Forms</NavDropdown.Item>

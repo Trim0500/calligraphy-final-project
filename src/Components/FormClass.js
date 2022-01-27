@@ -64,8 +64,8 @@ export default class Form extends React.Component {
     handleFormSubmission() {
         let api = 'https://localhost:5001/api/form';
         let file = this.state.selectedFile;
-        
-        var dataPayload = new FormData();
+
+        const dataPayload = new FormData();
         dataPayload.append("Customer.FirstName", this.state.firstName);
         dataPayload.append("Customer.LastName", this.state.lastName);
         dataPayload.append("Customer.Email", this.state.email);
@@ -109,16 +109,13 @@ export default class Form extends React.Component {
             this.setState({
                 errorNullInputs: true
             })
-
             alert(`Failed, All Info is required`);
-
             event.preventDefault();
         }
         else {
             this.setState({
                 submit: true
             })
-
             this.handleFormSubmission();
 
             alert(`Success, service request sent!`)
@@ -172,7 +169,7 @@ export default class Form extends React.Component {
     render() {
         const {loadedData, foundServices} = this.state;
         const handleService = (e) => {
-            var newVal = e.target.value;
+            const newVal = e.target.value;
             this.setState({
                 service: e.target.value || null
             });

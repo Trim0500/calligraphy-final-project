@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 function ProtectedRoute({component: Component, ...restOfProps}) {
- const isAuthenticated = !!localStorage.getItem('jwtToken');
+ const isAuthenticated = !!localStorage.getItem('JwtToken');
  return (
   <Route {...restOfProps} render={(props) => (
    isAuthenticated ? (
