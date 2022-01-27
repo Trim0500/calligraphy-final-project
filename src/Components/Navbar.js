@@ -21,8 +21,12 @@ import ProtectRoute from "../Components/ProtectedRoute";
 import About from "../Pages/About";
 
 function Header() {
+
+    const onLogout = () => {
+        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('refreshToken');
+    };
     return (
-        // increase margin bottom for navbar
         <Router>
             <Container>
                 <Container>
@@ -67,19 +71,17 @@ function Header() {
                             </Nav>
                             <Nav>
                                 {localStorage.getItem('jwtToken') ?
-                                    <NavDropdown title="Admin" id="basic-nav-dropdown">
+                                    <NavDropdown title="Dashboard" id="basic-nav-dropdown">
                                         <NavDropdown.Item href="/admin/dashboard/portfolio">Portfolio</NavDropdown.Item>
                                         <NavDropdown.Item href="/admin/dashboard/forms">Forms</NavDropdown.Item>
                                         <NavDropdown.Item href="/admin/dashboard/contracts">Contracts</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={onLogout} href="/admin/login">Logout</NavDropdown.Item>
                                     </NavDropdown>
                                     :
                                     <Nav.Item>
                                         <Nav.Link href="/admin/login">Login</Nav.Link>
                                     </Nav.Item>
                                 }
-                                <Nav.Item>
-
-                                </Nav.Item>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -91,5 +93,4 @@ function Header() {
         </Router>
     );
 }
-
 export default Header
