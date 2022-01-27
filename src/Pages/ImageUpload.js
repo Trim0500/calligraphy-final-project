@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import {useParams} from "react-router-dom";
+import axios from "axios";
 
 // upload image and save it under resources/img on the filepath
 
@@ -18,7 +19,6 @@ function ImageUpload() {
     const handleImageUpload = (e) => {
         e.preventDefault();
 
-        //check if the file is a _validFileExtensions
         const sFileName = fileInput.current.files[0].name;
         if (sFileName.length > 0) {
             let blnValid = false;
@@ -77,18 +77,16 @@ function ImageUpload() {
                     ImageTitle : ImageTitle,
                     ImageData : ImageData
                 }
-
-                fetch(api, {
-                    method: 'POST',
+                
+                axios.post(api, formData, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formData),
+                    }
                 }).then(res => {
                     if (res.status === 200) {
                         alert('Image uploaded successfully');
-                        window.location.href = '/admin';
+                        window.location.href = '/admin/dashboard/portfolio';
                     }
                     else {
                         console.log(JSON.stringify(formData));
@@ -105,36 +103,33 @@ function ImageUpload() {
                     ImageTitle : ImageTitle,
                     ImageData : ImageData
                 }
-
-                fetch(api + "/" + id, {
-                    method: 'PUT', headers: {
+                
+                axios.put(api + "/" + id, formData, {
+                    headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formData),
+                    }
                 }).then(res => {
                     if (res.status === 200) {
                         alert('Image updated successfully');
-                        window.location.href = '/admin';
+                        window.location.href = '/admin/dashboard/portfolio';
                     }
                     else {
-                        console.log(formData)
+                        console.log(JSON.stringify(formData));
                         alert('Image update failed');
                     }
-                }).catch(err => {
+                }).catch(() => {
                     alert('Image update failed');
                 });
+                
             }
         }).catch(() => {
             alert('Image upload failed');
         });
-        }
-
-
+    }
     const handleImageTitleChange = (e) => {
         setImageTitle(e.target.value);
     }
-
     return(
         <Container>
             <Card>
@@ -167,5 +162,4 @@ function ImageUpload() {
         </Container>
     );
 }
-
 export default ImageUpload;

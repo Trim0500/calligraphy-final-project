@@ -70,12 +70,14 @@ export default function ContractsPage() {
                                     <td>${item.FinalCost}</td>
                                     <td>{(new Date(item.DateCommissioned).toLocaleDateString())}</td>
                                     <td>{item.IsFinished ? "Yes" : "No"}</td>
-                                    <td><button type='button'
-                                                name={item.ContractId + "DetailsBtn"}
-                                                className='btn btn-primary'
-                                                onClick={() => redirect({id: item.ContractId})}>
-                                                    {item.IsFinished ? "View Details" : "Update Contract"}
-                                                </button></td>
+                                    <td>
+                                        <button type='button'
+                                            name={item.ContractId + "DetailsBtn"}
+                                            className='btn btn-primary'
+                                            onClick={() => redirect({id: item.ContractId})}>
+                                                {item.IsFinished ? "View Details" : "Update Contract"}
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

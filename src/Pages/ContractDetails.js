@@ -121,7 +121,8 @@ export default function ContractDetails() {
                 body: JSON.stringify(UpdateContractRequest),
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
             })
             .then((res) => res.json())
             .then((data) => console.log(data))
@@ -141,7 +142,8 @@ export default function ContractDetails() {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                }
+                },
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
             })
             .then(function(response) {
                 return response.json();

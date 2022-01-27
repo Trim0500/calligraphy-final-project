@@ -14,9 +14,13 @@ function QuoteAdmin(){
     const id = window.location.pathname.split('/')[3];
 
 
+
     const GetQuote = () => {
         fetch('https://localhost:5001/api/quote/'.concat(id),
-            {headers: { 'Content-Type' : 'application/json', 'Accept': 'application/json'}})
+            {headers:
+                    { 'Content-Type' : 'application/json'
+                    , 'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')}})
             .then(function(response) {
                 console.log(response);
                 return response.json();
@@ -109,6 +113,7 @@ function QuoteAdmin(){
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                     body: JSON.stringify(data)
                 })
                 .then(function (response) {
