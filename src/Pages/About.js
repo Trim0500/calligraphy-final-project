@@ -6,6 +6,7 @@ import facebook from "../resources/img/icons/facebook.png";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
 
 function About () {
 
@@ -87,25 +88,15 @@ function About () {
                 Mission: mission
             };
             console.log(data);
-            fetch('https://localhost:5001/api/about/',
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
+
+            axios.put('https://localhost:5001/api/About/', data)
                 .then(function (response) {
                     console.log(response);
-                    return response.json();
-                })
-                .then(function (data) {
-                    console.log(data);
                     alert("About Info updated");
-                    window.location.href = '/about';
                 })
-                .catch(error => console.log(error));
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 
@@ -140,8 +131,15 @@ function About () {
                                         <Tab>About</Tab>
                                         <Tab>Experience</Tab>
                                         <Tab>Goal</Tab>
-                                        {isEdit ? <input type={"submit"} className={"btn float-end"} name={"btnSave"} value={"Submit"} />
-                                            : <input type={"button"} onClick={handleEdit} className={"btn float-end"} name={"btnEdit"} value={"Edit"} />}
+                                        {localStorage.getItem('JwtToken') ?
+                                            isEdit ?
+                                                <input type={"submit"} className={"btn float-end"} name={"btnSave"}
+                                                       value={"Submit"}/>
+                                                :
+                                                <input type={"button"} onClick={handleEdit} className={"btn float-end"}
+                                                       name={"btnEdit"} value={"Edit"}/>
+                                            :
+                                            null}
                                     </TabList>
 
                                     <TabPanel>
