@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
-import Interceptor from "../Components/interceptor";
 
 function FormOperation(){
 

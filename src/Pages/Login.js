@@ -15,6 +15,7 @@ function Login() {
 
     const handleSubmit = (event) => {
 
+        let Url = 'https://localhost:5001/api/admin/login';
         event.preventDefault();
 
         let data = {
@@ -22,33 +23,37 @@ function Login() {
             password: password
         }
 
-        fetch( "/https//localhost:5001/admin/login", {
+        fetch( Url, {
             method: 'POST',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
+
             body: JSON.stringify(data)
         }).then(response => {
             if (response.status === 200) {
                return response.json();
             }
-            else {
-                console.log("error");
-            }
         }).then(data => {
-            // check if the tokens are not null
-            if (data.jwtToken !== null && data.refreshToken !== null) {
-                // save the tokens in the local storage
-                localStorage.setItem('jwtToken', data.jwtToken);
-                localStorage.setItem('refreshToken', data.refreshToken);
-                // redirect the user to the home page
-                window.location.href = '/';
+            // if data is undefined, then the user is not authenticated
+
+            if (data !== undefined) {
+                alert('Invalid username or password');
+                if (data.jwtToken !== null && data.refreshToken !== null) {
+                    localStorage.setItem('jwtToken', data.jwtToken);
+                    localStorage.setItem('refreshToken', data.refreshToken);
+                    window.location.href = '/';
+                }
+                else {
+                    alert('Invalid username or password');
+                }
             }
             else {
-                console.log("error");
+                alert('Invalid username or password');
             }
-            console.log(data);
+
         });
     }
 
@@ -69,16 +74,16 @@ function Login() {
                             </div>
                         </div>
                         <form className="myform">
-                            <div className="form-group"><input onChange={handleUserNameChange} type="username" className="form-control"
+                            <div className="form-group"><input id="username" onChange={handleUserNameChange} type="username" className="form-control"
                                                                placeholder="Username"/>
                             </div>
                             <div className="form-group">
-                                <input onChange={handlePasswordChange} type="password" className="form-control"
+                                <input onChange={handlePasswordChange} id="password" type="password" className="form-control"
                                                                placeholder="Password"/>
                             </div>
 
                             <div className="form-group mt-3">
-                                <button onClick={handleSubmit} type="button" className="btn btn-block btn-primary btn-lg"><small><i
+                                <button onClick={handleSubmit} type="submit" className="btn btn-block btn-primary btn-lg"><small><i
                                 className="far fa-user pr-2"/>Connect</small></button>
                             </div>
                         </form>
