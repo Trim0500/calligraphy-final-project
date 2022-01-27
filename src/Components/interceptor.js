@@ -10,8 +10,8 @@ axios.interceptors.response.use(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          jwtToken: localStorage.getItem("jwtToken"),
-          refreshToken: localStorage.getItem("refreshToken")
+          JwtToken: localStorage.getItem("JwtToken"),
+          RefreshToken: localStorage.getItem("RefreshToken")
         })
       })
          //CHECK IF RESPONSE IS 200
@@ -20,15 +20,15 @@ axios.interceptors.response.use(
              return response.json();
            }
            else {
-             localStorage.removeItem("jwtToken");
-             localStorage.removeItem("refreshToken");
+             localStorage.removeItem("JwtToken");
+             localStorage.removeItem("RefreshToken");
              window.location.href = "/admin/login";
            }
          })
          .then(data => {
-             error.config.headers["Authorization"] = `Bearer ${data.jwtToken}`;
-           localStorage.setItem("jwtToken", data.jwtToken);
-           localStorage.setItem("refreshToken", data.refreshToken);
+             error.config.headers["Authorization"] = `Bearer ${data.JwtToken}`;
+           localStorage.setItem("JwtToken", data.JwtToken);
+           localStorage.setItem("RefreshToken", data.RefreshToken);
              return axios(error.config);
          })
       .catch(error => {
@@ -41,8 +41,8 @@ axios.interceptors.response.use(
 
 axios.interceptors.request.use(
   config => {
-    if (localStorage.getItem("jwtToken")) {
-      config.headers["Authorization"] = `Bearer ${localStorage.getItem("jwtToken")}`;
+    if (localStorage.getItem("JwtToken")) {
+      config.headers["Authorization"] = `Bearer ${localStorage.getItem("JwtToken")}`;
     }
     return config;
   },
