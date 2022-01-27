@@ -14,29 +14,41 @@ function Login() {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
 
-        let baseapi = 'https://localhost:5001/api';
+        event.preventDefault();
 
         let data = {
             username: username,
             password: password
         }
 
-
-        fetch( baseapi + "/admin/login", {
+        fetch( "/https//localhost:5001/admin/login", {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data),
-        }).then(response => response.json()).then(data => {
-            localStorage.setItem('jwtToken', data.jwtToken)
-            localStorage.setItem('refreshToken', data.refreshToken)
-            window.location.href = '/admin/dashboard';
-        }).catch(error => {
-            console.log(error);
+        }).then(response => {
+            if (response.status === 200) {
+               return response.json();
+            }
+            else {
+                console.log("error");
+            }
+        }).then(data => {
+            // check if the tokens are not null
+            if (data.jwtToken !== null && data.refreshToken !== null) {
+                // save the tokens in the local storage
+                localStorage.setItem('jwtToken', data.jwtToken);
+                localStorage.setItem('refreshToken', data.refreshToken);
+                // redirect the user to the home page
+                window.location.href = '/';
+            }
+            else {
+                console.log("error");
+            }
+            console.log(data);
         });
     }
 
@@ -76,5 +88,4 @@ function Login() {
         </div>
     )
 }
-
 export default Login;

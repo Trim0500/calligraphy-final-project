@@ -1,16 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import {Col, Container, Image, Nav, Row} from 'react-bootstrap';
 import no_image from "../resources/img/no_image.png";
 
 function PortfolioCRUD() {
 
-    const [image1, setImage1] = React.useState(no_image);
-    const [image2, setImage2] = React.useState(no_image);
-    const [image3, setImage3] = React.useState(no_image);
-    const [image4, setImage4] = React.useState(no_image);
-    const [image5, setImage5] = React.useState(no_image);
-    const [image6, setImage6] = React.useState(no_image);
+    const [image1, setImage1] = useState(no_image);
+    const [image2, setImage2] = useState(no_image);
+    const [image3, setImage3] = useState(no_image);
+    const [image4, setImage4] = useState(no_image);
+    const [image5, setImage5] = useState(no_image);
+    const [image6, setImage6] = useState(no_image);
 
     const GetImages = () => {
         fetch('https://localhost:5001/api/image', {
