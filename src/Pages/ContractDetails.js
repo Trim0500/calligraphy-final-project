@@ -117,18 +117,15 @@ export default function ContractDetails() {
 
             let api = 'https://localhost:5001/api/contract/update'
 
-            fetch(api, {
-                method: 'PUT',
-                body: JSON.stringify(UpdateContractRequest),
+            axios.put(api, UpdateContractRequest, {
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             })
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err));
-
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err))
+            
             alert('Success! The contract has been updated!');
 
             event.preventDefault();
