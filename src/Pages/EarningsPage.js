@@ -4,6 +4,7 @@ import { Card, Container } from "react-bootstrap";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-charts'
+import axios from 'axios';
 
 export default function EarningsPage() {
     const history = useHistory();
@@ -55,6 +56,12 @@ export default function EarningsPage() {
         let totalPerDay = 0;
 
         data.forEach((item, index) => {
+            for(var i = 0; i <= tempChargedList.length; i++) {
+                if(tempChargedList.length && tempChargedList[i] == null) {
+                    index = i;
+                    break;
+                }
+            }
             let date = new Date(item.DateCommissioned);
             let formatDate = date.getDate();
 
@@ -62,6 +69,9 @@ export default function EarningsPage() {
                 indexToUpdate = tempChargedList.findIndex((date) => {
                     return date[0] === formatDate;
                 })
+                if(totalPerDay === 0) {
+                    totalPerDay = parseInt(tempChargedList[indexToUpdate][1]);
+                }
                 totalPerDay += item.FinalCost;
                 tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
             }
@@ -73,6 +83,12 @@ export default function EarningsPage() {
         })
 
         setChartDataTotalCharged(tempChargedList);
+    }
+
+    const UpdateContractData = (data) => {
+        CalculateTotalCharged(data);
+        CalculateTotalContracts(data);
+        PlotContractData(data);
     }
 
     useEffect(() => {
@@ -100,18 +116,18 @@ export default function EarningsPage() {
     const UpdateContractList = () => {
         let api = "https://localhost:5001/api/contract/get/" + Month + "/" + Year + "/true";
 
-        fetch(api, {
+        axios.get(api, {
+            method: 'GET',
+            timeout: 5000,
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then((res) => res.json())
-        .then((data) => setContractList(data))
-        .catch((err) => console.error(err));
-
-        CalculateTotalCharged(ContractList);
-        CalculateTotalContracts(ContractList);
-        PlotContractData(ContractList);
+        .then((data) => {
+            setContractList(data.data);
+            UpdateContractData(ContractList);
+        })
+        .catch((err) => console.error(err))
     }
 
     return (

@@ -42,7 +42,7 @@ function Header() {
                         <ProtectRoute path="/admin/dashboard/quote/:id" exact component={() => <Quote /> } />
                         <Route path="/admin/login" exact component={() => <Login /> } />
                         <Route path="/about" exact component={() => <About /> } />
-                        <Route path="/admin/contract/earnings" exact component={() => <EarningsPage />} />          
+                        <ProtectRoute path="/admin/dashboard/contract/earnings" exact component={() => <EarningsPage />} />          
                     </Switch>
                 </Container>
                 <Navbar bg="light" expand="lg" fixed="top">

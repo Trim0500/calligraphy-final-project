@@ -3,17 +3,18 @@ import { useEffect, useState } from 'react';
 import { Card, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React from 'react';
+import axios from 'axios'
 
 export default function ContractsPage() {
     const [contracts, setContracts] = useState([])
     const history = useHistory();
 
     const redirect = (data) => {
-        history.push("/admin/contract/details", {data: data});
+        history.push("/admin/dashboard/contract/details", {data: data});
     }
 
     const redirectEarnings = (data) => {
-        history.push("/admin/contract/earnings", {data: data});
+        history.push("/admin/dashboard/contract/earnings", {data: data});
     }
 
     const RenderEarningsPage = () => {
@@ -38,10 +39,18 @@ export default function ContractsPage() {
     useEffect(() => {
         async function getContracts() {
             let api = 'https://localhost:5001/api/contract/get'
-    
-            const response = await fetch(api);
-            const json = await response.json();
-            setContracts(json);
+
+            axios.get(api, {
+                method: 'GET',
+                timeout: 5000,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((data) => {
+                setContracts(data.data)
+            })
+            .catch((err) => console.error(err))
         }
 
         getContracts();

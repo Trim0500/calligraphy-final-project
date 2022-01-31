@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 export default function ContractDetails() {
     const history = useHistory();
@@ -116,18 +117,15 @@ export default function ContractDetails() {
 
             let api = 'https://localhost:5001/api/contract/update'
 
-            fetch(api, {
-                method: 'PUT',
-                body: JSON.stringify(UpdateContractRequest),
+            axios.put(api, UpdateContractRequest, {
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             })
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err));
-
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err))
+            
             alert('Success! The contract has been updated!');
 
             event.preventDefault();
@@ -138,20 +136,17 @@ export default function ContractDetails() {
         async function getContract() {
             let api = 'https://localhost:5001/api/contract/get/' + data.id;
 
-            await fetch(api, {
+            await axios.get(api, {
+                method: 'GET',
+                timeout: 5000,
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                    'Content-Type': 'application/json'
+                }
             })
-            .then(function(response) {
-                return response.json();
+            .then((data) => {
+                componentDidMount(data.data)
             })
-            .then(function(json) {
-                componentDidMount(json);
-            })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err))
         }
         getContract();
         // eslint-disable-next-line react-hooks/exhaustive-deps
