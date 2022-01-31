@@ -48,14 +48,9 @@ export default function ContractsPage() {
                 }
             })
             .then((data) => {
-                console.log(data)
-                setContracts(data)
+                setContracts(data.data)
             })
             .catch((err) => console.error(err))
-    
-            /* const response = await fetch(api);
-            const json = await response.json();
-            setContracts(json); */
         }
 
         getContracts();
