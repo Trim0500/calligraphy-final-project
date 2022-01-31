@@ -51,50 +51,38 @@ export default function EarningsPage() {
 
     const PlotContractData = (data) => {
         let tempChargedList = [];
-        console.log(tempChargedList);
         let indexToUpdate = 0;
         let previousDay = 0;
         let totalPerDay = 0;
 
         data.forEach((item, index) => {
+            for(var i = 0; i <= tempChargedList.length; i++) {
+                if(tempChargedList.length && tempChargedList[i] == null) {
+                    index = i;
+                    break;
+                }
+            }
             let date = new Date(item.DateCommissioned);
             let formatDate = date.getDate();
 
-            console.log("Current index date: " + formatDate);
-            console.log("Previous date: " + previousDay);
             if(formatDate === previousDay) {
-                console.log("Found a match");
-                console.log("Current total: " + totalPerDay);
                 indexToUpdate = tempChargedList.findIndex((date) => {
                     return date[0] === formatDate;
                 })
                 if(totalPerDay === 0) {
-                    console.log("totalperDay is 0, updating")
                     totalPerDay = parseInt(tempChargedList[indexToUpdate][1]);
-                    console.log("totalPerDay is now: " + totalPerDay);
                 }
-                totalPerDay += parseInt(item.FinalCost);
-                console.log("New total: " + totalPerDay);
-                console.log("Current list: ");
-                console.log(tempChargedList);
+                totalPerDay += item.FinalCost;
                 tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
-                console.log("Updated list: ");
-                console.log(tempChargedList);
             }
             else {
-                console.log("Dates were different, appending the list");
                 totalPerDay = 0;
-                tempChargedList[index] = [formatDate, parseInt(item.FinalCost)];
-                console.log(tempChargedList)
+                tempChargedList[index] = [formatDate, item.FinalCost];
             }
             previousDay = formatDate;
         })
 
         setChartDataTotalCharged(tempChargedList);
-        tempChargedList = undefined;
-        indexToUpdate = undefined;
-        previousDay = undefined;
-        totalPerDay = undefined;
     }
 
     const UpdateContractData = (data) => {
@@ -136,15 +124,10 @@ export default function EarningsPage() {
             }
         })
         .then((data) => {
-            console.log(data);
-            setContractList(data.data)
-            UpdateContractData(data.data)
+            setContractList(data.data);
+            UpdateContractData(ContractList);
         })
         .catch((err) => console.error(err))
-        
-        /* CalculateTotalCharged(ContractList);
-        CalculateTotalContracts(ContractList);
-        PlotContractData(ContractList); */
     }
 
     return (
