@@ -54,7 +54,14 @@ export default function EarningsPage() {
         let previousDay = 0;
         let totalPerDay = 0;
 
+        console.log(tempChargedList);
         data.forEach((item, index) => {
+            for(var i = 0; i <= tempChargedList.length; i++) {
+                if(tempChargedList.length && tempChargedList[i] == null) {
+                    index = i;
+                    break;
+                }
+            }
             let date = new Date(item.DateCommissioned);
             let formatDate = date.getDate();
 
@@ -62,6 +69,11 @@ export default function EarningsPage() {
                 indexToUpdate = tempChargedList.findIndex((date) => {
                     return date[0] === formatDate;
                 })
+                if(totalPerDay === 0) {
+                    console.log("totalperDay is 0, updating")
+                    totalPerDay = parseInt(tempChargedList[indexToUpdate][1]);
+                    console.log("totalPerDay is now: " + totalPerDay);
+                }
                 totalPerDay += item.FinalCost;
                 tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
             }
@@ -73,6 +85,7 @@ export default function EarningsPage() {
         })
 
         setChartDataTotalCharged(tempChargedList);
+        console.log(tempChargedList);
     }
 
     useEffect(() => {
