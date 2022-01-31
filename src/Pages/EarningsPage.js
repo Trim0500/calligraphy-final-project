@@ -4,6 +4,7 @@ import { Card, Container } from "react-bootstrap";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-charts'
+import axios from 'axios';
 
 export default function EarningsPage() {
     const history = useHistory();
@@ -50,6 +51,7 @@ export default function EarningsPage() {
 
     const PlotContractData = (data) => {
         let tempChargedList = [];
+        console.log(tempChargedList);
         let indexToUpdate = 0;
         let previousDay = 0;
         let totalPerDay = 0;
@@ -58,21 +60,47 @@ export default function EarningsPage() {
             let date = new Date(item.DateCommissioned);
             let formatDate = date.getDate();
 
+            console.log("Current index date: " + formatDate);
+            console.log("Previous date: " + previousDay);
             if(formatDate === previousDay) {
+                console.log("Found a match");
+                console.log("Current total: " + totalPerDay);
                 indexToUpdate = tempChargedList.findIndex((date) => {
                     return date[0] === formatDate;
                 })
-                totalPerDay += item.FinalCost;
+                if(totalPerDay === 0) {
+                    console.log("totalperDay is 0, updating")
+                    totalPerDay = parseInt(tempChargedList[indexToUpdate][1]);
+                    console.log("totalPerDay is now: " + totalPerDay);
+                }
+                totalPerDay += parseInt(item.FinalCost);
+                console.log("New total: " + totalPerDay);
+                console.log("Current list: ");
+                console.log(tempChargedList);
                 tempChargedList[indexToUpdate] = [formatDate, totalPerDay];
+                console.log("Updated list: ");
+                console.log(tempChargedList);
             }
             else {
+                console.log("Dates were different, appending the list");
                 totalPerDay = 0;
-                tempChargedList[index] = [formatDate, item.FinalCost];
+                tempChargedList[index] = [formatDate, parseInt(item.FinalCost)];
+                console.log(tempChargedList)
             }
             previousDay = formatDate;
         })
 
         setChartDataTotalCharged(tempChargedList);
+        tempChargedList = undefined;
+        indexToUpdate = undefined;
+        previousDay = undefined;
+        totalPerDay = undefined;
+    }
+
+    const UpdateContractData = (data) => {
+        CalculateTotalCharged(data);
+        CalculateTotalContracts(data);
+        PlotContractData(data);
     }
 
     useEffect(() => {
@@ -100,18 +128,23 @@ export default function EarningsPage() {
     const UpdateContractList = () => {
         let api = "https://localhost:5001/api/contract/get/" + Month + "/" + Year + "/true";
 
-        fetch(api, {
+        axios.get(api, {
+            method: 'GET',
+            timeout: 5000,
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then((res) => res.json())
-        .then((data) => setContractList(data))
-        .catch((err) => console.error(err));
-
-        CalculateTotalCharged(ContractList);
+        .then((data) => {
+            console.log(data);
+            setContractList(data.data)
+            UpdateContractData(data.data)
+        })
+        .catch((err) => console.error(err))
+        
+        /* CalculateTotalCharged(ContractList);
         CalculateTotalContracts(ContractList);
-        PlotContractData(ContractList);
+        PlotContractData(ContractList); */
     }
 
     return (
