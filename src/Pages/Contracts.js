@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Card, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React from 'react';
+import axios from 'axios'
 
 export default function ContractsPage() {
     const [contracts, setContracts] = useState([])
@@ -38,10 +39,23 @@ export default function ContractsPage() {
     useEffect(() => {
         async function getContracts() {
             let api = 'https://localhost:5001/api/contract/get'
+
+            axios.get(api, {
+                method: 'GET',
+                timeout: 5000,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                setContracts(data)
+            })
+            .catch((err) => console.error(err))
     
-            const response = await fetch(api);
+            /* const response = await fetch(api);
             const json = await response.json();
-            setContracts(json);
+            setContracts(json); */
         }
 
         getContracts();
