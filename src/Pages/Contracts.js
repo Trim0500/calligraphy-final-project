@@ -10,7 +10,7 @@ export default function ContractsPage() {
     const history = useHistory();
 
     const redirect = (data) => {
-        history.push("/admin/contract/details", {data: data});
+        history.push("/admin/dashboard/contract/details", {data: data});
     }
 
     const redirectEarnings = (data) => {
