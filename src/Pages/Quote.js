@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
+import axios from "axios";
 
 
 function QuoteAdmin(){
@@ -11,27 +12,43 @@ function QuoteAdmin(){
     const [quotePrice, setQuotePrice] = useState('');
     const [quoteDuration, setQuoteDuration] = useState('');
     const [quoteMaterials, setQuoteMaterials] = useState('');
-    const id = window.location.pathname.split('/')[3];
+    const id = window.location.pathname.split('/').pop();
 
 
 
     const GetQuote = () => {
-        fetch('https://localhost:5001/api/quote/'.concat(id),
-            {headers:
-                    { 'Content-Type' : 'application/json'
-                    , 'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-            .then(function(response) {
-                console.log(response);
-                return response.json();
+
+        axios.get('https://localhost:5001/api/quote/'.concat(id),{
+            method: 'GET',
+            timeout: 5000,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                setQuote(response.data);
+                componentDidMount(response.data);
             })
-            .then(function(data) {
-                console.log(data);
-                setQuote(data);
-                componentDidMount(data);
-            })
-            .catch(error => console.log(error));
-        console.log(quote);
+            .catch(error => {
+                console.log(error);
+            });
+
+        // fetch('https://localhost:5001/api/quote/'.concat(id),
+        //     {headers:
+        //             { 'Content-Type' : 'application/json'
+        //             , 'Accept': 'application/json',
+        //                 'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+        //     .then(function(response) {
+        //         console.log(response);
+        //         return response.json();
+        //     })
+        //     .then(function(data) {
+        //         console.log(data);
+        //         setQuote(data);
+        //         componentDidMount(data);
+        //     })
+        //     .catch(error => console.log(error));
+        // console.log(quote);
     };
 
     function getApprovalStatus(nb){
@@ -106,29 +123,44 @@ function QuoteAdmin(){
                 ApprovalStatus: status
             };
             console.log(data);
-            fetch('https://localhost:5001/api/quote/'.concat(id),
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-                    body: JSON.stringify(data)
-                })
+
+            axios.put('https://localhost:5001/api/quote/'.concat(id), data,
+                {headers:
+                        { 'Content-Type' : 'application/json'
+                        , 'Accept': 'application/json'}})
                 .then(function (response) {
                     console.log(response);
-                    return response.json();
-                })
-                .then(function (data) {
-                    console.log(data);
                     alert("Quote updated");
                     if(status === 'Approved') {
-                        alert("A new contract has been made, check your email")
+                        alert("A new contract has been made, check your email");
                     }
-                    window.location.href = '/admin/forms';
+                    window.location.href = '/admin/dashboard/forms';
                 })
                 .catch(error => console.log(error));
+
+            // fetch('https://localhost:5001/api/quote/'.concat(id),
+            //     {
+            //         method: 'PUT',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'Accept': 'application/json'
+            //         },
+            //         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            //         body: JSON.stringify(data)
+            //     })
+            //     .then(function (response) {
+            //         console.log(response);
+            //         return response.json();
+            //     })
+            //     .then(function (data) {
+            //         console.log(data);
+            //         alert("Quote updated");
+            //         if(status === 'Approved') {
+            //             alert("A new contract has been made, check your email")
+            //         }
+            //         window.location.href = '/admin/forms';
+            //     })
+            //     .catch(error => console.log(error));
         }
         else {
             alert("Error with quote, please verify inputted content");
@@ -166,12 +198,12 @@ function QuoteAdmin(){
                                         <option value="Denied">Denied</option>
                                         </select>
                                 </td>
-                                <td><button className={"col-md-6  fs-5 btn-primary"} type="submit" name="btnSubmit" >Submit</button></td>
+                                <td><button className={" fs-5 btn-primary"} type="submit" name="btnSubmit" >Submit</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </form>
-                    <button name="btnGoForms" className={"small btn-primary"}><a href={"/admin/forms"} className={"text-white text-decoration-none form-control-sm"}>Back</a> </button>
+                    <button name="btnGoForms" className={"small btn-primary"}><a href={"/admin/dashboard/forms"} className={"text-white text-decoration-none form-control-sm"}>Back</a> </button>
                 </Card.Body>
             </Card>
         </Container>
