@@ -14,7 +14,7 @@ export default function ContractsPage() {
     }
 
     const redirectEarnings = (data) => {
-        history.push("/admin/contract/earnings", {data: data});
+        history.push("/admin/dashboard/contract/earnings", {data: data});
     }
 
     const RenderEarningsPage = () => {
