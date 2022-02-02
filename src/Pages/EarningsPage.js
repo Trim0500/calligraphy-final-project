@@ -130,6 +130,27 @@ export default function EarningsPage() {
         .catch((err) => console.error(err))
     }
 
+    const RenderChart = () => {
+        if (data.length || ContractList.length) {
+            return(
+                <>
+                    <ul name="StatsList" className='nav nav-tabs' style={{display: 'flex', justifyContent: 'space-evenly' }}>
+                        <li name="ChargedStat"><h3 name="ChargedHeader">Total charged this month: ${TotalCharged}</h3></li>
+                        <li name="TotalStat"><h3 name="TotalHeader">Total contracts: {TotalContracts}</h3></li>
+                    </ul>
+                    <div name="ChartDiv" style={{margin: 'auto', width: '50%', height: '500px'}}>
+                        <Chart name="Chart" data={dataChart} axes={axes} />
+                    </div>
+                </>
+            )
+        }
+        else {
+            return(
+                <h1 style={{textAlign: "center"}}>No contracts were completed this month, search again!</h1>
+            )
+        }
+    }
+
     return (
         <Container>
             <Card>
@@ -154,17 +175,11 @@ export default function EarningsPage() {
                             <option name="NovOption">November</option>
                             <option name="DecOption">December</option>
                         </select>
-                        <input name="YearInput" className='form-control' type="number" defaultValue="2021" max="2022" min="2010" onChange={HandleYearChange} />
+                        <input name="YearInput" className='form-control' type="number" defaultValue="2022" max="2022" min="2010" onChange={HandleYearChange} />
                         <button name="SubmitBtn" className='btn btn-primary' type='submit'>Find Contracts</button>
                     </form>
                     <br/>
-                    <ul name="StatsList" className='nav nav-tabs' style={{display: 'flex', justifyContent: 'space-evenly' }}>
-                        <li name="ChargedStat"><h3 name="ChargedHeader">Total charged this month: ${TotalCharged}</h3></li>
-                        <li name="TotalStat"><h3 name="TotalHeader">Total contracts: {TotalContracts}</h3></li>
-                    </ul>
-                    <div name="ChartDiv" style={{margin: 'auto', width: '50%', height: '500px'}}>
-                        <Chart name="Chart" data={dataChart} axes={axes} />
-                    </div>
+                    <RenderChart />
                 </Card.Body>
             </Card>
         </Container>
