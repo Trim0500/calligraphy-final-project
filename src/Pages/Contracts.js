@@ -31,8 +31,6 @@ export default function ContractsPage() {
             }
         })
 
-        console.log(ContractList);
-
         redirectEarnings(ContractList);
     }
 
