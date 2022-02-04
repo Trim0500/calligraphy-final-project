@@ -12,6 +12,7 @@ function QuoteAdmin(){
     const [quotePrice, setQuotePrice] = useState('');
     const [quoteDuration, setQuoteDuration] = useState('');
     const [quoteMaterials, setQuoteMaterials] = useState('');
+    const [quoteApproval, setQuoteApproval] = useState(0);
     const id = window.location.pathname.split('/').pop();
 
 
@@ -32,23 +33,6 @@ function QuoteAdmin(){
             .catch(error => {
                 console.log(error);
             });
-
-        // fetch('https://localhost:5001/api/quote/'.concat(id),
-        //     {headers:
-        //             { 'Content-Type' : 'application/json'
-        //             , 'Accept': 'application/json',
-        //                 'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-        //     .then(function(response) {
-        //         console.log(response);
-        //         return response.json();
-        //     })
-        //     .then(function(data) {
-        //         console.log(data);
-        //         setQuote(data);
-        //         componentDidMount(data);
-        //     })
-        //     .catch(error => console.log(error));
-        // console.log(quote);
     };
 
     function getApprovalStatus(nb){
@@ -72,6 +56,7 @@ function QuoteAdmin(){
         setQuotePrice(data.Price);
         setQuoteDuration(data.Duration);
         setQuoteMaterials(data.Materials);
+        setQuoteApproval(data.ApprovalStatus);
         setStatus(getApprovalStatus(data.ApprovalStatus));
         return data;
     }
@@ -123,7 +108,6 @@ function QuoteAdmin(){
                 ApprovalStatus: status
             };
             console.log(data);
-
             axios.put('https://localhost:5001/api/quote/'.concat(id), data,
                 {headers:
                         { 'Content-Type' : 'application/json'
@@ -137,30 +121,6 @@ function QuoteAdmin(){
                     window.location.href = '/admin/dashboard/forms';
                 })
                 .catch(error => console.log(error));
-
-            // fetch('https://localhost:5001/api/quote/'.concat(id),
-            //     {
-            //         method: 'PUT',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'Accept': 'application/json'
-            //         },
-            //         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-            //         body: JSON.stringify(data)
-            //     })
-            //     .then(function (response) {
-            //         console.log(response);
-            //         return response.json();
-            //     })
-            //     .then(function (data) {
-            //         console.log(data);
-            //         alert("Quote updated");
-            //         if(status === 'Approved') {
-            //             alert("A new contract has been made, check your email")
-            //         }
-            //         window.location.href = '/admin/forms';
-            //     })
-            //     .catch(error => console.log(error));
         }
         else {
             alert("Error with quote, please verify inputted content");
@@ -187,18 +147,18 @@ function QuoteAdmin(){
                         </thead>
                         <tbody>
                             <tr key={quote["QuoteId"]}>
-                                <td><input name="priceBox" className={"form-control"} onChange={handlePrice}  value={quotePrice} /></td>
-                                <td><input name="durationBox" className={"form-control"} onChange={handleDuration}  value={quoteDuration} /></td>
-                                <td><input name="materialsBox" className={"form-control"} onChange={handleMaterials} value={quoteMaterials}/></td>
+                                <td><input name="priceBox" disabled={quoteApproval === 1 || quoteApproval === 2} className={"form-control"} onChange={handlePrice}  value={quotePrice} /></td>
+                                <td><input name="durationBox" disabled={quoteApproval === 1 || quoteApproval === 2} className={"form-control"} onChange={handleDuration}  value={quoteDuration} /></td>
+                                <td><input name="materialsBox" disabled={quoteApproval === 1 || quoteApproval === 2} className={"form-control"} onChange={handleMaterials} value={quoteMaterials}/></td>
                                 <td>
 
-                                        <select name="status" value={status} className={"form-control"} onChange={handleApprovalStatus}>
+                                        <select name="status" value={status} disabled={quoteApproval === 1 || quoteApproval === 2} className={'form-control'} onChange={handleApprovalStatus}>
                                         <option value="Pending">Pending</option>
                                         <option value="Approved" >Approved</option>
                                         <option value="Denied">Denied</option>
                                         </select>
                                 </td>
-                                <td><button className={" fs-5 btn-primary"} type="submit" name="btnSubmit" >Submit</button></td>
+                                <td><button className={" fs-5 btn-primary"} hidden={quoteApproval === 1 || quoteApproval === 2} type="submit" name="btnSubmit" >Submit</button></td>
                             </tr>
                         </tbody>
                     </table>
