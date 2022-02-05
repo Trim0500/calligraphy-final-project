@@ -1,10 +1,6 @@
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 
-window.recaptchaOptions = {
-    useRecaptchaNet: true,
-};
-
 export default class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -30,7 +26,6 @@ export default class Form extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
         this.resetAttachments = this.resetAttachments.bind(this);
     }
 
@@ -103,16 +98,17 @@ export default class Form extends React.Component {
 
         const recaptchaValue = this.recaptchaRef.current.getValue();
         console.log(recaptchaValue);
+        this.recaptchaRef.current.reset();
 
-        let api = 'https://www.google.com/recaptcha/api/siteverify'
+        let secret = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? process.env.REACT_APP_RECAPTCHA_SERVER_KEY_LOCAL : process.env.REACT_APP_RECAPTCHA_SERVER_KEY;
+        let response = recaptchaValue;
 
+        let api = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + response
+        console.log(api);
+
+        console.log(window.location.href);
         fetch(api, {
-            method: "POST",
-            headers: {
-                'secret': '6LcYNlkeAAAAABs9lRoW1I3y8ospxAj49WYniisj',
-                'response': recaptchaValue,
-                'Access-Control-Allow-Origin': '*'
-            }
+            method: "POST"
         })
         .then((res) => console.log(res))
         .catch((err) => console.error(err));
@@ -165,10 +161,6 @@ export default class Form extends React.Component {
                 submit: false
             })
         } */
-    }
-
-    onChange(value) {
-        console.log("Captcha value:", value);
     }
 
     successMessage() {
@@ -290,11 +282,7 @@ export default class Form extends React.Component {
                                         <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                         <button type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
                                     </div>
-                                    <ReCAPTCHA 
-                                        ref={this.recaptchaRef}
-                                        sitekey="6LcYNlkeAAAAAPMUOyrcpPYU3JS_9nlCH192EkPU"
-                                        onChange={this.onChange}
-                                    />
+                                    <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? process.env.REACT_APP_RECAPTCHA_SITE_KEY_LOCAL : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                 </form>
                             </div>
                         </div>
