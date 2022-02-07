@@ -96,25 +96,26 @@ export default class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        /* const recaptchaValue = this.recaptchaRef.current.getValue();
+        const recaptchaValue = {
+            token: this.recaptchaRef.current.getValue()
+        }
         console.log(recaptchaValue);
         this.recaptchaRef.current.reset();
 
-        let secret = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? process.env.REACT_APP_RECAPTCHA_SERVER_KEY_LOCAL : process.env.REACT_APP_RECAPTCHA_SERVER_KEY;
+        /* let secret = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? process.env.REACT_APP_RECAPTCHA_SERVER_KEY_LOCAL : process.env.REACT_APP_RECAPTCHA_SERVER_KEY;
         let response = recaptchaValue;
 
         let api = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + response
-        console.log(api);
+        console.log(api); */
 
         console.log(window.location.href);
-        fetch(api, {
-            method: "POST"
-        })
-        .then((res) => console.log(res))
-        .catch((err) => console.error(err)); */
 
         fetch('http://localhost:4000', {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recaptchaValue)
         })
         .then((res) => console.log(res.text()))
         .catch((err) => console.error(err));
