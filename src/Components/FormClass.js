@@ -96,7 +96,7 @@ export default class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const recaptchaValue = this.recaptchaRef.current.getValue();
+        /* const recaptchaValue = this.recaptchaRef.current.getValue();
         console.log(recaptchaValue);
         this.recaptchaRef.current.reset();
 
@@ -111,6 +111,12 @@ export default class Form extends React.Component {
             method: "POST"
         })
         .then((res) => console.log(res))
+        .catch((err) => console.error(err)); */
+
+        fetch('http://localhost:4000', {
+            method: 'POST'
+        })
+        .then((res) => console.log(res.text()))
         .catch((err) => console.error(err));
 
         /* this.setState({

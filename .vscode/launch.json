@@ -5,6 +5,12 @@
         "name": "Run npm start",
         "request": "launch",
         "type": "node-terminal"
+    },
+    {
+        "command": "node src/api/recaptcha.js",
+        "name": "Run recaptcha api",
+        "request": "launch",
+        "type": "node-terminal"
     }
     ]
 }
