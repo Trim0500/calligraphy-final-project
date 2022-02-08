@@ -77,7 +77,7 @@ function FormOperation(){
         setCurrentPage(totalPages);
     };
 
-    const formInfo = () => {
+    const formInfo = (form) => {
 
         return(
         <tr key={form.FormId}>
@@ -119,9 +119,9 @@ function FormOperation(){
                         </thead>
                         <tbody>
                         {form.map(form => (serviceTypeFilter !== 'All' || createdDateFilter !== '' ? (form.ServiceType === serviceTypeFilter ?
-                            formInfo()
+                            formInfo(form)
                          : null) :
-                                formInfo()
+                                formInfo(form)
                         ))}
 
                         </tbody>
