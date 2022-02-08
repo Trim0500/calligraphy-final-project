@@ -96,14 +96,6 @@ function FormOperation(){
         setCreatedDateFilter(e.target.value);
     }
 
-
-    useEffect(() => {
-        console.log(createdDateFilter);
-        console.log(form.map(x => x.CreatedDate.split(',')[0]));
-
-        }
-        , [createdDateFilter]);
-
     return (
         <Container>
             <Card>
