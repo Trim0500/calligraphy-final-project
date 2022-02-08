@@ -27,7 +27,7 @@ function FormOperation(){
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
 
-    useEffect(() => {
+        useEffect(() => {
 
         axios.get(`https://localhost:5001/api/forms?pageNumber=${currentPage}&pageSize=${pageSize}`,{
             method: 'GET',
@@ -96,6 +96,14 @@ function FormOperation(){
         setCreatedDateFilter(e.target.value);
     }
 
+
+    useEffect(() => {
+        console.log(createdDateFilter);
+        console.log(form.map(x => x.CreatedDate.split(',')[0]));
+
+        }
+        , [createdDateFilter]);
+
     return (
         <Container>
             <Card>
@@ -103,12 +111,11 @@ function FormOperation(){
                     <Card.Title>Forms</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                    <form method="get" className={''}>
-                        <div className={'d-inline-flex w-75'}>
-                            <Select options={options} onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50'} placeholder={'Service Type'}/>
-                            <input type="date" name="DateCommissioned" className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
+                        <div className={'d-inline-flex w-50'}>
+                            <Select options={options} name="ServiceTypeFilter" onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50'} placeholder={'Service Type'}/>
+                            <input type="date" name="CreatedDateFilter" className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
                         </div>
-                    </form>
+
                     <table className="table table-striped">
                         <thead>
                         <tr>
@@ -118,12 +125,12 @@ function FormOperation(){
                         </tr>
                         </thead>
                         <tbody>
-                        {form.map(form => (serviceTypeFilter !== 'All' || createdDateFilter !== '' ? (form.ServiceType === serviceTypeFilter ?
-                            formInfo(form)
-                         : null) :
-                                formInfo(form)
-                        ))}
-
+                        {form.filter(x => createdDateFilter === '' ? x
+                            : parseInt(x.CreatedDate.split("/")[1]) === parseInt(createdDateFilter.split("-")[2])).map(form => (serviceTypeFilter !== 'All'
+                                ? (form.ServiceType === serviceTypeFilter
+                                    ? formInfo(form)
+                                    : null)
+                                : formInfo(form)))}
                         </tbody>
                     </table>
                     <select onChange={selectPage} id="pageSelector" name="pageSelector">
