@@ -18,6 +18,7 @@ export default class Form extends React.Component {
             startingRate: 0.0,
             comments: '',
             selectedFile: null,
+            recaptchaStatus: false,
             errorNullInputs: false,
             submit: false
         }
@@ -25,6 +26,7 @@ export default class Form extends React.Component {
         this.recaptchaRef = React.createRef();
         this.handleChange = this.handleChange.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
+        this.handleRecaptchaValidation = this.handleRecaptchaValidation.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.resetAttachments = this.resetAttachments.bind(this);
     }
@@ -63,6 +65,63 @@ export default class Form extends React.Component {
         })
     }
 
+    async handleRecaptchaValidation() {
+        const recaptchaValue = {
+            token: this.recaptchaRef.current.getValue()
+        }
+        this.recaptchaRef.current.reset();
+
+        await fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recaptchaValue)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            this.setState({
+                recaptchaStatus: data.success
+            })
+            
+            if(this.state.recaptchaStatus === false) {
+                alert('Failed, reCAPTCHA detected a bot');
+                return;
+            }
+            else {
+                this.setState({
+                    submit: true
+                })
+                this.handleFormSubmission();
+
+                alert(`Success, service request sent!`)
+
+                alert("Thank you for your request, an email has been sent your way!")
+
+                this.setState({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    street: '',
+                    city: '',
+                    country: '',
+                    postal: '',
+                    service: '',
+                    startingRate: '',
+                    comments: '',
+                    selectedFile: null,
+                    recaptchaValue: false,
+                    errorNullInputs: false,
+                    submit: false
+                })
+
+                this.fileRef.current.value = '';
+                this.recaptchaRef.current.value = '';
+            }
+        })
+        .catch((err) => console.error(err));
+    }
+
     handleFormSubmission() {
         let api = 'https://localhost:5001/api/form';
         let file = this.state.selectedFile;
@@ -96,27 +155,10 @@ export default class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const recaptchaValue = {
-            token: this.recaptchaRef.current.getValue()
-        }
-        this.recaptchaRef.current.reset();
-
-        fetch('http://localhost:4000', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(recaptchaValue)
-        })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-        .catch((err) => console.error(err));
-
-        /* this.setState({
+        this.setState({
             errorNullInputs: false,
             submit: false
         })
-        console.log("Service chosen: " + this.state.service);
 
         if (this.state.firstName === ''
         || this.state.lastName === ''
@@ -131,35 +173,15 @@ export default class Form extends React.Component {
             })
             alert(`Failed, All Info is required`);
             event.preventDefault();
+            return;
         }
-        else {
-            this.setState({
-                submit: true
-            })
-            this.handleFormSubmission();
-
-            alert(`Success, service request sent!`)
-
-            alert("Thank you for your request, an email has been sent your way!")
-
+        else if(this.recaptchaRef.current.getValue() === '') {
+            alert('Failed, you need to validate reCAPTCHA first');
             event.preventDefault();
-            
-            this.setState({
-                firstName: '',
-                lastName: '',
-                email: '',
-                street: '',
-                city: '',
-                country: '',
-                postal: '',
-                service: '',
-                startingRate: '',
-                comments: '',
-                selectedFile: null,
-                errorNullInputs: false,
-                submit: false
-            })
-        } */
+            return;
+        }
+
+        this.handleRecaptchaValidation();
     }
 
     successMessage() {
