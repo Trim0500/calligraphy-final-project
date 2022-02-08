@@ -71,7 +71,7 @@ export default class Form extends React.Component {
         }
         this.recaptchaRef.current.reset();
 
-        await fetch('http://localhost:4000', {
+        await fetch('../api/recaptcha', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
