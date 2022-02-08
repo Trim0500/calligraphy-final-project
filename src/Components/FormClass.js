@@ -1,4 +1,5 @@
 import React from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default class Form extends React.Component {
     constructor(props) {
@@ -17,12 +18,15 @@ export default class Form extends React.Component {
             startingRate: 0.0,
             comments: '',
             selectedFile: null,
+            recaptchaStatus: false,
             errorNullInputs: false,
             submit: false
         }
         this.fileRef = React.createRef();
+        this.recaptchaRef = React.createRef();
         this.handleChange = this.handleChange.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
+        this.handleRecaptchaValidation = this.handleRecaptchaValidation.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.resetAttachments = this.resetAttachments.bind(this);
     }
@@ -61,6 +65,63 @@ export default class Form extends React.Component {
         })
     }
 
+    async handleRecaptchaValidation() {
+        const recaptchaValue = {
+            token: this.recaptchaRef.current.getValue()
+        }
+        this.recaptchaRef.current.reset();
+
+        await fetch('https://calligraphy-recaptcha.vercel.app/api/recaptcha', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recaptchaValue)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            this.setState({
+                recaptchaStatus: data.success
+            })
+            
+            if(this.state.recaptchaStatus === false) {
+                alert('Failed, reCAPTCHA detected a bot');
+                return;
+            }
+            else {
+                this.setState({
+                    submit: true
+                })
+                this.handleFormSubmission();
+
+                alert(`Success, service request sent!`)
+
+                alert("Thank you for your request, an email has been sent your way!")
+
+                this.setState({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    street: '',
+                    city: '',
+                    country: '',
+                    postal: '',
+                    service: '',
+                    startingRate: '',
+                    comments: '',
+                    selectedFile: null,
+                    recaptchaValue: false,
+                    errorNullInputs: false,
+                    submit: false
+                })
+
+                this.fileRef.current.value = '';
+                this.recaptchaRef.current.value = '';
+            }
+        })
+        .catch((err) => console.error(err));
+    }
+
     handleFormSubmission() {
         let api = 'https://localhost:5001/api/form';
         let file = this.state.selectedFile;
@@ -92,11 +153,12 @@ export default class Form extends React.Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
+
         this.setState({
             errorNullInputs: false,
             submit: false
         })
-        console.log("Service chosen: " + this.state.service);
 
         if (this.state.firstName === ''
         || this.state.lastName === ''
@@ -111,35 +173,15 @@ export default class Form extends React.Component {
             })
             alert(`Failed, All Info is required`);
             event.preventDefault();
+            return;
         }
-        else {
-            this.setState({
-                submit: true
-            })
-            this.handleFormSubmission();
-
-            alert(`Success, service request sent!`)
-
-            alert("Thank you for your request, an email has been sent your way!")
-
+        else if(this.recaptchaRef.current.getValue() === '') {
+            alert('Failed, you need to validate reCAPTCHA first');
             event.preventDefault();
-            
-            this.setState({
-                firstName: '',
-                lastName: '',
-                email: '',
-                street: '',
-                city: '',
-                country: '',
-                postal: '',
-                service: '',
-                startingRate: '',
-                comments: '',
-                selectedFile: null,
-                errorNullInputs: false,
-                submit: false
-            })
+            return;
         }
+
+        this.handleRecaptchaValidation();
     }
 
     successMessage() {
@@ -261,6 +303,7 @@ export default class Form extends React.Component {
                                         <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                         <button type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
                                     </div>
+                                    <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? process.env.REACT_APP_RECAPTCHA_SITE_KEY_LOCAL : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                 </form>
                             </div>
                         </div>

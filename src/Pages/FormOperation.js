@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
+
 // eslint-disable-next-line
 import Interceptor from "../Components/interceptor";
 import Select from 'react-select'
@@ -11,7 +12,6 @@ function FormOperation(){
 
     const [form, setForm] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
     const [serviceTypeFilter, setServiceTypeFilter] = useState('All');
     const [createdDateFilter, setCreatedDateFilter] = useState('');
 
@@ -21,119 +21,60 @@ function FormOperation(){
         { value: 'engraving', label: 'Engraving' },
     ]
 
-    const GetForms = () => {
+    const [pageSize] = useState(2);
+    const [totalPages, setTotalPages] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState(true);
+    const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-        axios.get('https://localhost:5001/api/form?pageNumber=1&pageSize=10',{
+
+    useEffect(() => {
+
+        axios.get(`https://localhost:5001/api/forms?pageNumber=${currentPage}&pageSize=${pageSize}`,{
             method: 'GET',
             timeout: 5000,
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
         })
-        .then(response => {
-            setForm(response.data.Data);
-            setPageSize(response.data.TotalPages);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    };
-
+            .then(response => {
+                const x_pagination = response.headers['x-pagination'];
+                const pagination = JSON.parse(x_pagination);
+                const form = response.data.map(form => {
+                    form.CreatedDate = new Date(form.CreatedDate).toLocaleString();
+                    return form;
+                });
+                setForm(form);
+                setTotalPages(pagination.TotalPages);
+                setHasNextPage(pagination.HasNext);
+                setHasPreviousPage(pagination.HasPrevious);
+                const $select = document.querySelector('#pageSelector');
+                $select.value = currentPage
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, [currentPage, pageSize]);
+    
     const nextPage = () => {
-        if (currentPage >= pageSize){
-            return;
+        if(hasNextPage === true){
+            setCurrentPage(currentPage + 1);
         }
-        setCurrentPage(currentPage + 1);
-        axios.get('https://localhost:5001/api/form',{
-            method: 'GET',
-            timeout: 5000,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            params: {
-                pageNumber: currentPage,
-                pageSize: 10
-            }
-        })
-        .then(response => {
-            setForm(response.data.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
     };
 
     const previousPage = () => {
-        if (currentPage <= 1){
-            return;
+        if(hasPreviousPage === true){
+            setCurrentPage(currentPage - 1);
         }
-        setCurrentPage(currentPage - 1);
-
-        axios.get('https://localhost:5001/api/form?pageNumber=',{
-            method: 'GET',
-            timeout: 5000,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            params: {
-                pageNumber: currentPage - 1,
-                pageSize: 10
-            }
-        })
-            .then(response => {
-                setForm(response.data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
     };
 
     const selectPage = (e) => {
+        e.preventDefault();
         setCurrentPage(e.target.value);
-        console.log('Bearer ' + localStorage.getItem('token'));
-
-        axios.get('https://localhost:5001/api/form?pageNumber=',{
-            method: 'GET',
-            timeout: 5000,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            params: {
-                pageNumber: e.target.value,
-                pageSize: 10
-            }
-        })
-            .then(response => {
-                setForm(response.data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
     };
 
     const lastPage = () => {
-        if (currentPage === pageSize){
-            return;
-        }
-        setCurrentPage(pageSize);
-
-        axios.get('https://localhost:5001/api/form',{
-            method: 'GET',
-            timeout: 5000,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            params: {
-                pageNumber: pageSize,
-                pageSize: 10
-            }
-        })
-            .then(response => {
-                setForm(response.data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        setCurrentPage(totalPages);
     };
 
     function ServiceTypeChange(e) {
@@ -197,12 +138,12 @@ function FormOperation(){
 
                         </tbody>
                     </table>
-                    <button onClick={nextPage} name="btnNext">Next Page</button>
-                    <select onChange={selectPage} name="pageSelector">
-                        {[...Array(pageSize)].map((x, i) => (
-                            <option key={i} value={i + 1} name="selectorOption">{i + 1}</option>
-                        ))}
+                    <select onChange={selectPage} id="pageSelector" name="pageSelector">
+                        {[...Array(totalPages)].map((x, i) =>
+                            <option key={i} value={1 + i}>{1 + i}</option>
+                        )}
                     </select>
+                    <button onClick={nextPage} name="btnNext">Next Page</button>
                     <button onClick={previousPage} name="btnPrevious">Previous Page</button>
                     <button onClick={lastPage} name="btnLast">Last Page</button>
                 </Card.Body>
