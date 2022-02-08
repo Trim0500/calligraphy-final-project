@@ -69,9 +69,10 @@ export default class Form extends React.Component {
         const recaptchaValue = {
             token: this.recaptchaRef.current.getValue()
         }
+        console.log(recaptchaValue);
         this.recaptchaRef.current.reset();
 
-        await fetch('http://localhost:4000/', {
+        await fetch('https://calligraphy-recaptcha.vercel.app/api/recaptcha', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -80,6 +81,7 @@ export default class Form extends React.Component {
         })
         .then((res) => res.json())
         .then((data) => {
+            console.log(data.success);
             this.setState({
                 recaptchaStatus: data.success
             })
