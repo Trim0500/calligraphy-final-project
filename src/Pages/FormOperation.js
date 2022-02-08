@@ -21,7 +21,7 @@ function FormOperation(){
         { value: 'engraving', label: 'Engraving' },
     ]
 
-    const [pageSize] = useState(2);
+    const [pageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
@@ -84,11 +84,6 @@ function FormOperation(){
         setCreatedDateFilter(e.target.value);
     }
 
-    useEffect(() => {
-        GetForms();
-
-    }, []);
-
     return (
         <Container>
             <Card>
@@ -98,18 +93,8 @@ function FormOperation(){
                 <Card.Body>
                     <form method="get" className={''}>
                         <div className={'d-inline-flex w-75'}>
-                            <Select options={options} onChange={ServiceTypeChange} defaultValue={'All'} className={'w-25'} placeholder={'Service Type'}/>
-                            <input type="date" name="DateCommissioned" className={'w-25'} value={createdDateFilter} onChange={handleDateFilter}/>
-                        <label htmlFor="header-search">
-                            <span className="visually-hidden">Search Specific Form</span>
-                        </label>
-                        <input
-                            type="text"
-                            id="header-search"
-                            placeholder="Search Specific Form"
-                            name="s"
-                        />
-                        <button type="submit">Search</button>
+                            <Select options={options} onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50'} placeholder={'Service Type'}/>
+                            <input type="date" name="DateCommissioned" className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
                         </div>
                     </form>
                     <table className="table table-striped">
@@ -121,7 +106,7 @@ function FormOperation(){
                         </tr>
                         </thead>
                         <tbody>
-                        {form.map(form => (serviceTypeFilter !== 'All' || createdDateFilter !== '' ? (form.ServiceType === serviceTypeFilter || form.CreatedDate === "2022-01-27T15:54:39.4146222" ?
+                        {form.map(form => (serviceTypeFilter !== 'All' || createdDateFilter !== '' ? (form.ServiceType === serviceTypeFilter ?
                             <tr key={form.FormId}>
                                 <td>{form.ServiceType}</td>
                                 <td>{form.Comments}</td>
