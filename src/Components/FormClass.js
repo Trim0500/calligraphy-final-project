@@ -71,7 +71,16 @@ export default class Form extends React.Component {
         }
         this.recaptchaRef.current.reset();
 
-        await fetch('https://calligraphy-recaptcha.vercel.app/api/recaptcha', {
+        let api = ''
+
+        if(process.env.NODE_ENV === 'development') {
+            api = 'http://localhost:8080/api/recaptcha';
+        }
+        else {
+            api = 'https://calligraphy-recaptcha.vercel.app/api/recaptcha';
+        }
+
+        await fetch(api, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -303,7 +312,7 @@ export default class Form extends React.Component {
                                         <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                         <button type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
                                     </div>
-                                    <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? process.env.REACT_APP_RECAPTCHA_SITE_KEY_LOCAL : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
+                                    <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                 </form>
                             </div>
                         </div>
