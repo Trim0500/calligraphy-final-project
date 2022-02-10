@@ -6,7 +6,7 @@ import live from "../resources/img/live.png"
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
-function IndexContent() {
+function Home() {
     return (
         <div className="container mt-5">
             <div className="row">
@@ -38,4 +38,4 @@ function IndexContent() {
     );
 }
 
-export default IndexContent;
+export default Home;

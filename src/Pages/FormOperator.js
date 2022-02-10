@@ -5,9 +5,9 @@ import {Card} from "react-bootstrap";
 import axios from "axios";
 
 // eslint-disable-next-line
-import Interceptor from "../Components/interceptor";
+import Interceptor from "../Components/Interceptor";
 
-function FormOperation(){
+export  default function FormOperator(){
 
     const [form, setForm] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -105,5 +105,3 @@ function FormOperation(){
         </Container>
     );
 }
-
-export  default FormOperation;

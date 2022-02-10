@@ -5,7 +5,7 @@ import {Card} from "react-bootstrap";
 import axios from "axios";
 
 
-function QuoteAdmin(){
+export  default function Quote(){
 
     const [quote, setQuote] = useState([]);
     const [status, setStatus] = useState(getApprovalStatus(''));
@@ -32,23 +32,6 @@ function QuoteAdmin(){
             .catch(error => {
                 console.log(error);
             });
-
-        // fetch('https://localhost:5001/api/quote/'.concat(id),
-        //     {headers:
-        //             { 'Content-Type' : 'application/json'
-        //             , 'Accept': 'application/json',
-        //                 'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-        //     .then(function(response) {
-        //         console.log(response);
-        //         return response.json();
-        //     })
-        //     .then(function(data) {
-        //         console.log(data);
-        //         setQuote(data);
-        //         componentDidMount(data);
-        //     })
-        //     .catch(error => console.log(error));
-        // console.log(quote);
     };
 
     function getApprovalStatus(nb){
@@ -137,30 +120,6 @@ function QuoteAdmin(){
                     window.location.href = '/admin/dashboard/forms';
                 })
                 .catch(error => console.log(error));
-
-            // fetch('https://localhost:5001/api/quote/'.concat(id),
-            //     {
-            //         method: 'PUT',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'Accept': 'application/json'
-            //         },
-            //         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-            //         body: JSON.stringify(data)
-            //     })
-            //     .then(function (response) {
-            //         console.log(response);
-            //         return response.json();
-            //     })
-            //     .then(function (data) {
-            //         console.log(data);
-            //         alert("Quote updated");
-            //         if(status === 'Approved') {
-            //             alert("A new contract has been made, check your email")
-            //         }
-            //         window.location.href = '/admin/forms';
-            //     })
-            //     .catch(error => console.log(error));
         }
         else {
             alert("Error with quote, please verify inputted content");
@@ -209,5 +168,3 @@ function QuoteAdmin(){
         </Container>
     );
 }
-
-export  default QuoteAdmin;

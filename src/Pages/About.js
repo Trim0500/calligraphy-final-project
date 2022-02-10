@@ -8,7 +8,7 @@ import 'react-tabs/style/react-tabs.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
 
-function About () {
+export default function About () {
 
     const [aboutInfo, setAboutInfo] = useState([]);
     const [name, setName] = useState('');
@@ -54,7 +54,6 @@ function About () {
         setExperience(data.Experience);
         setMission(data.Mission);
         setIsEdit(false);
-
         return data;
     }
 
@@ -220,5 +219,3 @@ function About () {
         </div>
     );
 }
-
-export default About;

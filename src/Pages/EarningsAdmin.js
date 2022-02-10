@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Chart } from 'react-charts'
 import axios from 'axios';
 
-export default function EarningsPage() {
+export default function EarningsAdmin() {
     const history = useHistory();
     const data = history.location.state.data;
     const [ContractList, setContractList] = useState([]);
