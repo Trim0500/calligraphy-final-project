@@ -6,17 +6,28 @@ import axios from "axios";
 
 // eslint-disable-next-line
 import Interceptor from "../Components/interceptor";
+import Select from 'react-select'
 
 function FormOperation(){
 
     const [form, setForm] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize] = useState(2);
+    const [serviceTypeFilter, setServiceTypeFilter] = useState('All');
+    const [createdDateFilter, setCreatedDateFilter] = useState('');
+
+    const options = [
+        { value: 'all', label: 'All' },
+        { value: 'calligraphy', label: 'Calligraphy' },
+        { value: 'engraving', label: 'Engraving' },
+    ]
+
+    const [pageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-    useEffect(() => {
+
+        useEffect(() => {
 
         axios.get(`https://localhost:5001/api/forms?pageNumber=${currentPage}&pageSize=${pageSize}`,{
             method: 'GET',
@@ -66,6 +77,25 @@ function FormOperation(){
         setCurrentPage(totalPages);
     };
 
+    const formInfo = (form) => {
+
+        return(
+        <tr key={form.FormId}>
+            <td>{form.ServiceType}</td>
+            <td>{form.Comments}</td>
+            <td>{form.CreatedDate}</td>
+            <td><button name="btnQuote" className={"btn-primary"}><a href={"/admin/dashboard/quote/" + form.FormId } className={"text-white text-decoration-none form-control-sm"}>See Quote</a> </button></td>
+        </tr>
+        )
+    };
+
+    function ServiceTypeChange(e) {
+        setServiceTypeFilter(e.label);
+    }
+    function handleDateFilter(e) {
+        setCreatedDateFilter(e.target.value);
+    }
+
     return (
         <Container>
             <Card>
@@ -73,6 +103,11 @@ function FormOperation(){
                     <Card.Title>Forms</Card.Title>
                 </Card.Header>
                 <Card.Body>
+                        <div className={'d-inline-flex w-50'}>
+                            <Select options={options} name="ServiceTypeFilter" onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50'} placeholder={'Service Type'}/>
+                            <input type="date" name="CreatedDateFilter" className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
+                        </div>
+
                     <table className="table table-striped">
                         <thead>
                         <tr>
@@ -82,14 +117,12 @@ function FormOperation(){
                         </tr>
                         </thead>
                         <tbody>
-                        {form.map(form => (
-                            <tr key={form.FormId}>
-                                <td>{form.ServiceType}</td>
-                                <td>{form.Comments}</td>
-                                <td>{form.CreatedDate}</td>
-                                <td><button name="btnQuote" className={"btn-primary"}><a href={"/admin/dashboard/quote/" + form.FormId } className={"text-white text-decoration-none form-control-sm"}>See Quote</a> </button></td>
-                            </tr>
-                        ))}
+                        {form.filter(x => createdDateFilter === '' ? x
+                            : parseInt(x.CreatedDate.split("/")[1]) === parseInt(createdDateFilter.split("-")[2])).map(form => (serviceTypeFilter !== 'All'
+                                ? (form.ServiceType === serviceTypeFilter
+                                    ? formInfo(form)
+                                    : null)
+                                : formInfo(form)))}
                         </tbody>
                     </table>
                     <select onChange={selectPage} id="pageSelector" name="pageSelector">
