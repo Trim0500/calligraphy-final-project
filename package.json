@@ -27,6 +27,8 @@
     "react-tabs": "^3.2.3",
     "reactstrap": "^9.0.1",
     "recoil": "^0.5.2",
+    "request": "^2.88.2",
+    "vercel": "^23.1.2",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
   },
