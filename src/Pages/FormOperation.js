@@ -25,6 +25,7 @@ function FormOperation(){
     const [totalPages, setTotalPages] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
+    const presentDate = new Date().toISOString().slice(0,10);
 
 
         useEffect(() => {
@@ -94,6 +95,8 @@ function FormOperation(){
     }
     function handleDateFilter(e) {
         setCreatedDateFilter(e.target.value);
+        console.log(form.map( x => x.CreatedDate.split(",")[0].split("/")[1]));
+        console.log(parseInt(createdDateFilter.split("-")[0]));
     }
 
     return (
@@ -105,7 +108,7 @@ function FormOperation(){
                 <Card.Body>
                         <div className={'d-inline-flex w-50'}>
                             <Select options={options} name="ServiceTypeFilter" onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50'} placeholder={'Service Type'}/>
-                            <input type="date" name="CreatedDateFilter" className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
+                            <input type="date" name="CreatedDateFilter" max={presentDate} className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
                         </div>
 
                     <table className="table table-striped">
@@ -118,11 +121,14 @@ function FormOperation(){
                         </thead>
                         <tbody>
                         {form.filter(x => createdDateFilter === '' ? x
-                            : parseInt(x.CreatedDate.split("/")[1]) === parseInt(createdDateFilter.split("-")[2])).map(form => (serviceTypeFilter !== 'All'
+                            : parseInt(x.CreatedDate.split(",")[0].split("/")[1]) === parseInt(createdDateFilter.split("-")[2])
+                                    && (parseInt(x.CreatedDate.split(",")[0].split("/")[0])) === parseInt(createdDateFilter.split("-")[1])
+                                    && (parseInt(x.CreatedDate.split(",")[0].split("/")[2])) === parseInt(createdDateFilter.split("-")[0]))
+                                    .map(form => (serviceTypeFilter !== 'All')
                                 ? (form.ServiceType === serviceTypeFilter
                                     ? formInfo(form)
                                     : null)
-                                : formInfo(form)))}
+                                : formInfo(form))}
                         </tbody>
                     </table>
                     <select onChange={selectPage} id="pageSelector" name="pageSelector">
