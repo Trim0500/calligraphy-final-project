@@ -5,7 +5,7 @@ import {Card} from "react-bootstrap";
 import axios from "axios";
 
 
-function QuoteAdmin(){
+export  default function Quote(){
 
     const [quote, setQuote] = useState([]);
     const [status, setStatus] = useState(getApprovalStatus(''));
@@ -169,5 +169,3 @@ function QuoteAdmin(){
         </Container>
     );
 }
-
-export  default QuoteAdmin;
