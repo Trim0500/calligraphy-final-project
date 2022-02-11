@@ -6,7 +6,7 @@ import Portfolio from "./Portfolio";
 import ProtectRoute from "../Components/ProtectedRoute";
 import PortfolioAdmin from "./PortfolioAdmin";
 import ImageUpload from "./ImageUpload";
-import FormOperator from "./FormOperator";
+import FormOperation from "./FormOperator";
 import ContractsPage from "./Contracts";
 import ContractDetails from "./ContractDetails";
 import Quote from "./Quote";
@@ -30,7 +30,7 @@ function App(){
                     <Route path="/portfolio" exact component={() => <Portfolio /> } />
                     <ProtectRoute path="/admin/dashboard/portfolio" exact component={() => <PortfolioAdmin /> } />
                     <ProtectRoute path="/admin/dashboard/portfolio/image/:id" exact component={() => <ImageUpload /> } />
-                    <ProtectRoute path="/admin/dashboard/forms" exact component={() => <FormOperator /> } />
+                    <ProtectRoute path="/admin/dashboard/forms" exact component={() => <FormOperation /> } />
                     <ProtectRoute path="/admin/dashboard/contracts" exact component={() => <ContractsPage />} />
                     <ProtectRoute path="/admin/dashboard/contract/details" exact component={() => <ContractDetails /> } />
                     <ProtectRoute path="/admin/dashboard/quote/:id" exact component={() => <Quote /> } />

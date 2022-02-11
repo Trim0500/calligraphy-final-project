@@ -7,7 +7,7 @@ import axios from "axios";
 // eslint-disable-next-line
 import Interceptor from "../Components/Interceptor";
 
-export  default function FormOperator(){
+export  default function FormOperation(){
 
     const [form, setForm] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
