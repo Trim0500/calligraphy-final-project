@@ -6,7 +6,7 @@ import Portfolio from "./Portfolio";
 import ProtectRoute from "../Components/ProtectedRoute";
 import PortfolioAdmin from "./PortfolioAdmin";
 import ImageUpload from "./ImageUpload";
-import FormOperation from "./FormOperator";
+import FormOperation from "./FormOperation";
 import ContractsPage from "./Contracts";
 import ContractDetails from "./ContractDetails";
 import Quote from "./Quote";

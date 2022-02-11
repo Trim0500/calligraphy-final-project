@@ -3,11 +3,8 @@ import {
     Nav,
     NavLink,
     Bars,
-    NavMenu,
-    NavBtn,
-    NavBtnLink
+    NavMenu
 } from './NavbarElements';
-import {Navbar} from "reactstrap";
 
 export default function NavbarCustom() {
     return (

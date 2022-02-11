@@ -5,9 +5,9 @@ import gin from "../resources/img/gin_bottle_engraving.png"
 import live from "../resources/img/live.png"
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css';
+import '../Styling/app.css';
 
-function Home() {
+export default function Home() {
     return (
         <div className="container mt-5">
             <div className="row">
@@ -38,5 +38,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;
