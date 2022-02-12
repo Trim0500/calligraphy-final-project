@@ -8,7 +8,7 @@ import axios from "axios";
 
 // upload image and save it under resources/img on the filepath
 
-function ImageUpload() {
+export default function ImageUpload() {
     const [ImageTitle, setImageTitle] = useState('');
     const [ImageData, setImage] = useState(null);
     const {id} = useParams();
@@ -162,4 +162,3 @@ function ImageUpload() {
         </Container>
     );
 }
-export default ImageUpload;

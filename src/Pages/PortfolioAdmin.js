@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Col, Container, Image, Nav, Row} from 'react-bootstrap';
 import no_image from "../resources/img/no_image.png";
 
-function PortfolioCRUD() {
+export  default function PortfolioAdmin() {
 
     const [image1, setImage1] = useState(no_image);
     const [image2, setImage2] = useState(no_image);
@@ -88,5 +88,3 @@ function PortfolioCRUD() {
         </div>
     );
 }
-
-export default PortfolioCRUD;

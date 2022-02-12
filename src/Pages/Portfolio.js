@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Col, Container, Image, Row} from 'react-bootstrap';
 import no_image from "../resources/img/no_image.png";
 
-function Portfolio() {
+export  default function Portfolio() {
 
     const [image1, setImage1] = React.useState(no_image);
     const [image2, setImage2] = React.useState(no_image);
@@ -89,5 +89,3 @@ function Portfolio() {
         </div>
     );
 }
-
-export default Portfolio;

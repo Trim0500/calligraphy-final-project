@@ -5,10 +5,10 @@ import {Card} from "react-bootstrap";
 import axios from "axios";
 
 // eslint-disable-next-line
-import Interceptor from "../Components/interceptor";
-import Select from 'react-select'
+import Interceptor from "../Components/Interceptor";
+import Select from "react-select/base";
 
-function FormOperation(){
+export  default function FormOperation(){
 
     const [form, setForm] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -144,5 +144,3 @@ function FormOperation(){
         </Container>
     );
 }
-
-export  default FormOperation;
