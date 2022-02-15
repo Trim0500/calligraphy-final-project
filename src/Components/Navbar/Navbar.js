@@ -38,13 +38,13 @@ export default function NavbarCustom() {
                 </NavLink>
                 <Bars />
                 <NavMenu>
-                    <NavLink className="fw-bold" to='/about' activeStyle>
+                    <NavLink className="fw-bold" to='/about'>
                         About
                     </NavLink>
-                    <NavLink className="fw-bold" to='/portfolio' activeStyle>
+                    <NavLink className="fw-bold" to='/portfolio'>
                         Services
                     </NavLink>
-                    <NavLink className="fw-bold" to='/form' activeStyle>
+                    <NavLink className="fw-bold" to='/form'>
                         Request a service
                     </NavLink>
                     {handleClick()}

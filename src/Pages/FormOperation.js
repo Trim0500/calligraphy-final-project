@@ -4,9 +4,7 @@ import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
 import Select from "react-select";
-
-// eslint-disable-next-line
-import Interceptor from "../Components/Interceptor";
+import  "../Components/Interceptor";
 
 export  default function FormOperation(){
 
@@ -21,7 +19,7 @@ export  default function FormOperation(){
         { value: 'engraving', label: 'Engraving' },
     ]
 
-    const [pageSize] = useState(10);
+    const [pageSize] = useState(2);
     const [totalPages, setTotalPages] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
@@ -71,7 +69,7 @@ export  default function FormOperation(){
 
     const selectPage = (e) => {
         e.preventDefault();
-        setCurrentPage(e.target.value);
+        setCurrentPage(Number(e.target.value));
     };
 
     const lastPage = () => {
