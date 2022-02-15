@@ -3,10 +3,33 @@ import {
     Nav,
     NavLink,
     Bars,
-    NavMenu
+    NavMenu,
 } from './NavbarElements';
+import { NavDropdown } from 'react-bootstrap';
 
 export default function NavbarCustom() {
+
+    const handleLogout = () => {
+        localStorage.removeItem('JwtToken');
+        window.location.href = '/admin/login';
+    }
+    const handleClick = () => {
+        if (localStorage.getItem('JwtToken')) {
+            return (
+                <NavDropdown className="font" title="Dashboard">
+                    <NavDropdown.Item href="/admin/dashboard/portfolio">Portfolio</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/forms">Forms</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/contracts">Contracts</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+            )
+        }
+        else {
+            return <div></div>
+        }
+    }
+
     return (
         <>
             <Nav>
@@ -24,7 +47,9 @@ export default function NavbarCustom() {
                     <NavLink className="fw-bold" to='/form' activeStyle>
                         Request a service
                     </NavLink>
+                    {handleClick()}
                 </NavMenu>
+
             </Nav>
         </>
     );

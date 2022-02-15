@@ -42,7 +42,7 @@ export  default function Login() {
                 if (data.JwtToken !== null && data.RefreshToken !== null) {
                     localStorage.setItem('JwtToken', data.JwtToken);
                     localStorage.setItem('RefreshToken', data.RefreshToken);
-                    window.location.href = '/';
+                    window.location.href = '/home';
                 }
                 else {
                     alert('Invalid username or password');
