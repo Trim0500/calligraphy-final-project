@@ -266,8 +266,6 @@ export default class Form extends React.Component {
 
         return (
             <div className="container mt-5">
-                <div className="row">
-                    <div className="col-md-6 mx-auto">
                         <div className="messages">
                             {this.successMessage()}
                             {this.errorMessage()}
@@ -316,15 +314,21 @@ export default class Form extends React.Component {
                                             <input type="file" className="form-control" name="attachments" ref={this.fileRef} onChange={this.onFileChange}/>
                                         </div>
                                         </Col>
-                                        <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
-                                        <button type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
+                                        <Row>
+                                            <Col>
+                                            <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
+                                            </Col>
+                                            <Col>
+                                            <button style={{display: 'block', margin: '1em auto 1em auto'}} type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
+                                            </Col>
+                                            <Col>
+                                            <button style={{display: 'block', margin: '1em auto 1em auto'}} type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
+                                            </Col>
+                                        </Row>
                                     </Row>
-                                    <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                 </form>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
         );
     }
