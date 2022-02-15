@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
+import Select from "react-select";
 
 // eslint-disable-next-line
 import Interceptor from "../Components/Interceptor";
-import Select from "react-select/base";
 
 export  default function FormOperation(){
 
