@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default class Form extends React.Component {
@@ -102,30 +103,6 @@ export default class Form extends React.Component {
                     submit: true
                 })
                 this.handleFormSubmission();
-
-                alert(`Success, service request sent!`)
-
-                alert("Thank you for your request, an email has been sent your way!")
-
-                this.setState({
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    street: '',
-                    city: '',
-                    country: '',
-                    postal: '',
-                    service: '',
-                    startingRate: '',
-                    comments: '',
-                    selectedFile: null,
-                    recaptchaValue: false,
-                    errorNullInputs: false,
-                    submit: false
-                })
-
-                this.fileRef.current.value = '';
-                this.recaptchaRef.current.value = '';
             }
         })
         .catch((err) => console.error(err));
@@ -159,6 +136,30 @@ export default class Form extends React.Component {
                 console.log(data);
             })
             .catch(err => console.log(err));
+
+            alert(`Success, service request sent!`)
+
+            alert("Thank you for your request, an email has been sent your way!")
+
+            this.setState({
+                firstName: '',
+                lastName: '',
+                email: '',
+                street: '',
+                city: '',
+                country: '',
+                postal: '',
+                service: '',
+                startingRate: '',
+                comments: '',
+                selectedFile: null,
+                recaptchaValue: false,
+                errorNullInputs: false,
+                submit: false
+            })
+
+            this.fileRef.current.value = '';
+            this.recaptchaRef.current.value = '';
     }
 
     handleSubmit(event) {
@@ -277,7 +278,8 @@ export default class Form extends React.Component {
                             </div>
                             <div className="card-body">
                                 <form onSubmit={this.handleSubmit}>
-                                    <div>
+                                    <Row>
+                                        <Col>
                                         <div className="form-group">
                                             <label htmlFor="firstName">First Name</label>
                                             <input className="form-control" name="firstName" onChange={this.handleChange} value={this.state.firstName}/>
@@ -290,6 +292,8 @@ export default class Form extends React.Component {
                                             <label htmlFor="email">Email</label>
                                             <input className="form-control" name="email" onChange={this.handleChange} value={this.state.email}/>
                                         </div>
+                                        </Col>
+                                        <Col>
                                         <div className="form-group">
                                             <label htmlFor="Street">Street</label>
                                             <input className="form-control" name="street" onChange={this.handleChange} value={this.state.street} />
@@ -300,6 +304,8 @@ export default class Form extends React.Component {
                                             <label htmlFor="Country">Country</label>
                                             <input className="form-control" name="country" onChange={this.handleChange} value={this.state.country} />
                                         </div>
+                                        </Col>
+                                        <Col>
                                         <RenderSelectTag />
                                         <div className="form-group">
                                             <label htmlFor="comments">Comments</label>
@@ -309,9 +315,10 @@ export default class Form extends React.Component {
                                             <label htmlFor="attachments">Attachments</label>
                                             <input type="file" className="form-control" name="attachments" ref={this.fileRef} onChange={this.onFileChange}/>
                                         </div>
+                                        </Col>
                                         <button type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
                                         <button type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
-                                    </div>
+                                    </Row>
                                     <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                 </form>
                             </div>
