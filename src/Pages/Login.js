@@ -1,4 +1,6 @@
 import React from 'react';
+import {Image} from "react-bootstrap";
+import Logo from '../resources/logo.png';
 
 export  default function Login() {
 
@@ -56,11 +58,13 @@ export  default function Login() {
     }
 
     return(
+        // make the login page much nicer
         <div className="container">
             <div className="row d-flex justify-content-center mt-5">
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div className="card py-3 px-2">
-                        <h1 className="text-center mb-3 mt-2">Login</h1>
+                    <div className="py-3 px-2">
+                        <Image className="offset-3 rounded-circle" src={Logo} width={250}  height={250} />
+                        <h1 className="text-center mb-3 mt-2">Sign in for Admin</h1>
                         <div className="division">
                             <div className="row">
                                 <div className="col-3">
@@ -72,17 +76,18 @@ export  default function Login() {
                             </div>
                         </div>
                         <form className="myform">
-                            <div className="form-group"><input id="username" onChange={handleUserNameChange} type="username" className="form-control"
+                            <div className="form-group m-1"><input id="username" onChange={handleUserNameChange} type="username"
+                                                                   className="form-control w-50 offset-3"
                                                                placeholder="Username"/>
                             </div>
-                            <div className="form-group">
-                                <input onChange={handlePasswordChange} id="password" type="password" className="form-control"
+                            <div className="form-group m-1">
+                                <input onChange={handlePasswordChange} id="password" type="password"
+                                       className="form-control w-50 offset-3"
                                                                placeholder="Password"/>
                             </div>
 
-                            <div className="form-group mt-3">
-                                <button onClick={handleSubmit} type="submit" className="btn btn-block btn-primary btn-lg"><small><i
-                                className="far fa-user pr-2"/>Connect</small></button>
+                            <div className="form-group mt-3 mx-1 text-center">
+                                <button onClick={handleSubmit} type="submit" className="btn btn-primary w-50">Sign in</button>
                             </div>
                         </form>
                     </div>
