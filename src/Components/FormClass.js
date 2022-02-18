@@ -56,7 +56,7 @@ export default class Form extends React.Component {
     }
 
     componentDidMount() {
-        let api = 'https://localhost:5001/api/form/services';
+        let api = 'https://serene-flourish-logic.azurewebsites.net/api/form/services';
 
         fetch(api).then((res) => res.json()).then((json) => {
             this.setState({
