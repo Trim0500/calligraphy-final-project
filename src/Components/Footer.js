@@ -5,7 +5,6 @@ import {Navbar} from "react-bootstrap";
 
 export default function footer () {
 
-    // make navbar have a background color
     const footerStyle = {
         backgroundColor: "rgba(242, 175, 109, 0.9)",
         color: "dark",

@@ -85,7 +85,7 @@ export  default function FormOperation(){
             <td>{form.ServiceType}</td>
             <td>{form.Comments}</td>
             <td>{form.CreatedDate}</td>
-            <td><button name="btnQuote" className={"btn-primary"}><a href={"/admin/dashboard/quote/" + form.FormId } className={"text-white text-decoration-none form-control-sm"}>See Quote</a> </button></td>
+            <td><button name="btnQuote" className={"btn-primary rounded-2"}><a href={"/admin/dashboard/quote/" + form.FormId } className={"text-white text-decoration-none form-control-sm"}>See Quote</a> </button></td>
         </tr>
         )
     };
@@ -99,16 +99,28 @@ export  default function FormOperation(){
         console.log(parseInt(createdDateFilter.split("-")[0]));
     }
 
+    const headerStyle = {
+        backgroundColor: '#f5f5f5',
+        color: '#343a40',
+        fontWeight: 'bold'
+    };
+
+    const bodyStyle = {
+        backgroundColor: '#f5f5f5',
+        color: '#343a40',
+        fontWeight: 'bold'
+    };
+
     return (
-        <Container>
+        <Container className="mt-5">
             <Card>
-                <Card.Header>
-                    <Card.Title>Forms</Card.Title>
+                <Card.Header style={headerStyle} >
+                    <h3>Forms</h3>
                 </Card.Header>
-                <Card.Body>
-                        <div className={'d-inline-flex w-50'}>
-                            <Select options={options} name="ServiceTypeFilter" onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50'} placeholder={'Service Type'}/>
-                            <input type="date" name="CreatedDateFilter" max={presentDate} className={'w-50'} value={createdDateFilter} onChange={handleDateFilter}/>
+                <Card.Body style={bodyStyle}>
+                        <div className={'d-inline-flex w-50 m-1'}>
+                            <Select options={options} name="ServiceTypeFilter" onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50 m-2'} placeholder={'Service Type'}/>
+                            <input type="date" name="CreatedDateFilter" max={presentDate} className={'w-50 m-2'} value={createdDateFilter} onChange={handleDateFilter}/>
                         </div>
 
                     <table className="table table-striped">
@@ -117,6 +129,7 @@ export  default function FormOperation(){
                             <th>Service Type</th>
                             <th>Comments</th>
                             <th>Created Date</th>
+                            <th>Quote</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -131,14 +144,18 @@ export  default function FormOperation(){
                                 : formInfo(form))}
                         </tbody>
                     </table>
-                    <select onChange={selectPage} id="pageSelector" name="pageSelector">
-                        {[...Array(totalPages)].map((x, i) =>
-                            <option key={i} value={1 + i}>{1 + i}</option>
-                        )}
-                    </select>
-                    <button onClick={nextPage} name="btnNext">Next Page</button>
-                    <button onClick={previousPage} name="btnPrevious">Previous Page</button>
-                    <button onClick={lastPage} name="btnLast">Last Page</button>
+                    <div className={'d-flex justify-content-center'}>
+                        <div className={'d-inline-flex'}>
+                            <button className={'btn-primary  m-1 rounded-2'} onClick={previousPage}>Previous</button>
+                            <select id="pageSelector" className={'w-50  m-1 rounded-2'} onChange={selectPage}>
+                                {[...Array(totalPages)].map((x, i) =>
+                                    <option key={i} value={i + 1}>{i + 1}</option>
+                                )}
+                            </select>
+                            <button className={'btn-primary  m-1 rounded-2'} onClick={nextPage}>Next</button>
+                            <button className={'btn-primary  m-1 rounded-2'} onClick={lastPage}>Last</button>
+                        </div>
+                    </div>
                 </Card.Body>
             </Card>
         </Container>
