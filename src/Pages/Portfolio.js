@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import {Col, Container, Image, Row} from 'react-bootstrap';
-import no_image from "../resources/img/no_image.png";
-import {AnimatePresence, motion} from 'framer-motion/dist/framer-motion'
-import {Nav} from "react-bootstrap";
+import {Col, Container, Row} from 'react-bootstrap';
+import {AnimatePresence} from 'framer-motion/dist/framer-motion'
 import ImagePortfolio from "../Components/ImagePortfolio.js";
-import {NavLink} from "reactstrap";
 
 
 export  default function Portfolio() {
