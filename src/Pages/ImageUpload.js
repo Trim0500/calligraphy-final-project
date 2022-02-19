@@ -11,6 +11,7 @@ import axios from "axios";
 export default function ImageUpload() {
     const [ImageTitle, setImageTitle] = useState('');
     const [ImageData, setImage] = useState(null);
+    const [ImageDescription, setImageDescription] = useState('');
     const {id} = useParams();
     const fileInput = useRef(null);
 
@@ -74,8 +75,9 @@ export default function ImageUpload() {
                 // if the image is not in the database, then upload it
                 let formData = {
                     ImageId : id,
-                    ImageTitle : ImageTitle,
-                    ImageData : ImageData
+                    Title : ImageTitle,
+                    ImageData : ImageData,
+                    Description: ImageDescription
                 }
                 
                 axios.post(api, formData, {
@@ -97,11 +99,11 @@ export default function ImageUpload() {
                 });
             }
             else {
-                // if the image is already in the database, then update it
                 let formData = {
                     ImageId : id,
-                    ImageTitle : ImageTitle,
-                    ImageData : ImageData
+                    Title : ImageTitle,
+                    ImageData : ImageData,
+                    Description: ImageDescription
                 }
                 
                 axios.put(api + "/" + id, formData, {
@@ -130,19 +132,28 @@ export default function ImageUpload() {
     const handleImageTitleChange = (e) => {
         setImageTitle(e.target.value);
     }
+
+    const handleImageDescriptionChange = (e) => {
+        setImageDescription(e.target.value);
+    }
+
     return(
-        <Container>
+        <Container className="mt-5">
             <Card>
                 <Card.Body>
-                    <Card.Title>Upload Image</Card.Title>
+                    <Card.Title class="text-center">Upload Image</Card.Title>
                     <Card.Text>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label htmlFor="imageTitle">Image Title</label>
-                                <input type="text" className="form-control" id="imageTitle" value={ImageTitle} onChange={handleImageTitleChange}/>
+                                <label htmlFor="imageTitle">Title</label>
+                                <input type="text" className="form-control" id="imageTitle" aria-describedby="imageTitleHelp" placeholder="Enter image title" value={ImageTitle} onChange={handleImageTitleChange}/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="image">Image</label>
+                                <label htmlFor="image">Description</label>
+                                <textarea className="form-control" id="imageDescription" rows="3" value={ImageDescription} onChange={handleImageDescriptionChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label className="m-3" htmlFor="image">Image</label>
                                 <input type="file" className="form-control-file" id="image" ref={fileInput} onChange={handleImageUpload}/>
                             </div>
                             <button type="submit" className="btn btn-primary">Upload</button>
