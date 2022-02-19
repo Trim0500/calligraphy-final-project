@@ -19,9 +19,9 @@ export  default function Quote(){
 
     const GetQuote = () => {
 
-        let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/quote/' : process.env.REACT_APP_BACKEND_URL + `/api/quote/`;
+        let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/quote/'.concat(id) : process.env.REACT_APP_BACKEND_URL + `/api/quote/`.concat(id);
 
-        axios.get(api.concat(id),{
+        axios.get(api,{
             method: 'GET',
             timeout: 5000,
             headers: {
