@@ -36,7 +36,7 @@ export default function ContractsPage() {
 
     useEffect(() => {
         async function getContracts() {
-            let api = 'https://localhost:5001/api/contract/get'
+            let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/contract/get' : process.env.REACT_APP_BACKEND_URL + "/api/contract/get"
 
             axios.get(api, {
                 method: 'GET',

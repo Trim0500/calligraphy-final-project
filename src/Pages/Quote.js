@@ -19,7 +19,9 @@ export  default function Quote(){
 
     const GetQuote = () => {
 
-        axios.get('https://localhost:5001/api/quote/'.concat(id),{
+        let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/quote/' : process.env.REACT_APP_BACKEND_URL + `/api/quote/`;
+
+        axios.get(api.concat(id),{
             method: 'GET',
             timeout: 5000,
             headers: {
@@ -108,7 +110,8 @@ export  default function Quote(){
                 ApprovalStatus: status
             };
             console.log(data);
-            axios.put('https://localhost:5001/api/quote/'.concat(id), data,
+            let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/quote/' : process.env.REACT_APP_BACKEND_URL + `/api/quote/`;
+            axios.put(api.concat(id), data,
                 {headers:
                         { 'Content-Type' : 'application/json'
                         , 'Accept': 'application/json'}})

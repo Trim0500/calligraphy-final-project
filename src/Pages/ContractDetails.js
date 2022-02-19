@@ -115,7 +115,7 @@ export default function ContractDetails() {
                 IsFinished: IsFinished
             }
 
-            let api = 'https://localhost:5001/api/contract/update'
+            let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/contract/update' : process.env.REACT_APP_BACKEND_URL + "/api/contract/update"
 
             axios.put(api, UpdateContractRequest, {
                 headers: {
@@ -134,7 +134,7 @@ export default function ContractDetails() {
 
     useEffect(() => {
         async function getContract() {
-            let api = 'https://localhost:5001/api/contract/get/' + data.id;
+            let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/contract/update' + data.id : process.env.REACT_APP_BACKEND_URL + "/api/contract/update" + data.id
 
             await axios.get(api, {
                 method: 'GET',

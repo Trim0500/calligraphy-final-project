@@ -24,7 +24,9 @@ export default function About () {
 
 
     const GetAboutInfo = () => {
-        fetch('https://localhost:5001/api/About/',
+        let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/About/" : process.env.REACT_APP_BACKEND_URL + "/api/About/"
+
+        fetch(api,
             {headers: { 'Content-Type' : 'application/json', 'Accept': 'application/json'}})
             .then(function(response) {
                 //console.log(response);
@@ -88,7 +90,9 @@ export default function About () {
             };
             console.log(data);
 
-            axios.put('https://localhost:5001/api/About/', data)
+            let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/About/" : process.env.REACT_APP_BACKEND_URL + "/api/About/"
+
+            axios.put(api, data)
                 .then(function (response) {
                     console.log(response);
                     alert("About Info updated");

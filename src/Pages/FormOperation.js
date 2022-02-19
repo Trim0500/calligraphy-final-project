@@ -28,7 +28,9 @@ export  default function FormOperation(){
 
         useEffect(() => {
 
-        axios.get(`https://localhost:5001/api/forms?pageNumber=${currentPage}&pageSize=${pageSize}`,{
+        let api = process.env.NODE_ENV === 'development' ? `https://localhost:5001/api/forms?pageNumber=${currentPage}&pageSize=${pageSize}` : process.env.REACT_APP_BACKEND_URL + `/api/forms?pageNumber=${currentPage}&pageSize=${pageSize}`
+
+        axios.get(api,{
             method: 'GET',
             timeout: 5000,
             headers: {
