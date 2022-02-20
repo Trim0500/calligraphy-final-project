@@ -15,7 +15,8 @@ export  default function Portfolio() {
     const [imageData6, setImageData6] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:5001/api/image', {
+        let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/image' : process.env.REACT_APP_BACKEND_URL + `/api/image`;
+        fetch(api, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

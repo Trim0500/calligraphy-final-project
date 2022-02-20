@@ -17,7 +17,7 @@ export  default function Login() {
 
     const handleSubmit = (event) => {
 
-        let Url = 'https://localhost:5001/api/admin/login';
+        let Url = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/admin/login' : process.env.REACT_APP_BACKEND_URL + `/api/admin/login`
         event.preventDefault();
 
         let data = {

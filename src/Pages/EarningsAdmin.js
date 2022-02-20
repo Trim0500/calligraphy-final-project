@@ -114,7 +114,7 @@ export default function EarningsAdmin() {
     }
 
     const UpdateContractList = () => {
-        let api = "https://localhost:5001/api/contract/get/" + Month + "/" + Year + "/true";
+        let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/contract/get/" + Month + "/" + Year + "/true" : process.env.REACT_APP_BACKEND_URL + "/api/contract/get" + Month + "/" + Year + "/true"
 
         axios.get(api, {
             method: 'GET',

@@ -56,7 +56,7 @@ export default class Form extends React.Component {
     }
 
     componentDidMount() {
-        let api = 'https://localhost:5001/api/form/services';
+        let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/form/services' : process.env.REACT_APP_BACKEND_URL + '/api/form/services';
 
         fetch(api).then((res) => res.json()).then((json) => {
             this.setState({
@@ -78,7 +78,7 @@ export default class Form extends React.Component {
             api = 'http://localhost:8080/api/recaptcha';
         }
         else {
-            api = 'https://calligraphy-recaptcha.vercel.app/api/recaptcha';
+            api = process.env.REACT_APP_RECAPTCHA_URL + '/api/recaptcha';
         }
 
         await fetch(api, {
@@ -109,7 +109,7 @@ export default class Form extends React.Component {
     }
 
     handleFormSubmission() {
-        let api = 'https://localhost:5001/api/form';
+        let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/form' : process.env.REACT_APP_BACKEND_URL + '/api/form';
         let file = this.state.selectedFile;
 
         const dataPayload = new FormData();
