@@ -101,15 +101,23 @@ export  default function FormOperation(){
 
     const headerStyle = {
         backgroundColor: '#f5f5f5',
-        color: '#343a40',
+        color: '#000',
         fontWeight: 'bold'
     };
 
     const bodyStyle = {
-        backgroundColor: '#f5f5f5',
-        color: '#343a40',
+        backgroundColor: '#ffffff',
+        color: '#000000',
         fontWeight: 'bold'
     };
+
+    const buttonStyle = {
+        backgroundColor: '#ffa86a',
+        borderColor: '#ffa86a',
+        color: '#ffffff',
+        fontWeight: 'bold'
+    };
+
 
     return (
         <Container className="mt-5">
@@ -146,14 +154,14 @@ export  default function FormOperation(){
                     </table>
                     <div className={'d-flex justify-content-center'}>
                         <div className={'d-inline-flex'}>
-                            <button className={'btn-primary  m-1 rounded-2'} onClick={previousPage}>Previous</button>
-                            <select id="pageSelector" className={'w-50  m-1 rounded-2'} onChange={selectPage}>
+                            <button style={buttonStyle} className={'btn-primary  m-1 rounded-2'} onClick={previousPage}>Previous</button>
+                            <select style={buttonStyle} id="pageSelector" className={'w-50  m-1 rounded-2'} onChange={selectPage}>
                                 {[...Array(totalPages)].map((x, i) =>
                                     <option key={i} value={i + 1}>{i + 1}</option>
                                 )}
                             </select>
-                            <button className={'btn-primary  m-1 rounded-2'} onClick={nextPage}>Next</button>
-                            <button className={'btn-primary  m-1 rounded-2'} onClick={lastPage}>Last</button>
+                            <button style={buttonStyle} className={'m-1 rounded-1'} onClick={nextPage}>Next</button>
+                            <button style={buttonStyle} className={'m-1 rounded-2'} onClick={lastPage}>Last</button>
                         </div>
                     </div>
                 </Card.Body>
