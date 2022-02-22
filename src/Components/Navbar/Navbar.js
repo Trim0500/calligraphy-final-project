@@ -6,8 +6,14 @@ import {
     NavMenu,
 } from './NavbarElements';
 import { NavDropdown } from 'react-bootstrap';
+import i18n from "i18next";
 
 export default function NavbarCustom() {
+
+    const handleOnclick=(e)=>{
+        e.preventDefault();
+        i18n.changeLanguage(e.target.value);
+      }
 
     const handleLogout = () => {
         localStorage.removeItem('JwtToken');
@@ -49,7 +55,12 @@ export default function NavbarCustom() {
                     </NavLink>
                     {handleClick()}
                 </NavMenu>
-
+                <button className={'btn-primary  m-1 rounded-2'} value='en' onClick={handleOnclick}>
+                    English
+                </button>
+                <button className={'btn-primary  m-1 rounded-2'} value='fr' onClick={handleOnclick}>
+                    Français
+                </button>
             </Nav>
         </>
     );
