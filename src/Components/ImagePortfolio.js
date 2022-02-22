@@ -24,11 +24,10 @@ import {AnimatePresence, motion} from 'framer-motion/dist/framer-motion'
         description = "No Description";
     }
 
-    console.log(imageData);
-    console.log(title);
-    console.log(description);
+     const textStyle = {
+         color: 'black',
+     };
 
-    // add animation to the image
     const imageVariants = {
         initial: {
             opacity: 0,
@@ -135,6 +134,7 @@ import {AnimatePresence, motion} from 'framer-motion/dist/framer-motion'
                                 exit="exit"
                                 variants={titleVariants}
                                 className="title-portfolio"
+                                style={textStyle}
                             >
                                 {title}
                             </motion.h1>
@@ -148,6 +148,7 @@ import {AnimatePresence, motion} from 'framer-motion/dist/framer-motion'
                                 exit="exit"
                                 variants={descriptionVariants}
                                 className="description-portfolio"
+                                style={textStyle}
                             >
                                 {description}
                             </motion.p>

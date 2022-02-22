@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function ImageUpload() {
     const [ImageTitle, setImageTitle] = useState('');
-    const [ImageData, setImage] = useState(null);
+    const [ImageData, setImage] = useState(no_image);
     const [ImageDescription, setImageDescription] = useState('');
     const {id} = useParams();
     const fileInput = useRef(null);
@@ -137,36 +137,46 @@ export default function ImageUpload() {
         setImageDescription(e.target.value);
     }
 
+    const buttonStyle = {
+        backgroundColor: '#ffa86a',
+        borderColor: '#ffa86a',
+        color: '#ffffff',
+        fontWeight: 'bold'
+    };
+
     return(
         <Container className="mt-5">
             <Card>
+                <Card.Header>
+                    <h3 className="text-center">Upload Portfolio Image</h3>
+                </Card.Header>
                 <Card.Body>
-                    <Card.Title class="text-center">Upload Image</Card.Title>
                     <Card.Text>
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group">
+                            <div className="form-group w-25">
                                 <label htmlFor="imageTitle">Title</label>
                                 <input type="text" className="form-control" id="imageTitle" aria-describedby="imageTitleHelp" placeholder="Enter image title" value={ImageTitle} onChange={handleImageTitleChange}/>
                             </div>
-                            <div className="form-group">
+                            <div className="form-group w-50">
                                 <label htmlFor="image">Description</label>
                                 <textarea className="form-control" id="imageDescription" rows="3" value={ImageDescription} onChange={handleImageDescriptionChange}/>
                             </div>
-                            <div className="form-group">
-                                <label className="m-3" htmlFor="image">Image</label>
+                            <div className="form-group my-2">
                                 <input type="file" className="form-control-file" id="image" ref={fileInput} onChange={handleImageUpload}/>
                             </div>
-                            <button type="submit" className="btn btn-primary">Upload</button>
+                            <button style={buttonStyle} type="submit" className="btn btn-primary">Upload</button>
                         </form>
                     </Card.Text>
                 </Card.Body>
             </Card>
             <br/>
-            <Card>
+            <Card className="w-50 offset-3">
+                <Card.Header>
+                    <h3 className="text-center">Preview</h3>
+                </Card.Header>
                 <Card.Body>
-                    <Card.Title>Image Preview</Card.Title>
                     <Card.Text>
-                        {ImageData ? <img src={ImageData} alt="preview" width="50%" height="50%" className="img-fluid"/> : <img src={no_image} alt="preview" width="50%" height="50%" className="img-fluid"/>}
+                        <img src={ImageData} alt="preview" width="50%" height="50%" className="img-fluid offset-3"/>
                     </Card.Text>
                 </Card.Body>
             </Card>
