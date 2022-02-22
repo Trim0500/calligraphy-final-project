@@ -4,7 +4,7 @@ export const TRANSLATIONS_FR = {
     calligraphyText: "Du crayon au marqueur au lavis",
     engraving: "Gravure",
     engravingText: "La gravure sur les bouteilles et les laptops",
-    events: "Évennements",
+    events: "Évenements",
     eventsText: "Venez nous rejoindre!",
     title: "Serene Flourish",
     about: "Apropos",
