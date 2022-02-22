@@ -22,18 +22,18 @@ export default function Home() {
                             <Row>
                                 <Col>
                                     <Nav.Link href="/form" name="calligraphy-img"><img  alt="preview" className="mx-auto d-block"  src={ card } width="200" height="200" /></Nav.Link>
-                                    <h6 style={{textAlign: "center"}}>Calligraphy</h6>
-                                    <p style={{textAlign: "center"}}>From pencil to marker to paint</p>
+                                    <h6 style={{textAlign: "center"}}>{t('calligraphy')}</h6>
+                                    <p style={{textAlign: "center"}}>{t("calligraphyText")}</p>
                                 </Col>
                                 <Col>
                                     <Nav.Link href="/form" name="engraving-img"><img alt="preview" className="mx-auto d-block" src={ gin } width="200" height="200" /></Nav.Link>
-                                    <h6 style={{textAlign: "center"}}>Engraving</h6>
-                                    <p style={{textAlign: "center"}}>From bottles to laptops</p>
+                                    <h6 style={{textAlign: "center"}}>{t("engraving")}</h6>
+                                    <p style={{textAlign: "center"}}>{t("engravingText")}</p>
                                 </Col>
                                 <Col>
                                     <Nav.Link href="/form" name="event-img"><img alt="preview" className="mx-auto d-block" src={ live }  width="200" height="200" /></Nav.Link>
-                                    <h6 style={{textAlign: "center"}}>Events</h6>
-                                    <p style={{textAlign: "center"}}>Find out where we'll be next!</p>
+                                    <h6 style={{textAlign: "center"}}>{t("events")}</h6>
+                                    <p style={{textAlign: "center"}}>{t("eventsText")}</p>
                                 </Col>
                             </Row>
                     </Container>
