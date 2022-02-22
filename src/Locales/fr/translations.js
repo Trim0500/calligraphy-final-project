@@ -79,5 +79,8 @@ export const TRANSLATIONS_FR = {
     previousBtn: "Pécédent",
     nextBtn: "Prochain",
     lastBtn: "Neuf",
-    allOption: "Tout"
+    allOption: "Tout",
+    signIn: "Se Connecter",
+    userPlaceholder: "Identifiant",
+    passPlaceholder: "Mot de Passe",
    };
