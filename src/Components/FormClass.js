@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import ReCAPTCHA from "react-google-recaptcha";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default class Form extends React.Component {
     constructor(props) {
@@ -95,7 +97,7 @@ export default class Form extends React.Component {
             })
             
             if(this.state.recaptchaStatus === false) {
-                alert('Failed, reCAPTCHA detected a bot');
+                alert(Translate("formRecaptchaError"));
                 return;
             }
             else {
@@ -137,9 +139,9 @@ export default class Form extends React.Component {
             })
             .catch(err => console.log(err));
 
-            alert(`Success, service request sent!`)
+            alert(Translate("formSucessAlert"))
 
-            alert("Thank you for your request, an email has been sent your way!")
+            alert(Translate("formEmailAlert"))
 
             this.setState({
                 firstName: '',
@@ -181,12 +183,12 @@ export default class Form extends React.Component {
             this.setState({
                 errorNullInputs: true
             })
-            alert(`Failed, All Info is required`);
+            Alert();
             event.preventDefault();
             return;
         }
         else if(this.recaptchaRef.current.getValue() === '') {
-            alert('Failed, you need to validate reCAPTCHA first');
+            alert(Translate("formFailRecaptcha"));
             event.preventDefault();
             return;
         }
@@ -200,8 +202,8 @@ export default class Form extends React.Component {
                 display: this.state.submit ? 'block' : 'none',
                 backgroundColor: '#FCC981',
             }}>
-                <h1>Success!</h1>
-                <p>You have successfully submitted your service request!</p>
+                <h1>{Translate("formSucessHeader")}</h1>
+                <p>{Translate("formSucessText")}</p>
             </div>
         )
     }
@@ -212,8 +214,8 @@ export default class Form extends React.Component {
                 display: this.state.errorNullInputs ? 'block' : 'none',
                 backgroundColor: '#FCC981',
             }}>
-                <h1>Error!</h1>
-                <p>Please enter all fields</p>
+                <h1>{Translate("formErrorHeader")}</h1>
+                <p>{Translate("formErrorText")}</p>
             </div>
         )
     }
@@ -246,71 +248,72 @@ export default class Form extends React.Component {
 
         const RenderSelectTag = () => {
             if(!loadedData) {
-                return(<div>Services data is not loaded yet...</div>)
+                return(<div>{Translate("formServicesNotLoaded")}</div>)
             }
             else {
                 return(
                     <div className="form-group">
-                        <label htmlFor="service">Service Type</label>
+                        <label htmlFor="service">{Translate("formServiceLabel")}</label>
                         <select className="form-control" name="service" value={this.state.service || ''} onChange={handleService}>
-                            <option value=''>Select an option...</option>
+                            <option value=''>{Translate("formServicePrompt")}</option>
                             {foundServices.map((item) =>
                                 (<option value={item.TypeName} name={item.TypeName + "-select"} key={item.ServiceId}>{item.TypeName}</option>)
                             )}
                         </select>
-                        <div name='startingRate'>Starting Rate: ${this.state.startingRate}/hr</div>
+                        <div name='startingRate'>{Translate("formStartingRateLabel") + this.state.startingRate}/hr</div>
                     </div>
                 )
             }
         }
 
-        return (
-            <div className="container mt-5">
+        const RenderForm = () => {
+            return(
+                <div className="container mt-5">
                         <div className="messages">
                             {this.successMessage()}
                             {this.errorMessage()}
                         </div>
                         <div className="card">
                             <div className="card-header">
-                                <h4>Choose a Service!</h4>
+                                <h4>{Translate("formHeader")}</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={this.handleSubmit}>
                                     <Row>
                                         <Col>
                                         <div className="form-group">
-                                            <label htmlFor="firstName">First Name</label>
+                                            <label htmlFor="firstName">{Translate("formFirstNameLabel")}</label>
                                             <input className="form-control" name="firstName" onChange={this.handleChange} value={this.state.firstName}/>
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="lastName">Last Name</label>
+                                            <label htmlFor="lastName">{Translate("formLastNameLabel")}</label>
                                             <input className="form-control" name="lastName" onChange={this.handleChange} value={this.state.lastName}/>
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="email">Email</label>
+                                            <label htmlFor="email">{Translate("formEmailLabel")}</label>
                                             <input className="form-control" name="email" onChange={this.handleChange} value={this.state.email}/>
                                         </div>
                                         </Col>
                                         <Col>
                                         <div className="form-group">
-                                            <label htmlFor="Street">Street</label>
+                                            <label htmlFor="Street">{Translate("formStreetLabel")}</label>
                                             <input className="form-control" name="street" onChange={this.handleChange} value={this.state.street} />
-                                            <label htmlFor="Postal">Postal Code</label>
+                                            <label htmlFor="Postal">{Translate("formCodeLabel")}</label>
                                             <input className="form-control" name="postal" onChange={this.handleChange} value={this.state.postal} />
-                                            <label htmlFor="City">City</label>
+                                            <label htmlFor="City">{Translate("formCityLabel")}</label>
                                             <input className="form-control" name="city" onChange={this.handleChange} value={this.state.city} />
-                                            <label htmlFor="Country">Country</label>
+                                            <label htmlFor="Country">{Translate("formCountryLabel")}</label>
                                             <input className="form-control" name="country" onChange={this.handleChange} value={this.state.country} />
                                         </div>
                                         </Col>
                                         <Col>
                                         <RenderSelectTag />
                                         <div className="form-group">
-                                            <label htmlFor="comments">Comments</label>
+                                            <label htmlFor="comments">{Translate("formCommentsLabel")}</label>
                                             <textarea className="form-control" name="comments" value={this.state.comments} onChange={this.handleChange}/>
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="attachments">Attachments</label>
+                                            <label htmlFor="attachments">{Translate("formFileLabel")}</label>
                                             <input type="file" className="form-control" name="attachments" ref={this.fileRef} onChange={this.onFileChange}/>
                                         </div>
                                         </Col>
@@ -319,10 +322,10 @@ export default class Form extends React.Component {
                                             <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                             </Col>
                                             <Col>
-                                            <button style={{display: 'block', margin: '1em auto 1em auto'}} type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
+                                            <button style={{display: 'block', margin: '1em auto 1em auto'}} type="submit" className="btn btn-primary" name="submit-btn">{Translate("submitText")}</button>
                                             </Col>
                                             <Col>
-                                            <button style={{display: 'block', margin: '1em auto 1em auto'}} type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
+                                            <button style={{display: 'block', margin: '1em auto 1em auto'}} type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>{Translate("formAttachmentsBtnText")}</button>
                                             </Col>
                                         </Row>
                                     </Row>
@@ -330,6 +333,23 @@ export default class Form extends React.Component {
                             </div>
                         </div>
             </div>
+            )
+        }
+
+        return (
+            <RenderForm />
         );
     }
+}
+
+export function Translate(key) {
+    const { t } = useTranslation();
+
+    return t(key)
+}
+
+export function Alert() {
+    var alertText = Translate("formFailEmpty");
+
+    alert(alertText);
 }
