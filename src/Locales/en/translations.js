@@ -9,5 +9,6 @@ export const TRANSLATIONS_EN = {
     title: "Serene Flourish",
     about: "About",
     services: "Services",
-    forms: "Request a Service"
+    forms: "Request a Service",
+    copyright: "Copyright"
    };
