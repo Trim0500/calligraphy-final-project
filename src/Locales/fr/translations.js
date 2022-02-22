@@ -54,5 +54,22 @@ export const TRANSLATIONS_FR = {
     update: "Mis à Jour",
     contracts: "Liste des Contrats",
     monthlyEarningsBtn: "Visioner Revenue Mensuel",
-    details: "Visioner Contrat"
+    details: "Visioner Contrat",
+    totalCharged: "Revenue Mensuel Totale",
+    monthlyCharged: "Revenue totale pour ce mois: $",
+    monthlyContracts: "Nombre de contrats",
+    noMonthly: "Impossible de récupérer les informations détailés! Choisissez encore!",
+    monthlyEarningsHeader: "Page Revenue Mensuel",
+    jan: "janvier",
+    feb: "février",
+    mar: "mars",
+    apr: "avril",
+    may: "mai",
+    jun: "juin",
+    jul: "juillet",
+    aug: "aôut",
+    sep: "séptembre",
+    oct: "octobre",
+    nov: "novembre",
+    dec: "décembre"
    };

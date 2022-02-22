@@ -54,5 +54,22 @@ export const TRANSLATIONS_EN = {
     update: "Update",
     contracts: "Contracts Information Page",
     monthlyEarningsBtn: "View This Month's Earnings",
-    details: "View Details"
+    details: "View Details",
+    totalCharged: "Total Charged Sales",
+    monthlyCharged: "Total charged this month: $",
+    monthlyContracts: "Total contracts",
+    noMonthly: "No contracts were completed this month, search again!",
+    monthlyEarningsHeader: "Monthly Earnings Page",
+    jan: "Janurary",
+    feb: "February",
+    mar: "March",
+    apr: "April",
+    may: "May",
+    jun: "June",
+    jul: "July",
+    aug: "August",
+    sep: "September",
+    oct: "October",
+    nov: "November",
+    dec: "December"
    };
