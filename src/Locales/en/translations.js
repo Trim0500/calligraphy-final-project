@@ -36,6 +36,8 @@ export const TRANSLATIONS_EN = {
     formFileLabel: "Attachments",
     submitText: "Submit",
     formAttachmentsBtnText: "Reset Attachments",
+    noTitle: "No Title",
+    noDesc: "No Description",
     professiontitle: "Calligrapher & Engraver",
     experience: "Experience",
     goal: "Goal",
