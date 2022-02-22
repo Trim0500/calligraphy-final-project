@@ -85,4 +85,11 @@ export const TRANSLATIONS_EN = {
     signIn: "Sign In",
     userPlaceholder: "Username",
     passPlaceholder: "Password",
+    pendingOption: "Pending",
+    approvedOption: "Approved",
+    deniedOption: "Denied",
+    estPrice: "Estimated Price",
+    estDur: "Estimated Duration",
+    materials: "Materials",
+    appStatus: "Approval Status"
    };

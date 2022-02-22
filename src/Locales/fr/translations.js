@@ -85,4 +85,11 @@ export const TRANSLATIONS_FR = {
     signIn: "Se Connecter",
     userPlaceholder: "Identifiant",
     passPlaceholder: "Mot de Passe",
+    pendingOption: "En Attente",
+    approvedOption: "Apprové",
+    deniedOption: "Décliné",
+    estPrice: "Prix Éstimé",
+    estDur: "Durée Éstimé",
+    materials: "Materiaux",
+    appStatus: "Statut"
    };

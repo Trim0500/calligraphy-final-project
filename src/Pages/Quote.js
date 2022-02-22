@@ -3,9 +3,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 
 export  default function Quote(){
+    const { t } = useTranslation();
 
     const [quote, setQuote] = useState([]);
     const [status, setStatus] = useState(getApprovalStatus(''));
@@ -39,15 +42,15 @@ export  default function Quote(){
 
     function getApprovalStatus(nb){
         if(nb === 0){
-            return "Pending";
+            return t("pendingOption");
 
         }
         else if (nb === 1){
-            return "Approved";
+            return t("approvedOption");
 
         }
         else if (nb === 2){
-            return "Denied";
+            return t("deniedOption");
         }
     }
     function componentDidMount(data) {
@@ -135,17 +138,17 @@ export  default function Quote(){
         <Container>
             <Card>
                 <Card.Header>
-                    <Card.Title>Quote</Card.Title>
+                    <Card.Title>{t("quoteText")}</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <form onSubmit={handleSubmit} className={""} name={"statusForm"} >
                     <table className="table table-striped table-hover table-responsive">
                         <thead>
                         <tr>
-                            <th>Estimated Price</th>
-                            <th>Estimated Duration</th>
-                            <th>Materials</th>
-                            <th>Approval Status</th>
+                            <th>{t("estPrice")}</th>
+                            <th>{t("estDur")}</th>
+                            <th>{t("materials")}</th>
+                            <th>{t("appStatus")}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -156,17 +159,17 @@ export  default function Quote(){
                                 <td>
 
                                         <select name="status" value={status} disabled={quoteApproval === 1 || quoteApproval === 2} className={'form-control'} onChange={handleApprovalStatus}>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Approved" >Approved</option>
-                                        <option value="Denied">Denied</option>
+                                        <option value="Pending">{t("pendingOption")}</option>
+                                        <option value="Approved" >{t("approvedOption")}</option>
+                                        <option value="Denied">{t("deniedOption")}</option>
                                         </select>
                                 </td>
-                                <td><button className={" fs-5 btn-primary"} hidden={quoteApproval === 1 || quoteApproval === 2} type="submit" name="btnSubmit" >Submit</button></td>
+                                <td><button className={" fs-5 btn-primary"} hidden={quoteApproval === 1 || quoteApproval === 2} type="submit" name="btnSubmit" >{t("submitText")}</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </form>
-                    <button name="btnGoForms" className={"small btn-primary"}><a href={"/admin/dashboard/forms"} className={"text-white text-decoration-none form-control-sm"}>Back</a> </button>
+                    <button name="btnGoForms" className={"small btn-primary"}><a href={"/admin/dashboard/forms"} className={"text-white text-decoration-none form-control-sm"}>{t("previousBtn")}</a> </button>
                 </Card.Body>
             </Card>
         </Container>
