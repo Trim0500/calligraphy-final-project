@@ -35,5 +35,14 @@ export const TRANSLATIONS_FR = {
     formCommentsLabel: "Commentaires Supplementaires",
     formFileLabel: "Attachments",
     submitText: "Soumettre",
-    formAttachmentsBtnText: "Initialiser les Attachments"
+    formAttachmentsBtnText: "Initialiser les Attachments",
+    professiontitle: "Calligraphe et Graveuse",
+    experience: "Éxperiences",
+    goal: "Plan Longue Terme",
+    edit: "Modifier",
+    phone: "Téléphone",
+    profession: "Proffesion",
+    aboutMe: "De Moi",
+    languages: "Langues",
+    country: "Payes"
    };

@@ -35,5 +35,14 @@ export const TRANSLATIONS_EN = {
     formCommentsLabel: "Comments",
     formFileLabel: "Attachments",
     submitText: "Submit",
-    formAttachmentsBtnText: "Reset Attachments"
+    formAttachmentsBtnText: "Reset Attachments",
+    professiontitle: "Calligrapher & Engraver",
+    experience: "Experience",
+    goal: "Goal",
+    edit: "Edit",
+    phone: "Phone",
+    profession: "Profession",
+    aboutMe: "About Me",
+    languages: "Languages",
+    country: "Country"
    };
