@@ -4,8 +4,11 @@ import { Card, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React from 'react';
 import axios from 'axios'
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default function ContractsPage() {
+    const { t } = useTranslation();
     const [contracts, setContracts] = useState([])
     const history = useHistory();
 
@@ -57,18 +60,15 @@ export default function ContractsPage() {
     return (
         <Container>
             <Card>
-                <Card.Header>
-                    <Card.Title>Contract</Card.Title>
-                </Card.Header>
                 <Card.Body>
-                    <h1>Contracts Information Page</h1>
-                    <button type='button' name='EarningsBtn' className='btn btn-primary' onClick={RenderEarningsPage}>View This Month's Earnings</button>
+                    <h1>{t("contracts")}</h1>
+                    <button type='button' name='EarningsBtn' className='btn btn-primary' onClick={RenderEarningsPage}>{t("monthlyEarningsBtn")}</button>
                     <table className='table table-striped'>
                         <thead>
                             <tr>
-                                <th>Final Price</th>
-                                <th>Date Commissioned</th>
-                                <th>Is Finished?</th>
+                                <th>{t("finalCost")}</th>
+                                <th>{t("dateCommissioned")}</th>
+                                <th>{t("isFinished")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,7 +82,7 @@ export default function ContractsPage() {
                                             name={item.ContractId + "DetailsBtn"}
                                             className='btn btn-primary'
                                             onClick={() => redirect({id: item.ContractId})}>
-                                                {item.IsFinished ? "View Details" : "Update Contract"}
+                                                {item.IsFinished ? t("details") : t("update")}
                                         </button>
                                     </td>
                                 </tr>

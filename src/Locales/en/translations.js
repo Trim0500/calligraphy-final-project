@@ -51,5 +51,8 @@ export const TRANSLATIONS_EN = {
     endDate: "End Date",
     hasSignature: "Has Signature?",
     isFinished: "Is Finished?",
-    update: "Update"
+    update: "Update",
+    contracts: "Contracts Information Page",
+    monthlyEarningsBtn: "View This Month's Earnings",
+    details: "View Details"
    };

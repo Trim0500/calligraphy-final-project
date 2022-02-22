@@ -51,5 +51,8 @@ export const TRANSLATIONS_FR = {
     endDate: "Fermeture de Production",
     hasSignature: "Signature Reçu?",
     isFinished: "Finis?",
-    update: "Mis à Jour"
+    update: "Mis à Jour",
+    contracts: "Liste des Contrats",
+    monthlyEarningsBtn: "Visioner Revenue Mensuel",
+    details: "Visioner Contrat"
    };
