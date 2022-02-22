@@ -1,8 +1,11 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default function ContractDetails() {
+    const { t } = useTranslation();
     const history = useHistory();
     const data = history.location.state.data;
 
@@ -161,25 +164,25 @@ export default function ContractDetails() {
                         <div className="card-body">
                             <form onSubmit={HandleSubmit}>
                                 <div className="form-group">
-                                    <label htmlFor="FinalCost">Final Cost</label>
+                                    <label htmlFor="FinalCost">{t("finalCost")}</label>
                                     <input type="number" className="form-control" name="FinalCost" value={FinalCost} onChange={HandleChange}/>
 
-                                    <label htmlFor="DownPayment">Down Payment</label>
+                                    <label htmlFor="DownPayment">{t("downPayment")}</label>
                                     <input type="number" className="form-control" name="DownPayment" value={DownPayment} onChange={HandleChange}/>
 
-                                    <label htmlFor="DateCommissioned">Date Commissioned</label>
+                                    <label htmlFor="DateCommissioned">{t("dateCommissioned")}</label>
                                     <input type="date" className="form-control" name="DateCommissioned" value={StartDate} onChange={HandleChange}/>
 
-                                    <label htmlFor="EndDate">End Date</label>
+                                    <label htmlFor="EndDate">{t("endDate")}</label>
                                     <input type="date" className="form-control" name="EndDate" value={DueDate} onChange={HandleChange}/>
 
-                                    <label htmlFor="HasSignature">Has Signature?</label><br/>
+                                    <label htmlFor="HasSignature">{t("hasSignature")}</label><br/>
                                     <input type="checkbox" disabled={HasSignature} name="HasSignature" checked={HasSignature} onChange={HandleChecked}/><br/>
 
-                                    <label htmlFor="IsFinished">Is Finished?</label><br/>
+                                    <label htmlFor="IsFinished">{t("isFinished")}</label><br/>
                                     <input type="checkbox" disabled={IsFinished} name="IsFinished" checked={IsFinished} onChange={HandleChecked}/><br/>
 
-                                    <button type="submit" disabled={OriginalFinished} className="btn btn-primary" name="SubmitBtn">Update Contract</button>
+                                    <button type="submit" disabled={OriginalFinished} className="btn btn-primary" name="SubmitBtn">{t("update")}</button>
                                 </div>
                             </form>
                         </div>

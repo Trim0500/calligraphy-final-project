@@ -44,5 +44,12 @@ export const TRANSLATIONS_FR = {
     profession: "Proffesion",
     aboutMe: "De Moi",
     languages: "Langues",
-    country: "Payes"
+    country: "Payes",
+    finalCost: "Prix Finale",
+    downPayment: "Acompte",
+    dateCommissioned: "Début de Production",
+    endDate: "Fermeture de Production",
+    hasSignature: "Signature Reçu?",
+    isFinished: "Finis?",
+    update: "Mis à Jour"
    };

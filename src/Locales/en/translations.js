@@ -44,5 +44,12 @@ export const TRANSLATIONS_EN = {
     profession: "Profession",
     aboutMe: "About Me",
     languages: "Languages",
-    country: "Country"
+    country: "Country",
+    finalCost: "Final Cost",
+    downPayment: "Down Payment",
+    dateCommissioned: "Date Commissioned",
+    endDate: "End Date",
+    hasSignature: "Has Signature?",
+    isFinished: "Is Finished?",
+    update: "Update"
    };
