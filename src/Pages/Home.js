@@ -6,14 +6,18 @@ import live from "../resources/img/live.png"
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Styling/app.css';
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default function Home() {
+    const { t } = useTranslation();
+
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="mx-auto col-md-10">
                     <Container>
-                        <h1 id="welcome-header" style={{textAlign: 'center'}}>Welcome to Serene Flourish Calligraphy!</h1>
+                        <h1 id="welcome-header" style={{textAlign: 'center'}}>{t("welcome")}</h1>
                         <img className="mx-auto d-block" src={ logo } alt="Serene Flourish Logo" width="926" height="400" />
                             <Row>
                                 <Col>
