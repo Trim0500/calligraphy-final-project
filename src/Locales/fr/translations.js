@@ -71,5 +71,13 @@ export const TRANSLATIONS_FR = {
     sep: "séptembre",
     oct: "octobre",
     nov: "novembre",
-    dec: "décembre"
+    dec: "décembre",
+    seeQuote: "Visioner Facture",
+    formsHeader: "Formulaires",
+    createdDate: "Date de Création",
+    quoteText: "Facture",
+    previousBtn: "Pécédent",
+    nextBtn: "Prochain",
+    lastBtn: "Neuf",
+    allOption: "Tout"
    };

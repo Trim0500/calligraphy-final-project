@@ -71,5 +71,13 @@ export const TRANSLATIONS_EN = {
     sep: "September",
     oct: "October",
     nov: "November",
-    dec: "December"
+    dec: "December",
+    seeQuote: "See Quote",
+    formsHeader: "Forms",
+    createdDate: "Created Date",
+    quoteText: "Quote",
+    previousBtn: "Previous",
+    nextBtn: "Next",
+    lastBtn: "Last",
+    allOption: "All"
    };
