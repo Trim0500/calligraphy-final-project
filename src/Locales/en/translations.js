@@ -5,5 +5,9 @@ export const TRANSLATIONS_EN = {
     engraving: "Engraving",
     engravingText: "From bottles to laptops",
     events: "Events",
-    eventsText: "Find out where we'll be next!"
+    eventsText: "Find out where we'll be next!",
+    title: "Serene Flourish",
+    about: "About",
+    services: "Services",
+    forms: "Request a Service"
    };

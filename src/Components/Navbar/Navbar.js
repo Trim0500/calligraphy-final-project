@@ -7,8 +7,11 @@ import {
 } from './NavbarElements';
 import { NavDropdown } from 'react-bootstrap';
 import i18n from "i18next";
+import { useTranslation } from "react-i18next";
+import "./../../Locales/i18n";
 
 export default function NavbarCustom() {
+    const { t } = useTranslation();
 
     const handleOnclick=(e)=>{
         e.preventDefault();
@@ -40,18 +43,18 @@ export default function NavbarCustom() {
         <>
             <Nav>
                 <NavLink to='/home'>
-                    <span className="fw-bold pt-1 h5 text-center align-content-center">Serena's Flourish </span>
+                    <span className="fw-bold pt-1 h5 text-center align-content-center">{t("title")} </span>
                 </NavLink>
                 <Bars />
                 <NavMenu>
                     <NavLink className="fw-bold" to='/about'>
-                        About
+                        {t("about")}
                     </NavLink>
                     <NavLink className="fw-bold" to='/portfolio'>
-                        Services
+                        {t("services")}
                     </NavLink>
                     <NavLink className="fw-bold" to='/form'>
-                        Request a service
+                        {t("forms")}
                     </NavLink>
                     {handleClick()}
                 </NavMenu>

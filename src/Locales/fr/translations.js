@@ -5,5 +5,9 @@ export const TRANSLATIONS_FR = {
     engraving: "Gravure",
     engravingText: "La gravure sur les bouteilles et les laptops",
     events: "Évennements",
-    eventsText: "Venez nous rejoindre!"
+    eventsText: "Venez nous rejoindre!",
+    title: "Serene Flourish",
+    about: "Apropos",
+    services: "Services",
+    forms: "Soumettre une Demande"
    };
