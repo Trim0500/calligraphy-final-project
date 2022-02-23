@@ -157,7 +157,7 @@ export default function ContractDetails() {
 
     return(
         <div className="container mt-5">
-            <h1>Contract Details for Contract {data.id}</h1>
+            <h1>{t("contractDetailsHeader") + data.id}</h1>
             <div className="row">
                 <div className="col-md-6 mx-auto">
                     <div className="card">

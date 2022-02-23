@@ -57,6 +57,7 @@ export const TRANSLATIONS_FR = {
     contracts: "Liste des Contrats",
     monthlyEarningsBtn: "Visioner Revenue Mensuel",
     details: "Visioner Contrat",
+    contractDetailsHeader: "Informations Détailés pour Contrat ",
     totalCharged: "Revenue Mensuel Totale",
     monthlyCharged: "Revenue totale pour ce mois: $",
     monthlyContracts: "Nombre de contrats",
@@ -110,5 +111,10 @@ export const TRANSLATIONS_FR = {
     portfolioText: "Portefuille",
     contractText: "Contrats",
     logoutText: "Quitter",
-    dashboardTitle: "Paneau Administrateur"
+    dashboardTitle: "Paneau Administrateur",
+    imageUploadText: "Enregistrer une Image",
+    imageTitleText: "Titre",
+    imageDescText: "Description",
+    uploadText: "Enregistrer",
+    imagePreviewText: "Image"
    };

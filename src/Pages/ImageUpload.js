@@ -149,23 +149,23 @@ export default function ImageUpload() {
         <Container className="mt-5">
             <Card>
                 <Card.Header>
-                    <h3 className="text-center">Upload Portfolio Image</h3>
+                    <h3 className="text-center">{t("imageUploadText")}</h3>
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group w-25">
-                                <label htmlFor="imageTitle">Title</label>
+                                <label htmlFor="imageTitle">{t("imageTitleText")}</label>
                                 <input type="text" className="form-control" id="imageTitle" aria-describedby="imageTitleHelp" placeholder="Enter image title" value={ImageTitle} onChange={handleImageTitleChange}/>
                             </div>
                             <div className="form-group w-50">
-                                <label htmlFor="image">Description</label>
+                                <label htmlFor="image">{t("imageDescText")}</label>
                                 <textarea className="form-control" id="imageDescription" rows="3" value={ImageDescription} onChange={handleImageDescriptionChange}/>
                             </div>
                             <div className="form-group my-2">
                                 <input type="file" className="form-control-file" id="image" ref={fileInput} onChange={handleImageUpload}/>
                             </div>
-                            <button style={buttonStyle} type="submit" className="btn btn-primary">Upload</button>
+                            <button style={buttonStyle} type="submit" className="btn btn-primary">{t("uploadText")}</button>
                         </form>
                     </Card.Text>
                 </Card.Body>
@@ -173,7 +173,7 @@ export default function ImageUpload() {
             <br/>
             <Card className="w-50 offset-3">
                 <Card.Header>
-                    <h3 className="text-center">Preview</h3>
+                    <h3 className="text-center">{t("imagePreviewText")}</h3>
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>

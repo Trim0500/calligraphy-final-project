@@ -57,6 +57,7 @@ export const TRANSLATIONS_EN = {
     contracts: "Contracts Information Page",
     monthlyEarningsBtn: "View This Month's Earnings",
     details: "View Details",
+    contractDetailsHeader: "Contract Details for Contract",
     totalCharged: "Total Charged Sales",
     monthlyCharged: "Total charged this month: $",
     monthlyContracts: "Total contracts",
@@ -110,5 +111,10 @@ export const TRANSLATIONS_EN = {
     portfolioText: "Portfolio",
     contractText: "Contracts",
     logoutText: "Logout",
-    dashboardTitle: "Dashboard"
+    dashboardTitle: "Dashboard",
+    imageUploadText: "Upload Portfolio Image",
+    imageTitleText: "Title",
+    imageDescText: "Description",
+    uploadText: "Upload",
+    imagePreviewText: "Preview"
    };
