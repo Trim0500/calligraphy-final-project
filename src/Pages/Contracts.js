@@ -55,14 +55,14 @@ export default function ContractsPage() {
     }, []);
     
     return (
-        <Container>
+        <Container className={'mt-5'}>
             <Card>
-                <Card.Header>
+                <Card.Header style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}}>
                     <Card.Title>Contract</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <h1>Contracts Information Page</h1>
-                    <button type='button' name='EarningsBtn' className='btn btn-primary' onClick={RenderEarningsPage}>View This Month's Earnings</button>
+                    <button type='button' name='EarningsBtn' className='btn btn-primary' style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)', color:'black'}} onClick={RenderEarningsPage}>View This Month's Earnings</button>
                     <table className='table table-striped'>
                         <thead>
                             <tr>

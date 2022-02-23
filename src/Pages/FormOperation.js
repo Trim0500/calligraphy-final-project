@@ -5,6 +5,7 @@ import {Card} from "react-bootstrap";
 import axios from "axios";
 import Select from "react-select";
 import  "../Components/Interceptor";
+import "../Styling/app.css";
 
 export  default function FormOperation(){
 
@@ -85,7 +86,7 @@ export  default function FormOperation(){
             <td>{form.ServiceType}</td>
             <td>{form.Comments}</td>
             <td>{form.CreatedDate}</td>
-            <td><button name="btnQuote" className={"btn-primary rounded-2"}><a href={"/admin/dashboard/quote/" + form.FormId } className={"text-white text-decoration-none form-control-sm"}>See Quote</a> </button></td>
+            <td><button name="btnQuote" className={"rounded-2 buttonStyle"}><a href={"/admin/dashboard/quote/" + form.FormId } className={"text-black text-decoration-none"}>See Quote</a> </button></td>
         </tr>
         )
     };
@@ -99,33 +100,14 @@ export  default function FormOperation(){
         console.log(parseInt(createdDateFilter.split("-")[0]));
     }
 
-    const headerStyle = {
-        backgroundColor: '#f5f5f5',
-        color: '#000',
-        fontWeight: 'bold'
-    };
-
-    const bodyStyle = {
-        backgroundColor: '#ffffff',
-        color: '#000000',
-        fontWeight: 'bold'
-    };
-
-    const buttonStyle = {
-        backgroundColor: '#ffa86a',
-        borderColor: '#ffa86a',
-        color: '#ffffff',
-        fontWeight: 'bold'
-    };
-
 
     return (
         <Container className="mt-5">
             <Card>
-                <Card.Header style={headerStyle} >
+                <Card.Header className={'headerStyle'}>
                     <h3>Forms</h3>
                 </Card.Header>
-                <Card.Body style={bodyStyle}>
+                <Card.Body >
                         <div className={'d-inline-flex w-50 m-1'}>
                             <Select options={options} name="ServiceTypeFilter" onChange={ServiceTypeChange} defaultValue={'All'} className={'w-50 m-2'} placeholder={'Service Type'}/>
                             <input type="date" name="CreatedDateFilter" max={presentDate} className={'w-50 m-2'} value={createdDateFilter} onChange={handleDateFilter}/>
@@ -154,14 +136,14 @@ export  default function FormOperation(){
                     </table>
                     <div className={'d-flex justify-content-center'}>
                         <div className={'d-inline-flex'}>
-                            <button style={buttonStyle} className={'btn-primary  m-1 rounded-2'} onClick={previousPage}>Previous</button>
-                            <select style={buttonStyle} id="pageSelector" className={'w-50  m-1 rounded-2'} onChange={selectPage}>
+                            <button className={'btn-primary  m-1 rounded-2 buttonStyle'} onClick={previousPage}>Previous</button>
+                            <select  id="pageSelector" className={'w-50  m-1 rounded-2 buttonStyle'} onChange={selectPage}>
                                 {[...Array(totalPages)].map((x, i) =>
                                     <option key={i} value={i + 1}>{i + 1}</option>
                                 )}
                             </select>
-                            <button style={buttonStyle} className={'m-1 rounded-1'} onClick={nextPage}>Next</button>
-                            <button style={buttonStyle} className={'m-1 rounded-2'} onClick={lastPage}>Last</button>
+                            <button  className={'m-1 rounded-1 buttonStyle'} onClick={nextPage}>Next</button>
+                            <button  className={'m-1 rounded-2 buttonStyle'} onClick={lastPage}>Last</button>
                         </div>
                     </div>
                 </Card.Body>

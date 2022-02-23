@@ -137,17 +137,10 @@ export default function ImageUpload() {
         setImageDescription(e.target.value);
     }
 
-    const buttonStyle = {
-        backgroundColor: '#ffa86a',
-        borderColor: '#ffa86a',
-        color: '#ffffff',
-        fontWeight: 'bold'
-    };
-
     return(
         <Container className="mt-5">
             <Card>
-                <Card.Header>
+                <Card.Header className={'headerStyle'}>
                     <h3 className="text-center">Upload Portfolio Image</h3>
                 </Card.Header>
                 <Card.Body>
@@ -164,15 +157,15 @@ export default function ImageUpload() {
                             <div className="form-group my-2">
                                 <input type="file" className="form-control-file" id="image" ref={fileInput} onChange={handleImageUpload}/>
                             </div>
-                            <button style={buttonStyle} type="submit" className="btn btn-primary">Upload</button>
+                            <button type="submit" className="btn btn-primary buttonStyle">Upload</button>
                         </form>
                     </Card.Text>
                 </Card.Body>
             </Card>
             <br/>
             <Card className="w-50 offset-3">
-                <Card.Header>
-                    <h3 className="text-center">Preview</h3>
+                <Card.Header style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)', color:'black'}}>
+                    <h3 className="text-center" >Preview</h3>
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
