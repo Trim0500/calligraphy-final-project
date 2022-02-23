@@ -25,7 +25,7 @@ export default function NavbarCustom() {
     const handleClick = () => {
         if (localStorage.getItem('JwtToken')) {
             return (
-                <NavDropdown className="font" title="Dashboard">
+                <NavDropdown className="font" title={t("dashboardTitle")}>
                     <NavDropdown.Item href="/admin/dashboard/portfolio">{t("portfolioText")}</NavDropdown.Item>
                     <NavDropdown.Item href="/admin/dashboard/forms">{t("formsHeader")}</NavDropdown.Item>
                     <NavDropdown.Item href="/admin/dashboard/contracts">{t("contractText")}</NavDropdown.Item>

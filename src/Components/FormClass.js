@@ -181,7 +181,7 @@ export default class Form extends React.Component {
             this.setState({
                 errorNullInputs: true
             })
-            alert(`Failed, All Info is required`);
+            alert("Failed, All Info is required");
             event.preventDefault();
             return;
         }

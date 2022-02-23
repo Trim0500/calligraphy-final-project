@@ -109,5 +109,6 @@ export const TRANSLATIONS_FR = {
     quoteAlertInvalid: "Veuillez entrer des informations valide",
     portfolioText: "Portefuille",
     contractText: "Contrats",
-    logoutText: "Quitter"
+    logoutText: "Quitter",
+    dashboardTitle: "Paneau Administrateur"
    };

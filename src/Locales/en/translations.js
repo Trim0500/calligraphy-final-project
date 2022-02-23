@@ -109,5 +109,6 @@ export const TRANSLATIONS_EN = {
     quoteAlertInvalid: "Error with quote, please verify inputted content",
     portfolioText: "Portfolio",
     contractText: "Contracts",
-    logoutText: "Logout"
+    logoutText: "Logout",
+    dashboardTitle: "Dashboard"
    };
