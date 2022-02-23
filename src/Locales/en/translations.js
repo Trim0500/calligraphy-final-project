@@ -106,5 +106,8 @@ export const TRANSLATIONS_EN = {
     quoteAlertNumber: "Please enter a valid number",
     quoteAlertSuccess: "Quote updated",
     quoteNewContract: "A new contract has been made, check your email",
-    quoteAlertInvalid: "Error with quote, please verify inputted content"
+    quoteAlertInvalid: "Error with quote, please verify inputted content",
+    portfolioText: "Portfolio",
+    contractText: "Contracts",
+    logoutText: "Logout"
    };

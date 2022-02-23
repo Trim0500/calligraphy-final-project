@@ -26,11 +26,11 @@ export default function NavbarCustom() {
         if (localStorage.getItem('JwtToken')) {
             return (
                 <NavDropdown className="font" title="Dashboard">
-                    <NavDropdown.Item href="/admin/dashboard/portfolio">Portfolio</NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/dashboard/forms">Forms</NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/dashboard/contracts">Contracts</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/portfolio">{t("portfolioText")}</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/forms">{t("formsHeader")}</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/contracts">{t("contractText")}</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogout}>{t("logoutText")}</NavDropdown.Item>
                 </NavDropdown>
             )
         }
