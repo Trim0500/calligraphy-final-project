@@ -27,11 +27,10 @@ import "./../Locales/i18n";
         description = t("noDesc");
     }
 
-    console.log(imageData);
-    console.log(title);
-    console.log(description);
+     const textStyle = {
+         color: 'black',
+     };
 
-    // add animation to the image
     const imageVariants = {
         initial: {
             opacity: 0,
@@ -138,6 +137,7 @@ import "./../Locales/i18n";
                                 exit="exit"
                                 variants={titleVariants}
                                 className="title-portfolio"
+                                style={textStyle}
                             >
                                 {title}
                             </motion.h1>
@@ -151,6 +151,7 @@ import "./../Locales/i18n";
                                 exit="exit"
                                 variants={descriptionVariants}
                                 className="description-portfolio"
+                                style={textStyle}
                             >
                                 {description}
                             </motion.p>

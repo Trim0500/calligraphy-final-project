@@ -19,7 +19,6 @@ import Footer from "../Components/Footer";
 
 
 function App(){
-
     return (
         <body>
             <BrowserRouter>
@@ -39,9 +38,10 @@ function App(){
                     <ProtectRoute path="/admin/dashboard/contract/earnings" exact component={() => <EarningsPage />} />
                 </Switch>
             </BrowserRouter>
-            <Footer/>
+            <div className="mt-5">
+                <Footer/>
+            </div>
         </body>
-
     );
 }
 export default App;

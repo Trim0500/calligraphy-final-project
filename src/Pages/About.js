@@ -122,21 +122,23 @@ export default function About () {
             <form onSubmit={handleSubmit}>
                 <div className={"row"}>
                     <div className={"col-md-3 mt-5"}>
-                        <img className={"img-thumbnail figure-img "} src={serena} alt={"Serena"} /><br />
-                        <a href={"https://www.instagram.com/sereneflourish/"} className={"text-decoration-none"}><img className={"img-fluid col-sm-1 rounded"} src={instagram} alt={"Instagram"} /></a>
-                        <a href={"https://www.instagram.com/sereneflourish/"} className={"text-decoration-none"}><img className={"img-fluid col-sm-1 rounded"} src={facebook} alt={"Facebook"} /></a>
-                        <a href={"https://www.instagram.com/sereneflourish/"} className={"text-decoration-none"}><img className={"img-fluid col-sm-1 rounded"} src={youtube} alt={"Youtube"} /></a>
+                        <img className={"img-thumbnail figure-img"} style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}} src={serena} alt={"Serena"} /><br />
+                        <div className={'d-flex mx-4 px-3'} style={{}}>
+                        <a href={"https://www.instagram.com/sereneflourish/"} className={"text-decoration-none"}><img className={"img-fluid rounded mx-1"} style={{width:'38px'}} src={instagram} alt={"Instagram"} /></a>
+                        <a href={"https://www.instagram.com/sereneflourish/"} className={"text-decoration-none"}><img className={"img-fluid rounded mx-1"} style={{width:'35px'}} src={facebook} alt={"Facebook"} /></a>
+                        <a href={"https://www.instagram.com/sereneflourish/"} className={"text-decoration-none"}><img className={"img-fluid rounded mx-1"} style={{width:'35px'}} src={youtube} alt={"Youtube"} /></a>
+                        </div>
                     </div>
 
                     <div className={"col-md-6 mt-5"}>
-                            <h5> Serena Tam</h5>
-                            <h6> {t("professiontitle")}</h6>
+                            <h5 className={'card-title fst-italic'}> Serena Tam</h5>
+                            <h6 className={'card-subtitle fst-italic pb-3'}>{t("professiontitle")}</h6>
 
-                                <Tabs>
-                                    <TabList>
-                                        <Tab>{t("about")}</Tab>
-                                        <Tab>{t("experience")}</Tab>
-                                        <Tab>{t("goal")}</Tab>
+                                <Tabs >
+                                    <TabList style={{background:'linear-gradient(120deg, rgba(255, 179, 71, 1) 25%, rgba(255, 205, 71, 0.8) 101%)'}}>
+                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}} >{t("about")}</Tab>
+                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>{t("experience")}</Tab>
+                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>{t("goal")}</Tab>
                                         {localStorage.getItem('JwtToken') ?
                                             isEdit ?
                                                 <input type={"submit"} className={"btn float-end"} name={"btnSave"}
