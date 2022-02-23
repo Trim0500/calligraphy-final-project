@@ -3,10 +3,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 import "../Styling/app.css";
 
 
 export  default function Quote(){
+    const { t } = useTranslation();
 
     const [quote, setQuote] = useState([]);
     const [status, setStatus] = useState(getApprovalStatus(''));
@@ -39,15 +42,15 @@ export  default function Quote(){
 
     function getApprovalStatus(nb){
         if(nb === 0){
-            return "Pending";
+            return t("pendingOption");
 
         }
         else if (nb === 1){
-            return "Approved";
+            return t("approvedOption");
 
         }
         else if (nb === 2){
-            return "Denied";
+            return t("deniedOption");
         }
     }
     function componentDidMount(data) {
@@ -72,7 +75,7 @@ export  default function Quote(){
     const handlePrice = (event) => {
         const re = /^[0-9\b]+$/;
         if (event.target.value === undefined || !(re.test(event.target.value))) {
-            alert("Please enter a valid number");
+            alert(t("quoteAlertNumber"));
             //event.target.value = quote.Price;
 
         }else {
@@ -83,7 +86,7 @@ export  default function Quote(){
     const handleDuration = (event) => {
         const re = /^[0-9\b]+$/;
         if (event.target.value === undefined || !(re.test(event.target.value))) {
-            alert("Please enter a valid number");
+            alert(t("quoteAlertNumber"));
             //event.target.value = quote.Price;
 
         }else {
@@ -117,16 +120,16 @@ export  default function Quote(){
                         , 'Accept': 'application/json'}})
                 .then(function (response) {
                     console.log(response);
-                    alert("Quote updated");
+                    alert(t("quoteAlertSuccess"));
                     if(status === 'Approved') {
-                        alert("A new contract has been made, check your email");
+                        alert(t("quoteNewContract"));
                     }
                     window.location.href = '/admin/dashboard/forms';
                 })
                 .catch(error => console.log(error));
         }
         else {
-            alert("Error with quote, please verify inputted content");
+            alert(t("quoteAlertInvalid"));
         }
     }
 
@@ -135,17 +138,17 @@ export  default function Quote(){
         <Container className={'mt-5'}>
             <Card>
                 <Card.Header className={'headerStyle'}>
-                    <Card.Title className={'fs-4 '}>Quote</Card.Title>
+                    <Card.Title className={'fs-4 '}>{t("quoteText")}</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <form onSubmit={handleSubmit} className={""} name={"statusForm"} >
                     <table className="table table-striped table-hover table-responsive">
                         <thead>
                         <tr>
-                            <th>Estimated Price</th>
-                            <th>Estimated Duration</th>
-                            <th>Materials</th>
-                            <th>Approval Status</th>
+                            <th>{t("estPrice")}</th>
+                            <th>{t("estDur")}</th>
+                            <th>{t("materials")}</th>
+                            <th>{t("appStatus")}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -156,17 +159,17 @@ export  default function Quote(){
                                 <td>
 
                                         <select name="status" value={status} disabled={quoteApproval === 1 || quoteApproval === 2} className={'form-control'} onChange={handleApprovalStatus}>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Approved" >Approved</option>
-                                        <option value="Denied">Denied</option>
+                                        <option value="Pending">{t("pendingOption")}</option>
+                                        <option value="Approved" >{t("approvedOption")}</option>
+                                        <option value="Denied">{t("deniedOption")}</option>
                                         </select>
                                 </td>
-                                <td><button className={" fs-5 btn-primary"} hidden={quoteApproval === 1 || quoteApproval === 2} type="submit" name="btnSubmit" >Submit</button></td>
+                                <td><button className={" fs-5 btn-primary"} hidden={quoteApproval === 1 || quoteApproval === 2} type="submit" name="btnSubmit" >{t("submitText")}</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </form>
-                    <button name="btnGoForms" className={"btn-sm  btn-primary buttonStyle"} ><a href={"/admin/dashboard/forms"} className={"text-black text-decoration-none form-control-sm"}>Back</a> </button>
+                    <button name="btnGoForms" className={"btn-sm  btn-primary buttonStyle"} ><a href={"/admin/dashboard/forms"} className={"text-black text-decoration-none form-control-sm"}>{t("previousBtn")}</a> </button>
                 </Card.Body>
             </Card>
         </Container>

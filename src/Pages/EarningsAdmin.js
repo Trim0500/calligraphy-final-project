@@ -5,8 +5,11 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-charts'
 import axios from 'axios';
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default function EarningsAdmin() {
+    const { t } = useTranslation();
     const history = useHistory();
     const data = history.location.state.data;
     const [ContractList, setContractList] = useState([]);
@@ -135,8 +138,8 @@ export default function EarningsAdmin() {
             return(
                 <>
                     <ul name="StatsList" className='nav nav-tabs' style={{display: 'flex', justifyContent: 'space-evenly' }}>
-                        <li name="ChargedStat"><h3 name="ChargedHeader">Total charged this month: ${TotalCharged}</h3></li>
-                        <li name="TotalStat"><h3 name="TotalHeader">Total contracts: {TotalContracts}</h3></li>
+                        <li name="ChargedStat"><h3 name="ChargedHeader">{t("monthlyCharged") + TotalCharged}</h3></li>
+                        <li name="TotalStat"><h3 name="TotalHeader">{t("monthlyContracts") + TotalContracts}</h3></li>
                     </ul>
                     <div name="ChartDiv" style={{margin: 'auto', width: '50%', height: '500px'}}>
                         <Chart name="Chart" data={dataChart} axes={axes} />
@@ -146,7 +149,7 @@ export default function EarningsAdmin() {
         }
         else {
             return(
-                <h1 style={{textAlign: "center"}}>No contracts were completed this month, search again!</h1>
+                <h1 style={{textAlign: "center"}}>{t("noMonthly")}</h1>
             )
         }
     }
@@ -154,29 +157,26 @@ export default function EarningsAdmin() {
     return (
         <Container>
             <Card>
-                <Card.Header>
-                    <Card.Title>Earnings</Card.Title>
-                </Card.Header>
                 <Card.Body>
-                    <h1 name="EarningsHeader">Monthly Earnings Page</h1>
+                    <h1 name="EarningsHeader">{t("monthlyEarningsHeader")}</h1>
                     <br/>
                     <form onSubmit={HandleSubmit}>
                         <select name="MonthSelect" className='form-control' onChange={HandleSelectedMonth}>
-                            <option name="JanOption">Janurary</option>
-                            <option name="FebOption">Feburary</option>
-                            <option name="MarOption">March</option>
-                            <option name="AprOption">April</option>
-                            <option name="MayOption">May</option>
-                            <option name="JunOption">June</option>
-                            <option name="JulOption">July</option>
-                            <option name="AugOption">August</option>
-                            <option name="SepOption">September</option>
-                            <option name="OctOption">October</option>
-                            <option name="NovOption">November</option>
-                            <option name="DecOption">December</option>
+                            <option name="JanOption">{t("jan")}</option>
+                            <option name="FebOption">{t("feb")}</option>
+                            <option name="MarOption">{t("mar")}</option>
+                            <option name="AprOption">{t("apr")}</option>
+                            <option name="MayOption">{t("may")}</option>
+                            <option name="JunOption">{t("jun")}</option>
+                            <option name="JulOption">{t("jul")}</option>
+                            <option name="AugOption">{t("aug")}</option>
+                            <option name="SepOption">{t("sep")}</option>
+                            <option name="OctOption">{t("oct")}</option>
+                            <option name="NovOption">{t("nov")}</option>
+                            <option name="DecOption">{t("dec")}</option>
                         </select>
                         <input name="YearInput" className='form-control' type="number" defaultValue="2022" max="2022" min="2010" onChange={HandleYearChange} />
-                        <button name="SubmitBtn" className='btn btn-primary' type='submit'>Find Contracts</button>
+                        <button name="SubmitBtn" className='btn btn-primary' type='submit'>{t("submitText")}</button>
                     </form>
                     <br/>
                     <RenderChart />

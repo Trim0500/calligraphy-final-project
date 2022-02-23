@@ -1,8 +1,11 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default function ContractDetails() {
+    const { t } = useTranslation();
     const history = useHistory();
     const data = history.location.state.data;
 
@@ -86,19 +89,19 @@ export default function ContractDetails() {
            DownPayment === '' ||
            StartDate === '' ||
            DueDate === '') {
-            alert(`Failed, All Info is required`);
+            alert(t("formFailEmpty"));
 
             event.preventDefault();
            }
         else if(StartDate < OriginalDate) {
-            alert(`Failed, you can't set the start date to an earlier date`);
+            alert(t("contractAlertEarlyDate"));
 
             event.preventDefault();
 
             setStartDate(OriginalDate);
         }
         else if(!HasSignature && IsFinished) {
-            alert(`Failed, a contract can't be finished without the signature`);
+            alert(t("contractAlertNeedSignature"));
 
             event.preventDefault();
 
@@ -126,7 +129,7 @@ export default function ContractDetails() {
             .then((res) => console.log(res))
             .catch((err) => console.error(err))
             
-            alert('Success! The contract has been updated!');
+            alert(t("contractAlertSuccess"));
 
             event.preventDefault();
         }
@@ -153,8 +156,8 @@ export default function ContractDetails() {
     }, [data])
 
     return(
-        <div className="container mt-5" >
-
+        <div className="container mt-5">
+            <h1>{t("contractDetailsHeader") + data.id}</h1>
             <div className="row">
                 <div className="col-md-6 mx-auto" style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}}>
                     <div className="card" >
@@ -165,25 +168,25 @@ export default function ContractDetails() {
                         <div className="card-body">
                             <form onSubmit={HandleSubmit}>
                                 <div className="form-group">
-                                    <label htmlFor="FinalCost">Final Cost</label>
+                                    <label htmlFor="FinalCost">{t("finalCost")}</label>
                                     <input type="number" className="form-control" name="FinalCost" value={FinalCost} onChange={HandleChange}/>
 
-                                    <label htmlFor="DownPayment">Down Payment</label>
+                                    <label htmlFor="DownPayment">{t("downPayment")}</label>
                                     <input type="number" className="form-control" name="DownPayment" value={DownPayment} onChange={HandleChange}/>
 
-                                    <label htmlFor="DateCommissioned">Date Commissioned</label>
+                                    <label htmlFor="DateCommissioned">{t("dateCommissioned")}</label>
                                     <input type="date" className="form-control" name="DateCommissioned" value={StartDate} onChange={HandleChange}/>
 
-                                    <label htmlFor="EndDate">End Date</label>
+                                    <label htmlFor="EndDate">{t("endDate")}</label>
                                     <input type="date" className="form-control" name="EndDate" value={DueDate} onChange={HandleChange}/>
 
-                                    <label htmlFor="HasSignature">Has Signature?</label><br/>
+                                    <label htmlFor="HasSignature">{t("hasSignature")}</label><br/>
                                     <input type="checkbox" disabled={HasSignature} name="HasSignature" checked={HasSignature} onChange={HandleChecked}/><br/>
 
-                                    <label htmlFor="IsFinished">Is Finished?</label><br/>
+                                    <label htmlFor="IsFinished">{t("isFinished")}</label><br/>
                                     <input type="checkbox" disabled={IsFinished} name="IsFinished" checked={IsFinished} onChange={HandleChecked}/><br/>
 
-                                    <button type="submit" disabled={OriginalFinished} style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)', color:'black'}} className="btn btn-primary" name="SubmitBtn">Update Contract</button>
+                                    <button type="submit" disabled={OriginalFinished} style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)', color:'black'}} className="btn btn-primary" name="SubmitBtn">{t("update")}</button>
                                 </div>
                             </form>
                         </div>

@@ -7,8 +7,11 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export default function About () {
+    const { t } = useTranslation();
 
     const [aboutInfo, setAboutInfo] = useState([]);
     const [name, setName] = useState('');
@@ -75,7 +78,7 @@ export default function About () {
         setIsEdit(false);
 
         if (name === '' || email === '' || phone === '' || profession === '' || description === '' || language === '' || country === '' || experience === '' || mission === '') {
-            alert('Please fill in all fields');
+            alert(t("formFailEmpty"));
         } else {
             const data = {
                 Name: name,
@@ -95,7 +98,7 @@ export default function About () {
             axios.put(api, data)
                 .then(function (response) {
                     console.log(response);
-                    alert("About Info updated");
+                    alert(t("aboutAlertUpdate"));
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -129,20 +132,20 @@ export default function About () {
 
                     <div className={"col-md-6 mt-5"}>
                             <h5 className={'card-title fst-italic'}> Serena Tam</h5>
-                            <h6 className={'card-subtitle fst-italic pb-3'}> Calligrapher & Engraver</h6>
+                            <h6 className={'card-subtitle fst-italic pb-3'}>{t("professiontitle")}</h6>
 
                                 <Tabs >
                                     <TabList style={{background:'linear-gradient(120deg, rgba(255, 179, 71, 1) 25%, rgba(255, 205, 71, 0.8) 101%)'}}>
-                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}} >About</Tab>
-                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>Experience</Tab>
-                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>Goal</Tab>
+                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}} >{t("about")}</Tab>
+                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>{t("experience")}</Tab>
+                                        <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>{t("goal")}</Tab>
                                         {localStorage.getItem('JwtToken') ?
                                             isEdit ?
                                                 <input type={"submit"} className={"btn float-end"} name={"btnSave"}
-                                                       value={"Submit"}/>
+                                                       value={t("submitText")}/>
                                                 :
                                                 <input type={"button"} onClick={handleEdit} className={"btn float-end"}
-                                                       name={"btnEdit"} value={"Edit"}/>
+                                                       name={"btnEdit"} value={t("edit")}/>
                                             :
                                             null}
                                     </TabList>
@@ -150,7 +153,7 @@ export default function About () {
                                     <TabPanel>
                                         <div className={"row"}>
                                             <div className={"col-md-6"}>
-                                                <label>Name</label>
+                                                <label>{t("formFirstNameLabel")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handleNameChange} name={"inputName"} className={"lh-base w-100"} value={name}/> : <label>{name}</label>}
@@ -158,7 +161,7 @@ export default function About () {
                                         </div>
                                         <div className={"row mt-3"}>
                                             <div className={"col-md-6"}>
-                                                <label>Email</label>
+                                                <label>{t("formEmailLabel")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handleEmailChange} name={"inputEmail"} className={"lh-base w-100"} value={email}/> : <label>{email}</label>}
@@ -166,7 +169,7 @@ export default function About () {
                                         </div>
                                         <div className={"row mt-3"}>
                                             <div className={"col-md-6"}>
-                                                <label>Phone</label>
+                                                <label>{t("phone")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handlePhoneChange} name={"inputPhone"} className={"lh-base w-100"} value={phone}/> : <label>{phone}</label>}
@@ -174,7 +177,7 @@ export default function About () {
                                         </div>
                                         <div className={"row mt-3"}>
                                             <div className={"col-md-6"}>
-                                                <label>Profession</label>
+                                                <label>{t("profession")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handleProfessionChange} name={"inputProfession"}  className={"lh-base w-100"} value={profession}/> : <label>{profession}</label>}
@@ -182,7 +185,7 @@ export default function About () {
                                         </div>
                                         <div className={"row mt-3"}>
                                             <div className={"col-md-6"}>
-                                                <label>About Me</label>
+                                                <label>{t("aboutMe")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <textarea onChange={handleDescriptionChange} name={"inputDescription"}  className={"lh-base w-100"} value={description}/> : <label>{description}</label>}
@@ -192,7 +195,7 @@ export default function About () {
                                     <TabPanel>
                                         <div className={"row"}>
                                             <div className={"col-md-6"}>
-                                                <label>Languages</label>
+                                                <label>{t("languages")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handleLanguageChange} name={"inputLanguage"}  className={"lh-base w-100"} value={language}/> : <label>{language}</label>}
@@ -200,7 +203,7 @@ export default function About () {
                                         </div>
                                         <div className={"row mt-3"}>
                                             <div className={"col-md-6"}>
-                                                <label>Country</label>
+                                                <label>{t("country")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handleCountryChange} name={"inputCountry"}  className={"lh-base w-100"} value={country}/> : <label>{country}</label>}
@@ -208,7 +211,7 @@ export default function About () {
                                         </div>
                                         <div className={"row mt-3"}>
                                             <div className={"col-md-6"}>
-                                                <label>Experience</label>
+                                                <label>{t("experience")}</label>
                                             </div>
                                             <div className={"col-md-6"}>
                                                 {isEdit ? <input onChange={handleExperienceChange} name={"inputExperience"}  className={"lh-base w-100"} value={experience}/> : <label>{experience}</label>}

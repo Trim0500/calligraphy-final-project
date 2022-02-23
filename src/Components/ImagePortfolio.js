@@ -3,8 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Col, Container, Image, Row} from 'react-bootstrap';
 import no_image from "../resources/img/no_image.png";
 import {AnimatePresence, motion} from 'framer-motion/dist/framer-motion'
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
  export default function ImagePortfolio(props) {
+    const { t } = useTranslation();
 
     //check if the prop is empty
 
@@ -17,11 +20,11 @@ import {AnimatePresence, motion} from 'framer-motion/dist/framer-motion'
     }
 
     if (title === undefined) {
-        title = "No Title";
+        title = t("noTitle");
     }
 
     if (description === undefined) {
-        description = "No Description";
+        description = t("noDesc");
     }
 
      const textStyle = {
