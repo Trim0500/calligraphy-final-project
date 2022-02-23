@@ -78,7 +78,7 @@ export default function About () {
         setIsEdit(false);
 
         if (name === '' || email === '' || phone === '' || profession === '' || description === '' || language === '' || country === '' || experience === '' || mission === '') {
-            alert('Please fill in all fields');
+            alert(t("formFailEmpty"));
         } else {
             const data = {
                 Name: name,
@@ -98,7 +98,7 @@ export default function About () {
             axios.put(api, data)
                 .then(function (response) {
                     console.log(response);
-                    alert("About Info updated");
+                    alert(t("aboutAlertUpdate"));
                 })
                 .catch(function (error) {
                     console.log(error);

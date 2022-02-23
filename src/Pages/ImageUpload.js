@@ -5,6 +5,7 @@ import {Container} from "react-bootstrap";
 import {Card} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import axios from "axios";
+import { t } from 'i18next';
 
 // upload image and save it under resources/img on the filepath
 
@@ -33,7 +34,7 @@ export default function ImageUpload() {
 
             if (!blnValid) {
                 fileInput.current.value = '';
-                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                alert(t("imageAlertFile1") + sFileName + t("imageAlertFile2") + _validFileExtensions.join(", "));
                 return false;
             }
 
@@ -54,12 +55,12 @@ export default function ImageUpload() {
         let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/image' : process.env.REACT_APP_BACKEND_URL + `/api/image`
 
         if (ImageData  === null) {
-            alert('Please select an image');
+            alert(t("imageAlertNoImage"));
             return;
         }
 
         if (ImageTitle === '') {
-            alert('Please enter a title');
+            alert(t("imageAlertNoTitle"));
             return;
         }
 
@@ -87,15 +88,15 @@ export default function ImageUpload() {
                     }
                 }).then(res => {
                     if (res.status === 200) {
-                        alert('Image uploaded successfully');
+                        alert(t("imageAlertSuccess"));
                         window.location.href = '/admin/dashboard/portfolio';
                     }
                     else {
                         console.log(JSON.stringify(formData));
-                        alert('Image upload failed');
+                        alert(t("imageAlertFail"));
                     }
                 }).catch(() => {
-                    alert('Image upload failed');
+                    alert(t("imageAlertFail"));
                 });
             }
             else {
@@ -113,20 +114,20 @@ export default function ImageUpload() {
                     }
                 }).then(res => {
                     if (res.status === 200) {
-                        alert('Image updated successfully');
+                        alert(t("imageAlertSuccess"));
                         window.location.href = '/admin/dashboard/portfolio';
                     }
                     else {
                         console.log(JSON.stringify(formData));
-                        alert('Image update failed');
+                        alert(t("imageAlertFail"));
                     }
                 }).catch(() => {
-                    alert('Image update failed');
+                    alert(t("imageAlertFail"));
                 });
                 
             }
         }).catch(() => {
-            alert('Image upload failed');
+            alert(t("imageAlertFail"));
         });
     }
     const handleImageTitleChange = (e) => {

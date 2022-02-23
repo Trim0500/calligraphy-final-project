@@ -89,19 +89,19 @@ export default function ContractDetails() {
            DownPayment === '' ||
            StartDate === '' ||
            DueDate === '') {
-            alert(`Failed, All Info is required`);
+            alert(t("formFailEmpty"));
 
             event.preventDefault();
            }
         else if(StartDate < OriginalDate) {
-            alert(`Failed, you can't set the start date to an earlier date`);
+            alert(t("contractAlertEarlyDate"));
 
             event.preventDefault();
 
             setStartDate(OriginalDate);
         }
         else if(!HasSignature && IsFinished) {
-            alert(`Failed, a contract can't be finished without the signature`);
+            alert(t("contractAlertNeedSignature"));
 
             event.preventDefault();
 
@@ -129,7 +129,7 @@ export default function ContractDetails() {
             .then((res) => console.log(res))
             .catch((err) => console.error(err))
             
-            alert('Success! The contract has been updated!');
+            alert(t("contractAlertSuccess"));
 
             event.preventDefault();
         }

@@ -91,5 +91,20 @@ export const TRANSLATIONS_EN = {
     estPrice: "Estimated Price",
     estDur: "Estimated Duration",
     materials: "Materials",
-    appStatus: "Approval Status"
+    appStatus: "Approval Status",
+    aboutAlertUpdate: "About Info Updated",
+    contractAlertEarlyDate: "Failed, you can't set the start date to an earlier date",
+    contractAlertNeedSignature: "Failed, a contract can't be finished without the signature",
+    contractAlertSuccess: "Success! The contract has been updated!",
+    imageAlertFile1: "Sorry, ",
+    imageAlertFile2: " is invalid, allowed extensions are: ",
+    imageAlertNoImage: "PLease select an image",
+    imageAlertNoTitle: "PLease enter a title",
+    imageAlertSuccess: "Image uploaded successfully",
+    imageAlertFail: "Image upload failed",
+    loginAlertFail: "Invalid username or password",
+    quoteAlertNumber: "Please enter a valid number",
+    quoteAlertSuccess: "Quote updated",
+    quoteNewContract: "A new contract has been made, check your email",
+    quoteAlertInvalid: "Error with quote, please verify inputted content"
    };

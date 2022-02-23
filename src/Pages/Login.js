@@ -50,11 +50,11 @@ export  default function Login() {
                     window.location.href = '/home';
                 }
                 else {
-                    alert('Invalid username or password');
+                    alert(t("loginAlertFail"));
                 }
             }
             else {
-                alert('Invalid username or password');
+                alert(t("loginAlertFail"));
             }
 
         });

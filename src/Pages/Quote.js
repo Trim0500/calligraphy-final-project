@@ -75,7 +75,7 @@ export  default function Quote(){
     const handlePrice = (event) => {
         const re = /^[0-9\b]+$/;
         if (event.target.value === undefined || !(re.test(event.target.value))) {
-            alert("Please enter a valid number");
+            alert(t("quoteAlertNumber"));
             //event.target.value = quote.Price;
 
         }else {
@@ -86,7 +86,7 @@ export  default function Quote(){
     const handleDuration = (event) => {
         const re = /^[0-9\b]+$/;
         if (event.target.value === undefined || !(re.test(event.target.value))) {
-            alert("Please enter a valid number");
+            alert(t("quoteAlertNumber"));
             //event.target.value = quote.Price;
 
         }else {
@@ -120,16 +120,16 @@ export  default function Quote(){
                         , 'Accept': 'application/json'}})
                 .then(function (response) {
                     console.log(response);
-                    alert("Quote updated");
+                    alert(t("quoteAlertSuccess"));
                     if(status === 'Approved') {
-                        alert("A new contract has been made, check your email");
+                        alert(t("quoteNewContract"));
                     }
                     window.location.href = '/admin/dashboard/forms';
                 })
                 .catch(error => console.log(error));
         }
         else {
-            alert("Error with quote, please verify inputted content");
+            alert(t("quoteAlertInvalid"));
         }
     }
 
