@@ -159,8 +159,12 @@ export default function ContractDetails() {
         <div className="container mt-5">
             <h1>{t("contractDetailsHeader") + data.id}</h1>
             <div className="row">
-                <div className="col-md-6 mx-auto">
-                    <div className="card">
+                <div className="col-md-6 mx-auto" style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}}>
+                    <div className="card" >
+                        <div className={'card-title text-center'} style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}}>
+                        <h1 className="">Contract Details</h1>
+                        <h3 className="" >Contract #{data.id}</h3>
+                        </div>
                         <div className="card-body">
                             <form onSubmit={HandleSubmit}>
                                 <div className="form-group">
@@ -182,7 +186,7 @@ export default function ContractDetails() {
                                     <label htmlFor="IsFinished">{t("isFinished")}</label><br/>
                                     <input type="checkbox" disabled={IsFinished} name="IsFinished" checked={IsFinished} onChange={HandleChecked}/><br/>
 
-                                    <button type="submit" disabled={OriginalFinished} className="btn btn-primary" name="SubmitBtn">{t("update")}</button>
+                                    <button type="submit" disabled={OriginalFinished} style={{background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)', color:'black'}} className="btn btn-primary" name="SubmitBtn">{t("update")}</button>
                                 </div>
                             </form>
                         </div>

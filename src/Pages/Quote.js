@@ -5,6 +5,7 @@ import {Card} from "react-bootstrap";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import "./../Locales/i18n";
+import "../Styling/app.css";
 
 
 export  default function Quote(){
@@ -17,7 +18,6 @@ export  default function Quote(){
     const [quoteMaterials, setQuoteMaterials] = useState('');
     const [quoteApproval, setQuoteApproval] = useState(0);
     const id = window.location.pathname.split('/').pop();
-
 
 
     const GetQuote = () => {
@@ -135,10 +135,10 @@ export  default function Quote(){
 
 
     return (
-        <Container>
+        <Container className={'mt-5'}>
             <Card>
-                <Card.Header>
-                    <Card.Title>{t("quoteText")}</Card.Title>
+                <Card.Header className={'headerStyle'}>
+                    <Card.Title className={'fs-4 '}>{t("quoteText")}</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <form onSubmit={handleSubmit} className={""} name={"statusForm"} >
@@ -169,7 +169,7 @@ export  default function Quote(){
                         </tbody>
                     </table>
                 </form>
-                    <button name="btnGoForms" className={"small btn-primary"}><a href={"/admin/dashboard/forms"} className={"text-white text-decoration-none form-control-sm"}>{t("previousBtn")}</a> </button>
+                    <button name="btnGoForms" className={"btn-sm  btn-primary buttonStyle"} ><a href={"/admin/dashboard/forms"} className={"text-black text-decoration-none form-control-sm"}>{t("previousBtn")}</a> </button>
                 </Card.Body>
             </Card>
         </Container>

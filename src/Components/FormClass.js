@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import ReCAPTCHA from "react-google-recaptcha";
+import "../Styling/app.css";
 
 export default class Form extends React.Component {
     constructor(props) {
@@ -54,6 +55,7 @@ export default class Form extends React.Component {
             selectedFile: e.target.files[0]
         })
     }
+
 
     componentDidMount() {
         let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/form/services' : process.env.REACT_APP_BACKEND_URL + '/api/form/services';
@@ -271,7 +273,7 @@ export default class Form extends React.Component {
                             {this.errorMessage()}
                         </div>
                         <div className="card">
-                            <div className="card-header, d-flex justify-content-center" style={{color:'white',background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}}>
+                            <div className="card-header, d-flex justify-content-center" style={{color:'black',background:'linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%)'}}>
                                 <h4>Submit a Service</h4>
                             </div>
                             <div className="card-body">
@@ -319,7 +321,7 @@ export default class Form extends React.Component {
                                             <ReCAPTCHA ref={this.recaptchaRef} sitekey={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' : process.env.REACT_APP_RECAPTCHA_SITE_KEY} />
                                             </Col>
                                             <Col>
-                                            <button style={{display: 'block', margin: '1em auto 1em 0.5em', fontSize:'20px', width:'100%', background:'transparent', color:'black', borderColor:'rgba(255, 179, 71, 1)'}} type="submit" className="btn btn-primary" name="submit-btn">Submit</button>
+                                            <button style={{display: 'block', margin: '1em auto 1em 0.5em', fontSize:'20px', width:'100%'}} type="submit" className="btn btn-primary buttonStyle" name="submit-btn">Submit</button>
                                             </Col>
                                             <Col>
                                             <button style={{display: 'block', margin: '1em auto 1em auto', border:'0', background:'none', color:'blue', textDecoration:'underline', fontSize:'15px', marginTop:'0'}} type="button" className="btn btn-primary" name="reset-btn" onClick={this.resetAttachments}>Reset Attachments</button>
