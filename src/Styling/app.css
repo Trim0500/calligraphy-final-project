@@ -6,3 +6,17 @@ body {
     background-color: #fff;
 }
 
+.buttonStyle {
+    background: linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%);
+    border-color: #ffa86a;
+    color: black;
+    border-radius: 5px;
+}
+
+.headerStyle {
+    background:linear-gradient(135deg, rgba(255, 179, 71, 1) 39%, rgba(255, 200, 71, 1) 101%);
+    color: black;
+    font-weight: bold;
+}
+
+
