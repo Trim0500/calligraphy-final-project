@@ -30,7 +30,9 @@ export default function About () {
         let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/About/" : process.env.REACT_APP_BACKEND_URL + "/api/About/"
 
         fetch(api,
-            {headers: { 'Content-Type' : 'application/json', 'Accept': 'application/json'}})
+            {headers: { 'Content-Type' : 'application/json',
+                    'Accept': 'application/json',
+                }})
             .then(function(response) {
                 //console.log(response);
                 return response.json();
@@ -95,7 +97,13 @@ export default function About () {
 
             let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/About/" : process.env.REACT_APP_BACKEND_URL + "/api/About/"
 
-            axios.put(api, data)
+            axios.put(api, data, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
                 .then(function (response) {
                     console.log(response);
                     alert(t("aboutAlertUpdate"));
@@ -135,11 +143,11 @@ export default function About () {
                             <h6 className={'card-subtitle fst-italic pb-3'}>{t("professiontitle")}</h6>
 
                                 <Tabs >
-                                    <TabList style={{background:'linear-gradient(120deg, rgba(255, 179, 71, 1) 25%, rgba(255, 205, 71, 0.8) 101%)'}}>
+                                    <TabList style={{background:'linear-gradient(120deg, rgba(255, 179, 71, 1) 25%, rgba(255, 205, 71, 0.8) 101%)'}}>          
                                         <Tab style={{background:'rgba(255, 179, 71, 0.1)'}} >{t("about")}</Tab>
                                         <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>{t("experience")}</Tab>
                                         <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>{t("goal")}</Tab>
-                                        {localStorage.getItem('JwtToken') ?
+                                        {localStorage.getItem('isLoggedIn') ?
                                             isEdit ?
                                                 <input type={"submit"} className={"btn float-end"} name={"btnSave"}
                                                        value={t("submitText")}/>

@@ -121,6 +121,7 @@ export default function ContractDetails() {
             let api = process.env.NODE_ENV === 'development' ? 'https://localhost:5001/api/contract/update' : process.env.REACT_APP_BACKEND_URL + "/api/contract/update"
 
             axios.put(api, UpdateContractRequest, {
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'

@@ -70,7 +70,8 @@ export default function ImageUpload() {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
+            },
+            credentials: 'include'
         }).then(res => {
             if (res.status === 404) {
                 // if the image is not in the database, then upload it
@@ -109,6 +110,7 @@ export default function ImageUpload() {
                 
                 axios.put(api + "/" + id, formData, {
                     headers: {
+                        withCredentials: true,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }

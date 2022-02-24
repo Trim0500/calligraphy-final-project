@@ -36,10 +36,11 @@ export  default function FormOperation(){
 
         axios.get(api,{
             method: 'GET',
+            withCredentials: true,
             timeout: 5000,
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
             }
         })
             .then(response => {

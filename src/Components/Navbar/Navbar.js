@@ -23,11 +23,11 @@ export default function NavbarCustom() {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('JwtToken');
+        localStorage.removeItem('isLoggedIn');
         window.location.href = '/admin/login';
     }
     const handleClick = () => {
-        if (localStorage.getItem('JwtToken')) {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
             return (
                 <NavDropdown style={navDropdownStyle}
                     title={t("dashboardTitle")}
