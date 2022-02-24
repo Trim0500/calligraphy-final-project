@@ -1,8 +1,11 @@
 import React from 'react';
 import {Image} from "react-bootstrap";
 import Logo from '../resources/logo.png';
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export  default function Login() {
+    const { t } = useTranslation();
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -49,7 +52,7 @@ export  default function Login() {
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div className="py-3 px-2">
                         <Image className="offset-3 rounded-circle" src={Logo} width={250}  height={250} />
-                        <h1 className="text-center mb-3 mt-2">Sign in for Admin</h1>
+                        <h1 className="text-center mb-3 mt-2">{t("signIn")}</h1>
                         <div className="division">
                             <div className="row">
                                 <div className="col-3">
@@ -63,16 +66,16 @@ export  default function Login() {
                         <form className="myform">
                             <div className="form-group m-1"><input id="username" onChange={handleUserNameChange} type="username"
                                                                    className="form-control w-50 offset-3"
-                                                               placeholder="Username"/>
+                                                               placeholder={t("userPlaceholder")}/>
                             </div>
                             <div className="form-group m-1">
                                 <input onChange={handlePasswordChange} id="password" type="password"
                                        className="form-control w-50 offset-3"
-                                                               placeholder="Password"/>
+                                                               placeholder={t("passPlaceholder")}/>
                             </div>
 
                             <div className="form-group mt-3 mx-1 text-center">
-                                <button onClick={handleSubmit} type="submit" className="btn btn-primary w-50">Sign in</button>
+                                <button onClick={handleSubmit} type="submit" className="btn btn-primary w-50">{t("signIn")}</button>
                             </div>
                         </form>
                     </div>

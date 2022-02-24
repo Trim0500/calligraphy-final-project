@@ -3,9 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Col, Container, Row} from 'react-bootstrap';
 import {AnimatePresence} from 'framer-motion/dist/framer-motion'
 import ImagePortfolio from "../Components/ImagePortfolio.js";
-
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 export  default function Portfolio() {
+    const { t } = useTranslation();
 
     const [imageData1, setImageData1] = useState([]);
     const [imageData2, setImageData2] = useState([]);
@@ -58,19 +60,19 @@ export  default function Portfolio() {
                 <Container className="mt-5">
                     <Row>
                         <Col>
-                            <h1 className="text-center">Signature</h1>
+                            <h1 className="text-center">{t("calligraphy")}</h1>
                             <h3 className="text-center ">$100 - $200</h3>
                             <ImagePortfolio image={imageData1.ImageData} title={imageData1.Title} description={imageData1.Description}/>
                             <ImagePortfolio image={imageData2.ImageData} title={imageData2.Title} description={imageData2.Description}/>
                         </Col>
                         <Col>
-                            <h1 className="text-center">Events</h1>
+                            <h1 className="text-center">{t("events")}</h1>
                             <h3 className="text-center ">$200 - $300</h3>
                             <ImagePortfolio image={imageData3.ImageData} title={imageData3.Title} description={imageData3.Description}/>
                             <ImagePortfolio image={imageData4.ImageData} title={imageData4.Title} description={imageData4.Description}/>
                         </Col>
                         <Col>
-                            <h1 className="text-center">Engravings</h1>
+                            <h1 className="text-center">{t("engraving")}</h1>
                             <h3 className="text-center ">$300 - $400</h3>
                             <ImagePortfolio image={imageData5.ImageData} title={imageData5.Title} description={imageData5.Description}/>
                             <ImagePortfolio image={imageData6.ImageData} title={imageData6.Title} description={imageData6.Description}/>

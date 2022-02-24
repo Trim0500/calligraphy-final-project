@@ -6,8 +6,17 @@ import {
     NavMenu,
 } from './NavbarElements';
 import { NavDropdown } from 'react-bootstrap';
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
+import "./../../Locales/i18n";
 
 export default function NavbarCustom() {
+    const { t } = useTranslation();
+
+    const handleOnclick=(e)=>{
+        e.preventDefault();
+        i18n.changeLanguage(e.target.value);
+      }
 
     const navDropdownStyle = {
         color: 'black',
@@ -21,14 +30,14 @@ export default function NavbarCustom() {
         if (localStorage.getItem('isLoggedIn') === 'true') {
             return (
                 <NavDropdown style={navDropdownStyle}
-                    title="Admin"
+                    title={t("dashboardTitle")}
                     id="basic-nav-dropdown"
                 >
-                    <NavDropdown.Item href="/admin/dashboard/portfolio">Portfolio</NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/dashboard/forms">Forms</NavDropdown.Item>
-                    <NavDropdown.Item href="/admin/dashboard/contracts">Contracts</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/portfolio">{t("portfolioText")}</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/forms">{t("formsHeader")}</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/dashboard/contracts">{t("contractText")}</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogout}>{t("logoutText")}</NavDropdown.Item>
                 </NavDropdown>
             )
         }
@@ -41,7 +50,7 @@ export default function NavbarCustom() {
         <div className="border-bottom border-2">
             <Nav>
                 <NavLink to='/home'>
-                    <span className="fw-bold pt-1 h5 text-center align-content-center">Serena's Flourish </span>
+                    <span className="fw-bold pt-1 h5 text-center align-content-center">{t("title")} </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="orange"
                          className="bi bi-pen m-2" viewBox="0 0 16 16">
                         <path
@@ -52,15 +61,21 @@ export default function NavbarCustom() {
                 <Bars />
                 <NavMenu>
                     <NavLink className="fw-bold" to='/about'>
-                        <span className="fw-bold">About</span>
+                        <span className="fw-bold">{t("about")}</span>
                     </NavLink>
                     <NavLink className="fw-bold" to='/portfolio'>
-                        <span className="fw-bold">Portfolio</span>
+                        <span className="fw-bold">{t("services")}</span>
                     </NavLink>
                     <NavLink className="fw-bold" to='/form'>
-                        <span className="fw-bold">Forms</span>
+                        <span className="fw-bold">{t("forms")}</span>
                     </NavLink>
                     {handleClick()}
+                    <button className={'btn-primary  m-1 rounded-2'} value='en' onClick={handleOnclick}>
+                        English
+                    </button>
+                    <button className={'btn-primary  m-1 rounded-2'} value='fr' onClick={handleOnclick}>
+                        Français
+                    </button>
                 </NavMenu>
             </Nav>
         </div>

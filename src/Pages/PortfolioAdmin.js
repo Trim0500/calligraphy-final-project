@@ -4,9 +4,12 @@ import {Col, Container, Row} from 'react-bootstrap';
 import {AnimatePresence} from 'framer-motion/dist/framer-motion'
 import {Nav} from "react-bootstrap";
 import ImagePortfolio from "../Components/ImagePortfolio.js";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
 
 export  default function PortfolioAdmin() {
+    const { t } = useTranslation();
 
     const [imageData1, setImageData1] = useState([]);
     const [imageData2, setImageData2] = useState([]);
@@ -60,7 +63,7 @@ export  default function PortfolioAdmin() {
                 <Container className="mt-5">
                     <Row>
                         <Col>
-                            <h1 className="text-center">Signature</h1>
+                            <h1 className="text-center">{t("calligraphy")}</h1>
                             <h3 className="text-center ">$100 - $200</h3>
                             <Nav.Link href="/admin/dashboard/portfolio/image/1" name="calligraphy-img">
                                 <ImagePortfolio image={imageData1.ImageData} title={imageData1.Title} description={imageData1.Description}/>
@@ -70,7 +73,7 @@ export  default function PortfolioAdmin() {
                             </Nav.Link>
                         </Col>
                         <Col>
-                            <h1 className="text-center">Events</h1>
+                            <h1 className="text-center">{t("events")}</h1>
                             <h3 className="text-center ">$200 - $300</h3>
                             <Nav.Link href="/admin/dashboard/portfolio/image/3" name="calligraphy-img">
                                 <ImagePortfolio image={imageData3.ImageData} title={imageData3.Title} description={imageData3.Description}/>
@@ -81,7 +84,7 @@ export  default function PortfolioAdmin() {
                             </Nav.Link>
                         </Col>
                         <Col>
-                            <h1 className="text-center">Engravings</h1>
+                            <h1 className="text-center">{t("engraving")}</h1>
                             <h3 className="text-center ">$300 - $400</h3>
                             <Nav.Link href="/admin/dashboard/portfolio/image/5" name="calligraphy-img">
                                 <ImagePortfolio image={imageData5.ImageData} title={imageData5.Title} description={imageData5.Description}/>

@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import "./../Locales/i18n";
 
-export default function footer () {
+export default function Footer () {
+    const { t } = useTranslation();
 
     const footerStyle = {
         backgroundColor: "#f5f5f5",
@@ -22,8 +25,8 @@ export default function footer () {
     };
 
     return(
-    <div style={footerStyle}>
-        Copyright © 2022 - All Rights Reserved - Serene Flourish
-    </div>
+        <div style={footerStyle}>
+            &#169; 2022 {t("copyright")} : Serene Flourish
+        </div>
     )
 }
