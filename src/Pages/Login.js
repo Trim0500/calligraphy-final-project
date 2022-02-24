@@ -32,33 +32,18 @@ export  default function Login() {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-
             body: JSON.stringify(data)
         }).then(response => {
             if (response.status === 200) {
-               return response.json();
+                localStorage.setItem('isLoggedIn', true);
+                window.location.href = '/home';
             }
-        }).then(data => {
-
-            if (data !== undefined) {
-                if (data.JwtToken !== null && data.RefreshToken !== null) {
-                    localStorage.setItem('JwtToken', data.JwtToken);
-                    localStorage.setItem('RefreshToken', data.RefreshToken);
-                    window.location.href = '/home';
-                }
-                else {
-                    alert('Invalid username or password');
-                }
-            }
-            else {
-                alert('Invalid username or password');
-            }
-
+        }).catch(error => {
+            console.log(error);
         });
     }
 
     return(
-        // make the login page much nicer
         <div className="container">
             <div className="row d-flex justify-content-center mt-5">
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">

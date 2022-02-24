@@ -27,7 +27,9 @@ export default function About () {
         let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/About/" : process.env.REACT_APP_BACKEND_URL + "/api/About/"
 
         fetch(api,
-            {headers: { 'Content-Type' : 'application/json', 'Accept': 'application/json'}})
+            {headers: { 'Content-Type' : 'application/json',
+                    'Accept': 'application/json',
+                }})
             .then(function(response) {
                 //console.log(response);
                 return response.json();
@@ -92,7 +94,13 @@ export default function About () {
 
             let api = process.env.NODE_ENV === 'development' ? "https://localhost:5001/api/About/" : process.env.REACT_APP_BACKEND_URL + "/api/About/"
 
-            axios.put(api, data)
+            axios.put(api, data, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
                 .then(function (response) {
                     console.log(response);
                     alert("About Info updated");
@@ -136,7 +144,7 @@ export default function About () {
                                         <Tab style={{background:'rgba(255, 179, 71, 0.1)'}} >About</Tab>
                                         <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>Experience</Tab>
                                         <Tab style={{background:'rgba(255, 179, 71, 0.1)'}}>Goal</Tab>
-                                        {localStorage.getItem('JwtToken') ?
+                                        {localStorage.getItem('isLoggedIn') ?
                                             isEdit ?
                                                 <input type={"submit"} className={"btn float-end"} name={"btnSave"}
                                                        value={"Submit"}/>

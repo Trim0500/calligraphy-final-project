@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 function ProtectedRoute({component: Component, ...restOfProps}) {
- const isAuthenticated = !!localStorage.getItem('JwtToken');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
  return (
   <Route {...restOfProps} render={(props) => (
-   isAuthenticated ? (
+      isLoggedIn ? (
     <Component {...props} />
    ) : (
     <Redirect to={{
