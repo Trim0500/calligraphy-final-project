@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 axios.interceptors.response.use(
     response => response,
@@ -15,7 +14,6 @@ axios.interceptors.response.use(
                     JwtToken: localStorage.getItem("isLoggedIn"),
                 })
             })
-                //CHECK IF RESPONSE IS 200
                 .then(response => {
                     if (response.status === 200) {
                         return response.json();
@@ -32,20 +30,7 @@ axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-let xsrfToken = Cookies.get('XSRF-TOKEN');
 axios.defaults.withCredentials = true;
-axios.defaults.headers.common['X-XSRF-TOKEN'] = xsrfToken;
 
-// if the return is 400 then call the function again
-axios.interceptors.response.use(
-    response => response,
-    error => {
-        if (error.response.status === 400) {
-            return axios(error.response.config);
-        }
-        return Promise.reject(error);
-    }
-);
 
 
